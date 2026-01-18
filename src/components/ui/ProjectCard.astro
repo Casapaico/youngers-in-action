@@ -1,0 +1,161 @@
+---
+import Badge from './Badge.astro';
+
+type Status = 'active' | 'completed' | 'upcoming';
+
+interface Image {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: Image;
+  status?: Status;
+  ods?: number[];
+  href?: string;
+  location?: string;
+}
+
+const {
+  title,
+  description,
+  image,
+  status = 'active',
+  ods = [],
+  href,
+  location,
+} = Astro.props;
+
+// Mapeo de estado a variante de Badge
+const statusConfig: Record<Status, { variant: 'success' | 'neutral' | 'warning'; label: string; dot: boolean }> = {
+  active: { variant: 'success', label: 'Activo', dot: true },
+  completed: { variant: 'neutral', label: 'Completado', dot: false },
+  upcoming: { variant: 'warning', label: 'Próximamente', dot: true },
+};
+
+// Colores oficiales ODS para mini badges
+const odsColors: Record<number, string> = {
+  1: '#E5243B', 2: '#DDA63A', 3: '#4C9F38', 4: '#C5192D',
+  5: '#FF3A21', 6: '#26BDE2', 7: '#FCC30B', 8: '#A21942',
+  9: '#FD6925', 10: '#DD1367', 11: '#FD9D24', 12: '#BF8B2E',
+  13: '#3F7E44', 14: '#0A97D9', 15: '#56C02B', 16: '#00689D',
+  17: '#19486A',
+};
+
+const { variant, label, dot } = statusConfig[status];
+const Tag = href ? 'a' : 'article';
+---
+
+<Tag
+  href={href}
+  class:list={[
+    'group flex flex-col overflow-hidden rounded-xl bg-white shadow-sm ring-1 ring-neutral-200 transition-all duration-300',
+    href && 'cursor-pointer hover:shadow-lg hover:ring-primary-300',
+  ]}
+>
+  {image && (
+    <figure class="relative aspect-[16/10] overflow-hidden">
+      <img
+        src={image.src}
+        alt={image.alt}
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="absolute left-3 top-3">
+        <Badge variant={variant} size="sm" dot={dot} rounded>
+          {label}
+        </Badge>
+      </div>
+    </figure>
+  )}
+
+  <div class="flex flex-1 flex-col p-5">
+    {!image && (
+      <div class="mb-3">
+        <Badge variant={variant} size="sm" dot={dot} rounded>
+          {label}
+        </Badge>
+      </div>
+    )}
+
+    <h3 class="font-display text-lg font-semibold text-neutral-900 group-hover:text-primary-600 transition-colors">
+      {title}
+    </h3>
+
+    {location && (
+      <p class="mt-1 flex items-center gap-1 text-sm text-neutral-500">
+        <svg
+          class="h-4 w-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
+        {location}
+      </p>
+    )}
+
+    {description && (
+      <p class="mt-2 line-clamp-2 text-sm text-neutral-600 leading-relaxed">
+        {description}
+      </p>
+    )}
+
+    {ods.length > 0 && (
+      <footer class="mt-auto pt-4">
+        <p class="sr-only">Objetivos de Desarrollo Sostenible relacionados:</p>
+        <ul class="flex flex-wrap gap-1.5" role="list" aria-label="ODS asociados">
+          {ods.map((num) => (
+            <li>
+              <span
+                class="inline-flex h-6 w-6 items-center justify-center rounded text-xs font-bold text-white"
+                style={`background-color: ${odsColors[num] || '#666'};`}
+                title={`ODS ${num}`}
+              >
+                {num}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </footer>
+    )}
+  </div>
+
+  {href && (
+    <span
+      class="flex items-center justify-between border-t border-neutral-100 px-5 py-3 text-sm font-medium text-primary-600 transition-colors group-hover:bg-primary-50"
+    >
+      Ver proyecto
+      <svg
+        class="h-4 w-4 transition-transform group-hover:translate-x-1"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 5l7 7-7 7"
+        />
+      </svg>
+    </span>
+  )}
+</Tag>

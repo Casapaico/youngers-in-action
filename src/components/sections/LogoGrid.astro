@@ -1,0 +1,103 @@
+---
+import Button from '../ui/Button.astro';
+
+type Columns = 3 | 4 | 5 | 6;
+
+interface Logo {
+  src: string;
+  alt: string;
+  href?: string;
+}
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title?: string;
+  logos: Logo[];
+  columns?: Columns;
+  grayscale?: boolean;
+  cta?: CTA;
+}
+
+const {
+  title,
+  logos,
+  columns = 5,
+  grayscale = true,
+  cta,
+} = Astro.props;
+
+const columnStyles: Record<Columns, string> = {
+  3: 'grid-cols-2 sm:grid-cols-3',
+  4: 'grid-cols-2 sm:grid-cols-4',
+  5: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-5',
+  6: 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-6',
+};
+
+const imageStyles = grayscale
+  ? 'grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100'
+  : 'transition-opacity duration-300 hover:opacity-80';
+---
+
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {title && (
+      <header class="mb-12 text-center" data-reveal>
+        <h2 class="font-display text-2xl font-semibold text-neutral-900 sm:text-3xl">
+          {title}
+        </h2>
+      </header>
+    )}
+
+    <ul
+      class:list={[
+        'grid items-center justify-items-center gap-8 md:gap-12',
+        columnStyles[columns],
+      ]}
+      role="list"
+      aria-label="Organizaciones aliadas"
+      data-reveal-stagger
+    >
+      {logos.map((logo) => (
+        <li class="w-full max-w-[160px]">
+          {logo.href ? (
+            <a
+              href={logo.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-4 rounded"
+              aria-label={`Visitar sitio de ${logo.alt}`}
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                class:list={['h-12 w-auto max-w-full object-contain', imageStyles]}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          ) : (
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class:list={['h-12 w-auto max-w-full object-contain', imageStyles]}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
+        </li>
+      ))}
+    </ul>
+
+    {cta && (
+      <nav class="mt-12 flex justify-center">
+        <Button href={cta.href} variant="outline">
+          {cta.label}
+        </Button>
+      </nav>
+    )}
+  </div>
+</section>

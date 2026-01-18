@@ -1,0 +1,119 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = 'Youngers in Action - Jóvenes comprometidos con el cambio social. Únete a nuestra comunidad y transforma vidas.',
+  image = '/images/og-default.jpg',
+  canonical,
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString() || 'https://youngersinaction.org';
+const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).toString();
+const ogImage = new URL(image, siteUrl).toString();
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- SEO Básico -->
+    <title>{title} | Youngers in Action</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={`${title} | Youngers in Action`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Youngers in Action" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`${title} | Youngers in Action`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Slot para meta tags adicionales -->
+    <slot name="head" />
+  </head>
+  <body class="min-h-screen bg-white text-gray-900 antialiased">
+    <slot />
+
+    <!-- Scroll Reveal Script -->
+    <script>
+      class ScrollReveal {
+        private observer: IntersectionObserver;
+
+        constructor() {
+          this.observer = new IntersectionObserver(
+            (entries) => this.handleIntersection(entries),
+            {
+              root: null,
+              rootMargin: '0px 0px -80px 0px',
+              threshold: 0.1,
+            }
+          );
+
+          this.init();
+        }
+
+        private init(): void {
+          // Observe all elements with data-reveal or data-reveal-stagger
+          const elements = document.querySelectorAll('[data-reveal], [data-reveal-stagger]');
+          elements.forEach((el) => this.observer.observe(el));
+
+          // Re-observe on page navigation (Astro View Transitions)
+          document.addEventListener('astro:page-load', () => {
+            const newElements = document.querySelectorAll('[data-reveal]:not(.revealed), [data-reveal-stagger]:not(.revealed)');
+            newElements.forEach((el) => this.observer.observe(el));
+          });
+        }
+
+        private handleIntersection(entries: IntersectionObserverEntry[]): void {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              this.observer.unobserve(entry.target);
+            }
+          });
+        }
+      }
+
+      // Initialize on DOM ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => new ScrollReveal());
+      } else {
+        new ScrollReveal();
+      }
+    </script>
+  </body>
+</html>

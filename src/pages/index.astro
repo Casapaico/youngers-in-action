@@ -1,0 +1,188 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import StatsBar from '../components/sections/StatsBar.astro';
+import FeatureGrid from '../components/sections/FeatureGrid.astro';
+import OdsGrid from '../components/sections/OdsGrid.astro';
+import FeaturedSection from '../components/sections/FeaturedSection.astro';
+import ProjectCard from '../components/ui/ProjectCard.astro';
+import CtaBanner from '../components/sections/CtaBanner.astro';
+import TestimonialSlider from '../components/sections/TestimonialSlider.astro';
+import LogoGrid from '../components/sections/LogoGrid.astro';
+import Section from '../components/ui/Section.astro';
+import NewsletterForm from '../components/ui/NewsletterForm.astro';
+
+// Datos reales de Youngers in Action
+const stats = [
+  { value: '35', label: 'Escolares impactados', icon: '👥' },
+  { value: '85', label: '% participación activa', icon: '📈' },
+  { value: '20', label: 'Horas de servicio', icon: '⏱️' },
+  { value: '6', label: 'Mentores juveniles', icon: '🎯' },
+];
+
+// 4 Pilares metodológicos
+const pilares = [
+  {
+    icon: '📚',
+    title: 'Aprendizaje',
+    description: 'Formación en habilidades blandas, liderazgo y educación financiera adaptada a escolares de 10-12 años.',
+  },
+  {
+    icon: '🌊',
+    title: 'Inmersión',
+    description: 'Experiencias prácticas que conectan el conocimiento con situaciones reales del entorno de cada participante.',
+  },
+  {
+    icon: '🤝',
+    title: 'Involucramiento',
+    description: 'Participación activa de familias, docentes y comunidad educativa en el proceso formativo.',
+  },
+  {
+    icon: '🎯',
+    title: 'Resultados en aula',
+    description: 'Medición de impacto y generación de propuestas concretas desde las y los participantes.',
+  },
+];
+
+// Testimonios reales (anónimos por protección de menores)
+const testimonials = [
+  {
+    quote: 'Aprendí que puedo lograr mis metas si me esfuerzo y pido ayuda cuando la necesito. Ahora sé que mi voz importa.',
+    author: 'Participante EmpoderArLAS',
+    role: '11 años, Lima',
+    rating: 5,
+  },
+  {
+    quote: 'Antes tenía miedo de hablar en público, ahora soy la que lidera las exposiciones en mi salón. Me siento más segura.',
+    author: 'Participante EmpoderArLAS',
+    role: '12 años, Lima',
+    rating: 5,
+  },
+  {
+    quote: 'Ver cómo los escolares desarrollan confianza en sí mismos es lo más gratificante. Este programa transforma vidas.',
+    author: 'Mentor voluntario',
+    role: 'Equipo YIA',
+    rating: 5,
+  },
+];
+
+// Logos de aliados (placeholders - reemplazar con reales)
+const logos = [
+  { src: '/logos/senaju.svg', alt: 'SENAJU', href: '#' },
+  { src: '/logos/ugel.svg', alt: 'UGEL 05', href: '#' },
+  { src: '/logos/aliado3.svg', alt: 'Aliado educativo', href: '#' },
+  { src: '/logos/aliado4.svg', alt: 'Aliado institucional', href: '#' },
+];
+---
+
+<PageLayout
+  title="Youngers in Action - Empoderando juventudes para que nadie quede atrás"
+  description="ONG juvenil en Lima, Perú. Empoderamos a escolares de 10-12 años a través de EmpoderArLAS, programa alineado con los ODS y SENAJU."
+>
+  <!-- 1. Hero -->
+  <Hero
+    title="Empoderamos a las juventudes de hoy para que nadie se quede atrás mañana"
+    subtitle="Somos una ONG juvenil que transforma realidades a través de programas de empoderamiento para escolares en Lima, Perú."
+    primaryCTA={{ label: 'Conoce EmpoderArLAS', href: '/proyectos/empoderarlas' }}
+    secondaryCTA={{ label: 'Sé voluntario', href: '/voluntariado' }}
+    size="lg"
+    align="center"
+  />
+
+  <!-- 2. Stats Bar con datos reales -->
+  <StatsBar stats={stats} background="primary" />
+
+  <!-- 3. Los 4 Pilares -->
+  <FeatureGrid
+    title="Nuestra metodología"
+    subtitle="Cuatro pilares que guían cada intervención de EmpoderArLAS para garantizar impacto real y medible."
+    features={pilares}
+    columns={4}
+    cta={{ label: 'Conoce nuestra historia', href: '/nosotros' }}
+  />
+
+  <!-- 4. ODS que trabajamos -->
+  <OdsGrid
+    title="Comprometidos con los ODS"
+    subtitle="Trabajamos alineados con SENAJU y la Agenda 2030, priorizando los objetivos donde las juventudes pueden generar mayor impacto."
+    cta={{ label: 'Explora nuestro enfoque ODS', href: '/ods' }}
+  />
+
+  <!-- 5. Proyecto insignia: EmpoderArLAS -->
+  <FeaturedSection
+    title="EmpoderArLAS"
+    subtitle="Nuestro programa insignia de empoderamiento juvenil comunitario para escolares de 10-12 años."
+    cta={{ label: 'Ver resultados completos', href: '/proyectos/empoderarlas' }}
+    columns={2}
+  >
+    <ProjectCard
+      title="Programa de Empoderamiento Juvenil"
+      description="35 escolares desarrollando habilidades de liderazgo, autoestima y propuestas de cambio en sus comunidades. 5 sesiones por grado con enfoque equitativo de género."
+      status="active"
+      location="Lima, Perú"
+      ods={[4, 8, 9, 10, 16]}
+      href="/proyectos/empoderarlas"
+      image={{ src: '/images/empoderarlas-hero.jpg', alt: 'Escolares en sesión de EmpoderArLAS' }}
+    />
+    <div class="flex flex-col justify-center space-y-6 rounded-2xl bg-gradient-to-br from-secondary-50 to-white p-8 ring-1 ring-secondary-100">
+      <div>
+        <p class="text-sm font-medium uppercase tracking-wide text-secondary-600">Resultados 2024</p>
+        <p class="mt-2 font-display text-4xl font-bold text-neutral-900">+85%</p>
+        <p class="text-neutral-600">participación activa en todas las sesiones</p>
+      </div>
+      <div>
+        <p class="font-display text-2xl font-bold text-neutral-900">12 iniciativas</p>
+        <p class="text-neutral-600">generadas por los participantes</p>
+      </div>
+      <div>
+        <p class="text-sm text-neutral-500">
+          Distribución de propuestas: <strong>67.7% personal</strong>, 16.1% académico, 16.1% comunitario
+        </p>
+      </div>
+    </div>
+  </FeaturedSection>
+
+  <!-- 6. CTA Voluntariado -->
+  <CtaBanner
+    title="Las juventudes no son el futuro, son el presente"
+    description="Únete como mentor voluntario y acompaña a escolares en su proceso de empoderamiento. Tu tiempo transforma vidas."
+    primaryCTA={{ label: 'Quiero ser mentor', href: '/voluntariado' }}
+    secondaryCTA={{ label: 'Conocer el programa', href: '/proyectos/empoderarlas' }}
+    background="primary"
+  />
+
+  <!-- 7. Testimonios -->
+  <TestimonialSlider
+    title="Voces que inspiran"
+    testimonials={testimonials}
+    autoplay={true}
+    interval={6000}
+  />
+
+  <!-- 8. Aliados -->
+  <LogoGrid
+    title="Nos respaldan"
+    logos={logos}
+    columns={4}
+    grayscale={true}
+    cta={{ label: 'Conviértete en aliado', href: '/contacto?asunto=alianza' }}
+  />
+
+  <!-- 9. CTA Donación -->
+  <CtaBanner
+    title="Haz posible el cambio"
+    description="El 90% de tu donación va directo a materiales, capacitaciones y logística de EmpoderArLAS. Tu apoyo empodera a más escolares."
+    primaryCTA={{ label: 'Apoya nuestra causa', href: '/dona' }}
+    background="secondary"
+  />
+
+  <!-- 10. Newsletter -->
+  <Section id="newsletter" background="gray" spacing="lg">
+    <NewsletterForm
+      title="Únete a nuestra comunidad"
+      description="Recibe actualizaciones sobre EmpoderArLAS, convocatorias de voluntariado y oportunidades de impacto."
+      buttonText="Suscribirme"
+      layout="inline"
+    />
+  </Section>
+</PageLayout>

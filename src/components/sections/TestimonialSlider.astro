@@ -1,0 +1,217 @@
+---
+import TestimonialCard from '../ui/TestimonialCard.astro';
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role?: string;
+  image?: { src: string; alt: string };
+  rating?: number;
+}
+
+interface Props {
+  title?: string;
+  testimonials: Testimonial[];
+  autoplay?: boolean;
+  interval?: number;
+}
+
+const {
+  title,
+  testimonials,
+  autoplay = true,
+  interval = 5000,
+} = Astro.props;
+
+const sliderId = `slider-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section class="bg-neutral-50 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {title && (
+      <header class="mb-12 text-center md:mb-16" data-reveal>
+        <h2 class="font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+          {title}
+        </h2>
+      </header>
+    )}
+
+    <div
+      id={sliderId}
+      class="testimonial-slider relative"
+      data-reveal
+      data-autoplay={autoplay}
+      data-interval={interval}
+      aria-roledescription="carrusel"
+      aria-label="Testimonios"
+    >
+      <!-- Slides container -->
+      <div
+        class="slider-track flex transition-transform duration-500 ease-out"
+        aria-live="polite"
+      >
+        {testimonials.map((testimonial, index) => (
+          <div
+            class="slider-slide w-full flex-shrink-0 px-2 md:w-1/2 lg:w-1/3"
+            role="group"
+            aria-roledescription="diapositiva"
+            aria-label={`${index + 1} de ${testimonials.length}`}
+          >
+            <TestimonialCard {...testimonial} />
+          </div>
+        ))}
+      </div>
+
+      <!-- Navigation arrows -->
+      <button
+        type="button"
+        class="slider-prev absolute -left-4 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white p-3 shadow-lg ring-1 ring-neutral-200 transition-all hover:bg-primary-50 hover:ring-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-400 md:block"
+        aria-label="Testimonio anterior"
+      >
+        <svg class="h-5 w-5 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        class="slider-next absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 rounded-full bg-white p-3 shadow-lg ring-1 ring-neutral-200 transition-all hover:bg-primary-50 hover:ring-primary-300 focus:outline-none focus:ring-2 focus:ring-primary-400 md:block"
+        aria-label="Siguiente testimonio"
+      >
+        <svg class="h-5 w-5 text-neutral-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      <!-- Dots navigation -->
+      <nav
+        class="slider-dots mt-8 flex justify-center gap-2"
+        role="tablist"
+        aria-label="Navegación de testimonios"
+      >
+        {testimonials.map((_, index) => (
+          <button
+            type="button"
+            class:list={[
+              'slider-dot h-2.5 w-2.5 rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2',
+              index === 0 ? 'bg-primary-400 w-8' : 'bg-neutral-300 hover:bg-neutral-400',
+            ]}
+            role="tab"
+            aria-selected={index === 0 ? 'true' : 'false'}
+            aria-label={`Ir al testimonio ${index + 1}`}
+            data-index={index}
+          />
+        ))}
+      </nav>
+    </div>
+  </div>
+</section>
+
+<script>
+  class TestimonialSlider {
+    private slider: HTMLElement;
+    private track: HTMLElement;
+    private slides: HTMLElement[];
+    private dots: HTMLElement[];
+    private prevBtn: HTMLElement | null;
+    private nextBtn: HTMLElement | null;
+    private currentIndex = 0;
+    private autoplayInterval: number | null = null;
+    private slidesPerView = 1;
+
+    constructor(slider: HTMLElement) {
+      this.slider = slider;
+      this.track = slider.querySelector('.slider-track')!;
+      this.slides = Array.from(slider.querySelectorAll('.slider-slide'));
+      this.dots = Array.from(slider.querySelectorAll('.slider-dot'));
+      this.prevBtn = slider.querySelector('.slider-prev');
+      this.nextBtn = slider.querySelector('.slider-next');
+
+      this.init();
+    }
+
+    private init() {
+      this.updateSlidesPerView();
+      this.bindEvents();
+      this.startAutoplay();
+
+      window.addEventListener('resize', () => {
+        this.updateSlidesPerView();
+        this.goToSlide(this.currentIndex);
+      });
+    }
+
+    private updateSlidesPerView() {
+      const width = window.innerWidth;
+      if (width >= 1024) this.slidesPerView = 3;
+      else if (width >= 768) this.slidesPerView = 2;
+      else this.slidesPerView = 1;
+    }
+
+    private bindEvents() {
+      this.prevBtn?.addEventListener('click', () => this.prev());
+      this.nextBtn?.addEventListener('click', () => this.next());
+
+      this.dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+          const index = parseInt(dot.dataset.index || '0', 10);
+          this.goToSlide(index);
+        });
+      });
+
+      this.slider.addEventListener('mouseenter', () => this.stopAutoplay());
+      this.slider.addEventListener('mouseleave', () => this.startAutoplay());
+    }
+
+    private goToSlide(index: number) {
+      const maxIndex = Math.max(0, this.slides.length - this.slidesPerView);
+      this.currentIndex = Math.max(0, Math.min(index, maxIndex));
+
+      const slideWidth = 100 / this.slidesPerView;
+      this.track.style.transform = `translateX(-${this.currentIndex * slideWidth}%)`;
+
+      this.updateDots();
+    }
+
+    private updateDots() {
+      this.dots.forEach((dot, index) => {
+        const isActive = index === this.currentIndex;
+        dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        dot.classList.toggle('bg-primary-400', isActive);
+        dot.classList.toggle('w-8', isActive);
+        dot.classList.toggle('bg-neutral-300', !isActive);
+        dot.classList.toggle('w-2.5', !isActive);
+      });
+    }
+
+    private prev() {
+      const newIndex = this.currentIndex - 1;
+      this.goToSlide(newIndex < 0 ? this.slides.length - this.slidesPerView : newIndex);
+    }
+
+    private next() {
+      const maxIndex = this.slides.length - this.slidesPerView;
+      const newIndex = this.currentIndex + 1;
+      this.goToSlide(newIndex > maxIndex ? 0 : newIndex);
+    }
+
+    private startAutoplay() {
+      if (this.slider.dataset.autoplay !== 'true') return;
+
+      const interval = parseInt(this.slider.dataset.interval || '5000', 10);
+      this.autoplayInterval = window.setInterval(() => this.next(), interval);
+    }
+
+    private stopAutoplay() {
+      if (this.autoplayInterval) {
+        clearInterval(this.autoplayInterval);
+        this.autoplayInterval = null;
+      }
+    }
+  }
+
+  // Inicializar todos los sliders
+  document.querySelectorAll('.testimonial-slider').forEach((slider) => {
+    new TestimonialSlider(slider as HTMLElement);
+  });
+</script>

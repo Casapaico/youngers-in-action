@@ -1,0 +1,110 @@
+---
+import Button from './Button.astro';
+import Input from './Input.astro';
+
+type Layout = 'inline' | 'stacked';
+
+interface Props {
+  title?: string;
+  description?: string;
+  placeholder?: string;
+  buttonText?: string;
+  privacyLink?: string;
+  layout?: Layout;
+}
+
+const {
+  title,
+  description,
+  placeholder = 'tu@email.com',
+  buttonText = 'Suscribirme',
+  privacyLink = '/privacidad',
+  layout = 'inline',
+} = Astro.props;
+
+const formId = `newsletter-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<section class="w-full max-w-xl mx-auto" aria-labelledby={title ? `${formId}-title` : undefined}>
+  {(title || description) && (
+    <header class="mb-6 text-center">
+      {title && (
+        <h3 id={`${formId}-title`} class="font-display text-xl font-semibold text-neutral-900">
+          {title}
+        </h3>
+      )}
+      {description && (
+        <p class="mt-2 text-sm text-neutral-600">
+          {description}
+        </p>
+      )}
+    </header>
+  )}
+
+  <form
+    id={formId}
+    class:list={[
+      'flex gap-3',
+      layout === 'inline' ? 'flex-col sm:flex-row' : 'flex-col',
+    ]}
+    aria-label="Formulario de suscripción al newsletter"
+  >
+    <div class="flex-1">
+      <label for={`${formId}-email`} class="sr-only">
+        Correo electrónico
+      </label>
+      <input
+        id={`${formId}-email`}
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        placeholder={placeholder}
+        class="w-full rounded-full border border-neutral-300 px-5 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
+      />
+    </div>
+
+    <Button type="submit" variant="primary">
+      {buttonText}
+    </Button>
+  </form>
+
+  <p class="mt-4 text-center text-xs text-neutral-500">
+    Al suscribirte, aceptas nuestra
+    <a
+      href={privacyLink}
+      class="underline underline-offset-2 transition-colors hover:text-primary-600"
+    >
+      política de privacidad
+    </a>.
+  </p>
+</section>
+
+<script>
+  document.querySelectorAll('form[id^="newsletter-"]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formEl = e.target as HTMLFormElement;
+      const email = formEl.querySelector('input[type="email"]') as HTMLInputElement;
+      const button = formEl.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      if (!email?.value) return;
+
+      // Feedback visual
+      const originalText = button.textContent;
+      button.textContent = 'Enviando...';
+      button.disabled = true;
+
+      // Simular envío (reemplazar con lógica real)
+      setTimeout(() => {
+        button.textContent = '¡Suscrito!';
+        email.value = '';
+
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.disabled = false;
+        }, 2000);
+      }, 1000);
+    });
+  });
+</script>

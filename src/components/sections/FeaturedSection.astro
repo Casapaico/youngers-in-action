@@ -1,0 +1,77 @@
+---
+import Button from '../ui/Button.astro';
+
+type Columns = 2 | 3 | 4;
+type Background = 'white' | 'gray';
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  cta?: CTA;
+  columns?: Columns;
+  background?: Background;
+}
+
+const {
+  title,
+  subtitle,
+  cta,
+  columns = 3,
+  background = 'white',
+} = Astro.props;
+
+const columnStyles: Record<Columns, string> = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+};
+
+const backgroundStyles: Record<Background, string> = {
+  white: 'bg-white',
+  gray: 'bg-neutral-50',
+};
+---
+
+<section class:list={['py-16 md:py-24', backgroundStyles[background]]}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {(title || subtitle || cta) && (
+      <header class="mb-12 flex flex-col gap-4 md:mb-16 md:flex-row md:items-end md:justify-between" data-reveal>
+        <div class="max-w-2xl">
+          {title && (
+            <h2 class="font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+              {title}
+            </h2>
+          )}
+          {subtitle && (
+            <p class="mt-4 text-lg text-neutral-600">
+              {subtitle}
+            </p>
+          )}
+        </div>
+
+        {cta && (
+          <nav class="shrink-0">
+            <Button href={cta.href} variant="outline">
+              {cta.label}
+            </Button>
+          </nav>
+        )}
+      </header>
+    )}
+
+    <div
+      class:list={[
+        'grid grid-cols-1 gap-6 lg:gap-8',
+        columnStyles[columns],
+      ]}
+      data-reveal-stagger
+    >
+      <slot />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,210 @@
+---
+type Background = 'primary' | 'secondary' | 'dark';
+type Columns = 2 | 3 | 4;
+
+interface Stat {
+  value: string;
+  label: string;
+  icon?: string;
+}
+
+interface Props {
+  stats: Stat[];
+  background?: Background;
+  columns?: Columns;
+  animate?: boolean;
+}
+
+const {
+  stats,
+  background = 'primary',
+  columns = 4,
+  animate = true,
+} = Astro.props;
+
+const backgroundStyles: Record<Background, string> = {
+  primary: 'bg-primary-400',
+  secondary: 'bg-secondary-600',
+  dark: 'bg-neutral-900',
+};
+
+const textStyles: Record<Background, { value: string; label: string }> = {
+  primary: {
+    value: 'text-neutral-900',
+    label: 'text-neutral-800',
+  },
+  secondary: {
+    value: 'text-white',
+    label: 'text-secondary-100',
+  },
+  dark: {
+    value: 'text-white',
+    label: 'text-neutral-400',
+  },
+};
+
+const columnStyles: Record<Columns, string> = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+};
+
+// Extraer número y sufijo/prefijo del valor
+function parseValue(value: string): { prefix: string; number: number; suffix: string } {
+  const match = value.match(/^([+\-]?)(\d+)(.*)$/);
+  if (match) {
+    return {
+      prefix: match[1] || '',
+      number: parseInt(match[2], 10),
+      suffix: match[3] || '',
+    };
+  }
+  return { prefix: '', number: 0, suffix: value };
+}
+---
+
+<section class:list={['stats-bar py-12 md:py-16', backgroundStyles[background]]} data-animate-stats={animate}>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <dl
+      class:list={[
+        'grid grid-cols-1 gap-8 text-center',
+        columnStyles[columns],
+      ]}
+      data-reveal-stagger
+    >
+      {stats.map((stat, index) => {
+        const parsed = parseValue(stat.value);
+        return (
+          <div
+            class="flex flex-col items-center gap-2"
+            style={`--delay: ${index * 150}ms`}
+          >
+            {stat.icon && (
+              <span
+                class:list={[
+                  'mb-2 text-4xl',
+                  textStyles[background].value,
+                ]}
+                aria-hidden="true"
+              >
+                {stat.icon}
+              </span>
+            )}
+            <dt
+              class:list={[
+                'order-2 text-sm font-medium uppercase tracking-wide',
+                textStyles[background].label,
+              ]}
+            >
+              {stat.label}
+            </dt>
+            <dd
+              class:list={[
+                'order-1 font-display text-4xl font-bold tracking-tight sm:text-5xl',
+                textStyles[background].value,
+              ]}
+            >
+              <span class="stat-prefix">{parsed.prefix}</span>
+              <span
+                class="stat-number"
+                data-target={parsed.number}
+                data-animated="false"
+              >
+                {animate ? '0' : parsed.number}
+              </span>
+              <span class="stat-suffix">{parsed.suffix}</span>
+            </dd>
+          </div>
+        );
+      })}
+    </dl>
+  </div>
+</section>
+
+<script>
+  class CounterAnimation {
+    private observer: IntersectionObserver;
+    private duration = 2000; // 2 segundos
+
+    constructor() {
+      this.observer = new IntersectionObserver(
+        (entries) => this.handleIntersection(entries),
+        { threshold: 0.3 }
+      );
+
+      this.init();
+    }
+
+    private init(): void {
+      document.querySelectorAll('.stats-bar[data-animate-stats="true"]').forEach((section) => {
+        this.observer.observe(section);
+      });
+
+      // Re-observe on Astro page navigation
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll('.stats-bar[data-animate-stats="true"]').forEach((section) => {
+          const numbers = section.querySelectorAll('.stat-number[data-animated="false"]');
+          if (numbers.length > 0) {
+            this.observer.observe(section);
+          }
+        });
+      });
+    }
+
+    private handleIntersection(entries: IntersectionObserverEntry[]): void {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          this.animateSection(entry.target as HTMLElement);
+          this.observer.unobserve(entry.target);
+        }
+      });
+    }
+
+    private animateSection(section: HTMLElement): void {
+      const numbers = section.querySelectorAll('.stat-number[data-animated="false"]');
+
+      numbers.forEach((el, index) => {
+        const element = el as HTMLElement;
+        const target = parseInt(element.dataset.target || '0', 10);
+        const delay = index * 150;
+
+        setTimeout(() => {
+          this.animateNumber(element, target);
+        }, delay);
+      });
+    }
+
+    private animateNumber(element: HTMLElement, target: number): void {
+      element.dataset.animated = 'true';
+
+      const startTime = performance.now();
+      const startValue = 0;
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / this.duration, 1);
+
+        // Easing function (ease-out-expo)
+        const easeProgress = 1 - Math.pow(1 - progress, 4);
+        const currentValue = Math.round(startValue + (target - startValue) * easeProgress);
+
+        element.textContent = currentValue.toString();
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          element.textContent = target.toString();
+        }
+      };
+
+      requestAnimationFrame(animate);
+    }
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => new CounterAnimation());
+  } else {
+    new CounterAnimation();
+  }
+</script>

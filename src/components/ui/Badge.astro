@@ -1,0 +1,76 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'secondary' | 'accent' | 'neutral' | 'success' | 'warning' | 'error';
+type Size = 'sm' | 'md' | 'lg';
+
+interface Props extends HTMLAttributes<'span'> {
+  variant?: Variant;
+  size?: Size;
+  rounded?: boolean;
+  dot?: boolean;
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  rounded = false,
+  dot = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const baseStyles = [
+  'inline-flex items-center gap-1.5 font-medium',
+  rounded ? 'rounded-full' : 'rounded-md',
+];
+
+const variantStyles: Record<Variant, string> = {
+  primary: 'bg-primary-100 text-primary-700',
+  secondary: 'bg-secondary-100 text-secondary-700',
+  accent: 'bg-accent-100 text-accent-700',
+  neutral: 'bg-neutral-100 text-neutral-700',
+  success: 'bg-green-100 text-green-700',
+  warning: 'bg-amber-100 text-amber-700',
+  error: 'bg-red-100 text-red-700',
+};
+
+const dotColors: Record<Variant, string> = {
+  primary: 'bg-primary-500',
+  secondary: 'bg-secondary-500',
+  accent: 'bg-accent-500',
+  neutral: 'bg-neutral-500',
+  success: 'bg-green-500',
+  warning: 'bg-amber-500',
+  error: 'bg-red-500',
+};
+
+const sizeStyles: Record<Size, string> = {
+  sm: 'px-2 py-0.5 text-xs',
+  md: 'px-2.5 py-1 text-sm',
+  lg: 'px-3 py-1.5 text-base',
+};
+
+const dotSizes: Record<Size, string> = {
+  sm: 'h-1.5 w-1.5',
+  md: 'h-2 w-2',
+  lg: 'h-2.5 w-2.5',
+};
+
+const classes = [
+  ...baseStyles,
+  variantStyles[variant],
+  sizeStyles[size],
+  className,
+].filter(Boolean).join(' ');
+---
+
+<span class={classes} {...attrs}>
+  {dot && (
+    <span
+      class:list={['rounded-full', dotColors[variant], dotSizes[size]]}
+      aria-hidden="true"
+    />
+  )}
+  <slot />
+</span>

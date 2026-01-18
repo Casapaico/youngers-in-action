@@ -1,0 +1,337 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import Section from '../../components/ui/Section.astro';
+import ProjectCard from '../../components/ui/ProjectCard.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+import OdsCard from '../../components/ui/OdsCard.astro';
+
+// Proyecto activo principal
+const activeProjects = [
+  {
+    title: 'EmpoderArLAS',
+    description: 'Programa de empoderamiento juvenil comunitario para escolares de 10-12 años. Desarrollamos habilidades de liderazgo, autoestima y propuestas de cambio a través de 5 sesiones por grado con enfoque equitativo de género.',
+    status: 'active' as const,
+    location: 'Lima, Perú',
+    ods: [4, 8, 9, 10, 16] as number[],
+    href: '/proyectos/empoderarlas',
+    image: { src: '/images/empoderarlas-hero.jpg', alt: 'Escolares en sesión de EmpoderArLAS' },
+    stats: {
+      beneficiaries: '35 escolares',
+      participation: '85%',
+      sessions: '5 por grado',
+    },
+  },
+];
+
+// Proyectos en desarrollo/planificación
+const upcomingProjects = [
+  {
+    title: 'EmpoderArLAS 2.0',
+    description: 'Expansión del programa a nuevas instituciones educativas y grados. Incorporación de módulos de educación digital y sostenibilidad ambiental.',
+    status: 'upcoming' as const,
+    location: 'Lima Metropolitana',
+    ods: [4, 5, 13, 17] as number[],
+    href: '#',
+    timeline: '2025',
+  },
+  {
+    title: 'Líderes del Mañana',
+    description: 'Programa de formación de facilitadores juveniles para multiplicar el impacto de EmpoderArLAS en sus comunidades.',
+    status: 'upcoming' as const,
+    location: 'Perú',
+    ods: [4, 8, 17] as number[],
+    href: '#',
+    timeline: '2025',
+  },
+];
+
+// ODS que trabaja YIA
+const odsNumbers = [4, 5, 8, 9, 10, 16, 17];
+---
+
+<PageLayout
+  title="Proyectos - Youngers in Action"
+  description="Conoce los proyectos de Youngers in Action: EmpoderArLAS y más iniciativas para el empoderamiento juvenil alineadas con los ODS."
+>
+  <!-- Hero -->
+  <Hero
+    title="Nuestros proyectos"
+    subtitle="Iniciativas diseñadas por y para jóvenes, alineadas con los ODS y con impacto medible en la comunidad educativa."
+    size="md"
+    align="center"
+  />
+
+  <!-- Indicadores generales -->
+  <section class="bg-gradient-to-r from-secondary-600 to-secondary-700 py-12" data-reveal>
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <dl class="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
+        <div>
+          <dt class="text-sm font-medium uppercase tracking-wide text-secondary-200">Proyectos activos</dt>
+          <dd class="mt-2 font-display text-4xl font-bold text-white">1</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium uppercase tracking-wide text-secondary-200">Beneficiarios 2024</dt>
+          <dd class="mt-2 font-display text-4xl font-bold text-white">35</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium uppercase tracking-wide text-secondary-200">ODS trabajados</dt>
+          <dd class="mt-2 font-display text-4xl font-bold text-white">7</dd>
+        </div>
+        <div>
+          <dt class="text-sm font-medium uppercase tracking-wide text-secondary-200">En planificación</dt>
+          <dd class="mt-2 font-display text-4xl font-bold text-white">2</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- Proyecto activo: EmpoderArLAS -->
+  <Section background="white" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-1 text-sm font-medium text-accent-700">
+        <span class="h-2 w-2 animate-pulse rounded-full bg-accent-500"></span>
+        Proyecto activo
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Proyecto insignia
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Nuestro programa principal de empoderamiento juvenil comunitario.
+      </p>
+    </div>
+
+    <div class="mt-12" data-reveal>
+      {activeProjects.map((project) => (
+        <article class="overflow-hidden rounded-2xl bg-white ring-2 ring-primary-200 shadow-lg">
+          <div class="grid gap-0 lg:grid-cols-2">
+            <!-- Image -->
+            <div class="relative aspect-video lg:aspect-auto">
+              {project.image ? (
+                <img
+                  src={project.image.src}
+                  alt={project.image.alt}
+                  class="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : (
+                <div class="flex h-full min-h-[300px] items-center justify-center bg-gradient-to-br from-primary-100 to-secondary-100">
+                  <span class="text-8xl opacity-30">🎯</span>
+                </div>
+              )}
+              <div class="absolute left-4 top-4">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-accent-500 px-3 py-1 text-sm font-semibold text-white">
+                  <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-white"></span>
+                  Activo
+                </span>
+              </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-col justify-center p-8 lg:p-10">
+              <h3 class="font-display text-3xl font-bold text-neutral-900">
+                {project.title}
+              </h3>
+              <p class="mt-2 text-sm text-neutral-500">
+                {project.location}
+              </p>
+              <p class="mt-4 text-lg text-neutral-600">
+                {project.description}
+              </p>
+
+              <!-- Stats -->
+              <div class="mt-6 grid grid-cols-3 gap-4 border-t border-neutral-200 pt-6">
+                <div>
+                  <p class="text-2xl font-bold text-primary-600">{project.stats.beneficiaries}</p>
+                  <p class="text-sm text-neutral-500">Beneficiarios</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-bold text-primary-600">{project.stats.participation}</p>
+                  <p class="text-sm text-neutral-500">Participación</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-bold text-primary-600">{project.stats.sessions}</p>
+                  <p class="text-sm text-neutral-500">Sesiones</p>
+                </div>
+              </div>
+
+              <!-- ODS -->
+              <div class="mt-6">
+                <p class="mb-2 text-sm font-medium text-neutral-500">ODS alineados:</p>
+                <div class="flex flex-wrap gap-2">
+                  {project.ods.map((num) => (
+                    <OdsCard number={num} size="sm" showTitle={false} />
+                  ))}
+                </div>
+              </div>
+
+              <!-- CTA -->
+              <div class="mt-8">
+                <a
+                  href={project.href}
+                  class="inline-flex items-center gap-2 rounded-full bg-primary-400 px-6 py-3 font-semibold text-neutral-900 transition-all hover:bg-primary-500 hover:shadow-lg press-effect"
+                >
+                  Ver proyecto completo
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/>
+                    <path d="m12 5 7 7-7 7"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Proyectos en desarrollo -->
+  <Section background="gray" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-flex items-center gap-2 rounded-full bg-secondary-100 px-4 py-1 text-sm font-medium text-secondary-700">
+        Próximamente
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Proyectos en desarrollo
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Iniciativas que estamos diseñando para ampliar nuestro impacto en 2025.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-2" data-reveal-stagger>
+      {upcomingProjects.map((project) => (
+        <article class="relative overflow-hidden rounded-2xl bg-white p-8 ring-1 ring-neutral-200 hover:ring-secondary-300 hover:shadow-lg transition-all">
+          <!-- Timeline badge -->
+          <div class="absolute right-4 top-4">
+            <span class="rounded-full bg-secondary-100 px-3 py-1 text-sm font-medium text-secondary-700">
+              {project.timeline}
+            </span>
+          </div>
+
+          <div class="flex items-start gap-4">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-secondary-100">
+              <span class="text-2xl">🚀</span>
+            </div>
+            <div class="flex-1">
+              <h3 class="font-display text-xl font-bold text-neutral-900">
+                {project.title}
+              </h3>
+              <p class="mt-1 text-sm text-neutral-500">
+                {project.location}
+              </p>
+            </div>
+          </div>
+
+          <p class="mt-4 text-neutral-600">
+            {project.description}
+          </p>
+
+          <!-- ODS -->
+          <div class="mt-6">
+            <p class="mb-2 text-xs font-medium uppercase tracking-wide text-neutral-400">ODS objetivo:</p>
+            <div class="flex flex-wrap gap-2">
+              {project.ods.map((num) => (
+                <OdsCard number={num} size="sm" showTitle={false} />
+              ))}
+            </div>
+          </div>
+
+          <!-- Status -->
+          <div class="mt-6 flex items-center gap-2 text-sm text-neutral-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+            En fase de diseño y planificación
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Enfoque ODS -->
+  <Section background="white" spacing="lg">
+    <div class="text-center" data-reveal>
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Nuestro enfoque ODS
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Todos nuestros proyectos están alineados con los Objetivos de Desarrollo Sostenible, priorizando aquellos donde las juventudes pueden generar mayor impacto.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-4xl gap-4 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-7" data-reveal-stagger>
+      {odsNumbers.map((num) => (
+        <OdsCard number={num} size="md" />
+      ))}
+    </div>
+
+    <div class="mt-8 text-center" data-reveal>
+      <a
+        href="/ods"
+        class="inline-flex items-center gap-2 text-secondary-600 hover:text-secondary-700 font-medium link-underline"
+      >
+        Conoce más sobre nuestro enfoque ODS
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"/>
+          <path d="m12 5 7 7-7 7"/>
+        </svg>
+      </a>
+    </div>
+  </Section>
+
+  <!-- Metodología -->
+  <Section background="gray" spacing="lg">
+    <div class="mx-auto max-w-4xl" data-reveal>
+      <div class="rounded-2xl bg-gradient-to-br from-primary-50 to-white p-8 ring-1 ring-primary-200 md:p-12">
+        <h2 class="font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
+          ¿Cómo diseñamos nuestros proyectos?
+        </h2>
+        <p class="mt-4 text-neutral-600">
+          Cada proyecto de Youngers in Action sigue nuestra metodología de 4 pilares, asegurando impacto real y medible.
+        </p>
+
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-400 font-display font-bold text-neutral-900">1</div>
+            <div>
+              <h3 class="font-semibold text-neutral-900">Aprendizaje</h3>
+              <p class="mt-1 text-sm text-neutral-600">Formación en habilidades blandas y conocimientos adaptados al contexto.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-400 font-display font-bold text-neutral-900">2</div>
+            <div>
+              <h3 class="font-semibold text-neutral-900">Inmersión</h3>
+              <p class="mt-1 text-sm text-neutral-600">Experiencias prácticas que conectan teoría con realidad.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-400 font-display font-bold text-neutral-900">3</div>
+            <div>
+              <h3 class="font-semibold text-neutral-900">Involucramiento</h3>
+              <p class="mt-1 text-sm text-neutral-600">Participación activa de familias y comunidad educativa.</p>
+            </div>
+          </div>
+          <div class="flex gap-4">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary-400 font-display font-bold text-neutral-900">4</div>
+            <div>
+              <h3 class="font-semibold text-neutral-900">Resultados en aula</h3>
+              <p class="mt-1 text-sm text-neutral-600">Medición de impacto y propuestas concretas de los participantes.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- CTA Proponer proyecto -->
+  <CtaBanner
+    title="¿Tienes una idea de proyecto?"
+    description="Buscamos jóvenes con iniciativas alineadas a los ODS. Si tienes una propuesta, queremos escucharte."
+    primaryCTA={{ label: 'Propón tu proyecto', href: '/contacto?asunto=propuesta' }}
+    secondaryCTA={{ label: 'Únete como voluntario', href: '/voluntariado' }}
+    background="primary"
+  />
+</PageLayout>

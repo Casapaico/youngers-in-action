@@ -1,0 +1,419 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Section from '../../components/ui/Section.astro';
+import Badge from '../../components/ui/Badge.astro';
+import Card from '../../components/ui/Card.astro';
+import OdsCard from '../../components/ui/OdsCard.astro';
+import CtaBanner from '../../components/sections/CtaBanner.astro';
+import Button from '../../components/ui/Button.astro';
+
+const odsRelacionados = [4, 8, 9, 10, 16];
+
+const areasAfectadas = [
+  { area: 'Ética', porcentaje: 85, color: 'bg-red-500' },
+  { area: 'Emocional', porcentaje: 90, color: 'bg-orange-500' },
+  { area: 'Económico', porcentaje: 75, color: 'bg-yellow-500' },
+  { area: 'Social', porcentaje: 88, color: 'bg-green-500' },
+  { area: 'Cognitivo', porcentaje: 70, color: 'bg-blue-500' },
+  { area: 'Físico', porcentaje: 65, color: 'bg-indigo-500' },
+  { area: 'Cultural', porcentaje: 80, color: 'bg-purple-500' },
+];
+
+const pilares = [
+  {
+    numero: '01',
+    titulo: 'Aprendizaje',
+    descripcion: 'Formación en habilidades blandas, liderazgo y educación financiera adaptada a su edad.',
+    icono: '📚',
+  },
+  {
+    numero: '02',
+    titulo: 'Inmersión',
+    descripcion: 'Experiencias prácticas que conectan el conocimiento con situaciones reales de su entorno.',
+    icono: '🌊',
+  },
+  {
+    numero: '03',
+    titulo: 'Involucramiento',
+    descripcion: 'Participación activa de familias, docentes y comunidad educativa en el proceso formativo.',
+    icono: '🤝',
+  },
+  {
+    numero: '04',
+    titulo: 'Resultados',
+    descripcion: 'Medición de impacto y generación de propuestas concretas desde las y los participantes.',
+    icono: '🎯',
+  },
+];
+
+const equipo = {
+  mentores: [
+    { nombre: 'Ana Lucía Vargas', rol: 'Mentora de Liderazgo' },
+    { nombre: 'Carlos Mendoza', rol: 'Mentor de Finanzas' },
+    { nombre: 'María José Torres', rol: 'Mentora de Comunicación' },
+    { nombre: 'Diego Ramírez', rol: 'Mentor de Innovación' },
+    { nombre: 'Lucía Fernández', rol: 'Mentora de Emprendimiento' },
+    { nombre: 'Roberto Sánchez', rol: 'Mentor de Tecnología' },
+  ],
+  autoridades: [
+    { nombre: 'Dra. Patricia Huamán', rol: 'Directora I.E. María Auxiliadora' },
+    { nombre: 'Mg. Juan Carlos Quispe', rol: 'Coordinador Académico' },
+    { nombre: 'Lic. Rosa María Díaz', rol: 'Jefa de Tutoría' },
+  ],
+  respaldos: [
+    { nombre: 'UGEL 05', tipo: 'Respaldo Institucional' },
+    { nombre: 'SENAJU', tipo: 'Alianza Estratégica' },
+  ],
+};
+
+const resultados = [
+  { metrica: '+85%', descripcion: 'Participación activa en todas las sesiones' },
+  { metrica: '35', descripcion: 'Escolares formados en habilidades de vida' },
+  { metrica: '12', descripcion: 'Iniciativas generadas por participantes' },
+  { metrica: '5', descripcion: 'Sesiones completadas por grado' },
+];
+
+const impactoPropuestas = [
+  { categoria: 'Personal', porcentaje: 45, descripcion: 'Desarrollo de autoestima y metas individuales' },
+  { categoria: 'Académico', porcentaje: 35, descripcion: 'Mejora en rendimiento y motivación escolar' },
+  { categoria: 'Comunitario', porcentaje: 20, descripcion: 'Propuestas de impacto en su entorno' },
+];
+---
+
+<PageLayout
+  title="EmpoderArLAS - Proyecto | Youngers in Action"
+  description="Programa de empoderamiento para escolares de 10-12 años enfocado en habilidades de vida, liderazgo y desarrollo integral alineado con los ODS."
+>
+  <!-- 1. HERO DEL PROYECTO -->
+  <section
+    class="relative overflow-hidden bg-gradient-to-br from-secondary-900 via-secondary-800 to-neutral-900 py-20 md:py-32"
+    data-reveal
+  >
+    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+      <div class="absolute inset-0 bg-[url('/images/pattern-grid.svg')] bg-center"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col items-center text-center">
+        <Badge variant="accent" size="lg" rounded>
+          Proyecto Activo 2024
+        </Badge>
+
+        <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+          Empoder<span class="text-primary-400">Ar</span>LAS
+        </h1>
+
+        <p class="mt-6 max-w-3xl text-lg text-secondary-100 sm:text-xl md:text-2xl">
+          Formando líderes del mañana: programa de empoderamiento integral para escolares comprometidos con su desarrollo personal y comunitario.
+        </p>
+
+        <!-- ODS Badges -->
+        <div class="mt-10">
+          <p class="mb-4 text-sm font-medium uppercase tracking-wide text-secondary-300">
+            ODS Vinculados
+          </p>
+          <ul class="flex flex-wrap justify-center gap-3" role="list">
+            {odsRelacionados.map((num) => (
+              <li>
+                <OdsCard number={num} size="sm" />
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="mt-10 flex flex-col gap-4 sm:flex-row">
+          <Button href="#metodologia" variant="primary" size="lg">
+            Conoce la metodología
+          </Button>
+          <Button href="/voluntariado" variant="outline" size="lg" class="border-white text-white hover:bg-white/10">
+            Únete como mentor
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ¿POR QUÉ NACE EMPODERARLAS? -->
+  <Section id="por-que" background="white" spacing="xl">
+    <div class="grid items-center gap-12 lg:grid-cols-2" data-reveal>
+      <div>
+        <Badge variant="primary" size="sm">Contexto</Badge>
+        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+          ¿Por qué nace EmpoderArLAS?
+        </h2>
+        <div class="mt-6 space-y-4 text-lg text-neutral-600">
+          <p>
+            En el Perú, miles de niñas y adolescentes enfrentan barreras que limitan su desarrollo integral. La falta de acceso a educación de calidad, estereotipos de género y escasas oportunidades de liderazgo afectan su potencial.
+          </p>
+          <p>
+            <strong class="text-neutral-900">EmpoderArLAS</strong> surge como respuesta a esta realidad, creando espacios seguros donde escolares de 10 a 12 años desarrollan habilidades de vida, fortalecen su autoestima y descubren su capacidad de generar cambio.
+          </p>
+          <p>
+            Nuestro enfoque equitativo de género garantiza que tanto niñas como niños participen activamente, rompiendo estereotipos y construyendo una generación más justa.
+          </p>
+        </div>
+      </div>
+
+      <figure class="relative">
+        <div class="aspect-[4/3] overflow-hidden rounded-2xl bg-neutral-100">
+          <img
+            src="/images/empoderarlas-intro.jpg"
+            alt="Estudiantes participando en taller de EmpoderArLAS"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div class="absolute -bottom-6 -left-6 rounded-xl bg-primary-400 p-4 shadow-lg">
+          <p class="font-display text-3xl font-bold text-neutral-900">35</p>
+          <p class="text-sm font-medium text-neutral-800">Escolares impactados</p>
+        </div>
+      </figure>
+    </div>
+  </Section>
+
+  <!-- 3. CONTEXTO: ÁREAS AFECTADAS -->
+  <Section id="contexto" background="gray" spacing="xl">
+    <div class="text-center" data-reveal>
+      <Badge variant="secondary" size="sm">Diagnóstico</Badge>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        Áreas del desarrollo afectadas
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Identificamos las dimensiones donde nuestros participantes necesitan mayor acompañamiento para su desarrollo integral.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {areasAfectadas.map((item) => (
+        <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+          <div class="flex items-center justify-between">
+            <h3 class="font-semibold text-neutral-900">{item.area}</h3>
+            <span class="text-2xl font-bold text-neutral-900">{item.porcentaje}%</span>
+          </div>
+          <div class="mt-3 h-2 overflow-hidden rounded-full bg-neutral-100">
+            <div
+              class={`h-full rounded-full ${item.color} transition-all duration-1000`}
+              style={`width: ${item.porcentaje}%`}
+            />
+          </div>
+          <p class="mt-2 text-sm text-neutral-500">Nivel de intervención requerido</p>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <!-- 4. METODOLOGÍA: 4 PILARES -->
+  <Section id="metodologia" background="white" spacing="xl">
+    <div class="text-center" data-reveal>
+      <Badge variant="accent" size="sm">Metodología</Badge>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        Nuestros 4 pilares
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Un enfoque integral que combina teoría y práctica para generar transformación real.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {pilares.map((pilar) => (
+        <article class="group relative overflow-hidden rounded-2xl bg-gradient-to-b from-secondary-50 to-white p-6 ring-1 ring-secondary-100 transition-all hover:shadow-lg hover:ring-secondary-200">
+          <span class="font-display text-5xl font-bold text-secondary-100 transition-colors group-hover:text-secondary-200">
+            {pilar.numero}
+          </span>
+          <div class="mt-4">
+            <span class="text-3xl" aria-hidden="true">{pilar.icono}</span>
+            <h3 class="mt-2 font-display text-xl font-semibold text-neutral-900">
+              {pilar.titulo}
+            </h3>
+            <p class="mt-2 text-neutral-600">
+              {pilar.descripcion}
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- 5. EQUIPO -->
+  <Section id="equipo" background="gray" spacing="xl">
+    <div class="text-center" data-reveal>
+      <Badge variant="primary" size="sm">Equipo</Badge>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        Quiénes hacen posible EmpoderArLAS
+      </h2>
+    </div>
+
+    <div class="mt-12 space-y-12" data-reveal>
+      <!-- Mentores -->
+      <div>
+        <h3 class="mb-6 text-center font-display text-xl font-semibold text-neutral-900">
+          Mentores <Badge variant="accent" size="sm" class="ml-2">{equipo.mentores.length}</Badge>
+        </h3>
+        <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+          {equipo.mentores.map((mentor) => (
+            <li class="flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm ring-1 ring-neutral-200">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-100 text-lg font-semibold text-primary-600">
+                {mentor.nombre.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              </span>
+              <div>
+                <p class="font-semibold text-neutral-900">{mentor.nombre}</p>
+                <p class="text-sm text-neutral-500">{mentor.rol}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Autoridades -->
+      <div>
+        <h3 class="mb-6 text-center font-display text-xl font-semibold text-neutral-900">
+          Autoridades Educativas <Badge variant="secondary" size="sm" class="ml-2">{equipo.autoridades.length}</Badge>
+        </h3>
+        <ul class="grid gap-4 sm:grid-cols-3" role="list">
+          {equipo.autoridades.map((autoridad) => (
+            <li class="rounded-xl bg-white p-5 text-center shadow-sm ring-1 ring-neutral-200">
+              <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-secondary-100 text-xl font-semibold text-secondary-600">
+                {autoridad.nombre.split(' ').map(n => n[0]).join('').slice(0, 2)}
+              </span>
+              <p class="mt-3 font-semibold text-neutral-900">{autoridad.nombre}</p>
+              <p class="text-sm text-neutral-500">{autoridad.rol}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Respaldos -->
+      <div>
+        <h3 class="mb-6 text-center font-display text-xl font-semibold text-neutral-900">
+          Respaldo Institucional
+        </h3>
+        <ul class="flex flex-wrap justify-center gap-6" role="list">
+          {equipo.respaldos.map((respaldo) => (
+            <li class="rounded-xl bg-white px-8 py-4 shadow-sm ring-1 ring-neutral-200">
+              <p class="font-display text-lg font-semibold text-neutral-900">{respaldo.nombre}</p>
+              <p class="text-sm text-neutral-500">{respaldo.tipo}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 6. PARTICIPANTES -->
+  <Section id="participantes" background="white" spacing="xl">
+    <div class="grid items-center gap-12 lg:grid-cols-2" data-reveal>
+      <div>
+        <Badge variant="accent" size="sm">Participantes</Badge>
+        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+          Escolares protagonistas del cambio
+        </h2>
+
+        <dl class="mt-8 grid grid-cols-2 gap-6">
+          <div class="rounded-xl bg-primary-50 p-5">
+            <dt class="text-sm font-medium text-neutral-600">Total participantes</dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">35</dd>
+          </div>
+          <div class="rounded-xl bg-secondary-50 p-5">
+            <dt class="text-sm font-medium text-neutral-600">Rango de edad</dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">10-12</dd>
+            <dd class="text-sm text-neutral-500">años</dd>
+          </div>
+          <div class="rounded-xl bg-accent-50 p-5">
+            <dt class="text-sm font-medium text-neutral-600">Sesiones por grado</dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">5</dd>
+          </div>
+          <div class="rounded-xl bg-neutral-100 p-5">
+            <dt class="text-sm font-medium text-neutral-600">Enfoque</dt>
+            <dd class="mt-1 font-display text-xl font-bold text-neutral-900">Equidad de género</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="space-y-4">
+        <div class="rounded-2xl bg-gradient-to-r from-primary-400 to-primary-500 p-6 text-neutral-900">
+          <p class="text-lg font-medium">
+            "Aprendí que puedo lograr mis metas si me esfuerzo y pido ayuda cuando la necesito."
+          </p>
+          <p class="mt-3 font-semibold">— Participante, 11 años</p>
+        </div>
+        <div class="rounded-2xl bg-gradient-to-r from-secondary-500 to-secondary-600 p-6 text-white">
+          <p class="text-lg font-medium">
+            "Antes tenía miedo de hablar en público, ahora soy la que lidera las exposiciones en mi salón."
+          </p>
+          <p class="mt-3 font-semibold">— Participante, 12 años</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- 7. RESULTADOS LOGRADOS -->
+  <Section id="resultados" background="primary" spacing="xl">
+    <div class="text-center" data-reveal>
+      <h2 class="font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        Resultados logrados
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-800">
+        Métricas que reflejan el impacto real de EmpoderArLAS en la vida de nuestros participantes.
+      </p>
+    </div>
+
+    <dl class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
+      {resultados.map((resultado) => (
+        <div class="rounded-xl bg-white/90 p-6 text-center shadow-sm backdrop-blur">
+          <dt class="font-display text-4xl font-bold text-secondary-600 sm:text-5xl">
+            {resultado.metrica}
+          </dt>
+          <dd class="mt-2 text-neutral-700">{resultado.descripcion}</dd>
+        </div>
+      ))}
+    </dl>
+  </Section>
+
+  <!-- 8. IMPACTO: DISTRIBUCIÓN DE PROPUESTAS -->
+  <Section id="impacto" background="white" spacing="xl">
+    <div class="text-center" data-reveal>
+      <Badge variant="secondary" size="sm">Impacto</Badge>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+        Distribución de propuestas generadas
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Las iniciativas creadas por los participantes se distribuyen en tres ámbitos de impacto.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-3xl" data-reveal>
+      <div class="space-y-6">
+        {impactoPropuestas.map((item) => (
+          <div class="rounded-xl bg-neutral-50 p-6">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="font-display text-xl font-semibold text-neutral-900">{item.categoria}</h3>
+                <p class="mt-1 text-sm text-neutral-600">{item.descripcion}</p>
+              </div>
+              <span class="font-display text-3xl font-bold text-secondary-600">{item.porcentaje}%</span>
+            </div>
+            <div class="mt-4 h-3 overflow-hidden rounded-full bg-neutral-200">
+              <div
+                class="h-full rounded-full bg-gradient-to-r from-secondary-400 to-secondary-600 transition-all duration-1000"
+                style={`width: ${item.porcentaje}%`}
+              />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="mt-8 text-center text-neutral-600">
+        Estas propuestas conforman el <strong class="text-neutral-900">Banco de Iniciativas Juveniles</strong>, un recurso disponible para futuras intervenciones y réplicas del programa.
+      </p>
+    </div>
+  </Section>
+
+  <!-- 9. CTA FINAL -->
+  <CtaBanner
+    title="Sé parte del cambio"
+    description="Únete como mentor voluntario o apoya con una donación para que más escolares accedan a EmpoderArLAS."
+    primaryCTA={{ label: 'Quiero ser mentor', href: '/voluntariado' }}
+    secondaryCTA={{ label: 'Realizar donación', href: '/dona' }}
+    background="gradient"
+  />
+</PageLayout>

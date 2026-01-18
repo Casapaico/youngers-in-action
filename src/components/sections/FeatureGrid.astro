@@ -1,0 +1,112 @@
+---
+import Button from '../ui/Button.astro';
+
+type Columns = 2 | 3 | 4;
+type Align = 'left' | 'center';
+
+interface Feature {
+  icon: string;
+  title: string;
+  description: string;
+}
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  features: Feature[];
+  columns?: Columns;
+  align?: Align;
+  cta?: CTA;
+}
+
+const {
+  title,
+  subtitle,
+  features,
+  columns = 3,
+  align = 'center',
+  cta,
+} = Astro.props;
+
+const columnStyles: Record<Columns, string> = {
+  2: 'sm:grid-cols-2',
+  3: 'sm:grid-cols-2 lg:grid-cols-3',
+  4: 'sm:grid-cols-2 lg:grid-cols-4',
+};
+
+const alignStyles: Record<Align, { header: string; item: string }> = {
+  left: {
+    header: 'text-left',
+    item: 'text-left items-start',
+  },
+  center: {
+    header: 'text-center mx-auto',
+    item: 'text-center items-center',
+  },
+};
+---
+
+<section class="bg-white py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {(title || subtitle) && (
+      <header class:list={['mb-12 max-w-3xl md:mb-16', alignStyles[align].header]} data-reveal>
+        {title && (
+          <h2 class="font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+            {title}
+          </h2>
+        )}
+        {subtitle && (
+          <p class="mt-4 text-lg text-neutral-600">
+            {subtitle}
+          </p>
+        )}
+      </header>
+    )}
+
+    <ul
+      class:list={[
+        'grid grid-cols-1 gap-8 lg:gap-12',
+        columnStyles[columns],
+      ]}
+      role="list"
+      data-reveal-stagger
+    >
+      {features.map((feature, index) => (
+        <li
+          class:list={[
+            'flex flex-col gap-4',
+            alignStyles[align].item,
+          ]}
+        >
+          <span
+            class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 text-3xl"
+            aria-hidden="true"
+          >
+            {feature.icon}
+          </span>
+
+          <h3 class="font-display text-xl font-semibold text-neutral-900">
+            {feature.title}
+          </h3>
+
+          <p class="text-neutral-600 leading-relaxed">
+            {feature.description}
+          </p>
+        </li>
+      ))}
+    </ul>
+
+    {cta && (
+      <nav class:list={['mt-12 flex', align === 'center' ? 'justify-center' : 'justify-start']}>
+        <Button href={cta.href} variant="primary">
+          {cta.label}
+        </Button>
+      </nav>
+    )}
+  </div>
+</section>

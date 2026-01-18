@@ -1,0 +1,137 @@
+---
+import Button from '../ui/Button.astro';
+
+type Size = 'sm' | 'md' | 'lg' | 'full';
+type Align = 'left' | 'center';
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Image {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  image?: Image;
+  overlay?: boolean;
+  align?: Align;
+  primaryCTA?: CTA;
+  secondaryCTA?: CTA;
+  size?: Size;
+}
+
+const {
+  title,
+  subtitle,
+  image,
+  overlay = true,
+  align = 'center',
+  primaryCTA,
+  secondaryCTA,
+  size = 'lg',
+} = Astro.props;
+
+const sizeStyles: Record<Size, string> = {
+  sm: 'min-h-[50vh]',
+  md: 'min-h-[65vh]',
+  lg: 'min-h-[80vh]',
+  full: 'min-h-screen',
+};
+
+const alignStyles: Record<Align, string> = {
+  left: 'text-left items-start',
+  center: 'text-center items-center',
+};
+
+const contentAlignStyles: Record<Align, string> = {
+  left: 'items-start',
+  center: 'items-center',
+};
+---
+
+<section
+  class:list={[
+    'relative flex items-center justify-center overflow-hidden',
+    sizeStyles[size],
+  ]}
+>
+  {image && (
+    <picture class="absolute inset-0 -z-10">
+      <img
+        src={image.src}
+        alt={image.alt}
+        class="h-full w-full object-cover"
+        loading="eager"
+        decoding="async"
+      />
+    </picture>
+  )}
+
+  {image && overlay && (
+    <div
+      class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/70"
+      aria-hidden="true"
+    />
+  )}
+
+  {!image && (
+    <div
+      class="absolute inset-0 -z-10 bg-gradient-to-br from-secondary-900 via-secondary-800 to-neutral-900"
+      aria-hidden="true"
+    />
+  )}
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+    <div
+      class:list={[
+        'flex max-w-4xl flex-col gap-6',
+        alignStyles[align],
+        align === 'center' && 'mx-auto',
+      ]}
+    >
+      <h1
+        class="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl animate-fade-up"
+      >
+        {title}
+      </h1>
+
+      {subtitle && (
+        <p
+          class="max-w-2xl text-lg text-neutral-200 sm:text-xl md:text-2xl animate-fade-up"
+          style="animation-delay: 100ms;"
+        >
+          {subtitle}
+        </p>
+      )}
+
+      {(primaryCTA || secondaryCTA) && (
+        <nav
+          class:list={[
+            'mt-4 flex flex-col gap-4 sm:flex-row',
+            contentAlignStyles[align],
+          ]}
+          style="animation-delay: 200ms;"
+          aria-label="Acciones principales"
+        >
+          {primaryCTA && (
+            <Button href={primaryCTA.href} variant="primary" size="lg">
+              {primaryCTA.label}
+            </Button>
+          )}
+          {secondaryCTA && (
+            <Button href={secondaryCTA.href} variant="outline" size="lg" class="border-white text-white hover:bg-white/10">
+              {secondaryCTA.label}
+            </Button>
+          )}
+        </nav>
+      )}
+
+      <slot />
+    </div>
+  </div>
+</section>

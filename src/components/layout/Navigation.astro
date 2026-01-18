@@ -1,0 +1,69 @@
+---
+interface NavItem {
+  label: string;
+  href: string;
+  isButton?: boolean;
+}
+
+interface Props {
+  transparent?: boolean;
+  class?: string;
+}
+
+const { transparent = false, class: className } = Astro.props;
+
+const navItems: NavItem[] = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Nosotros', href: '/nosotros' },
+  { label: 'Proyectos', href: '/proyectos' },
+  { label: 'ODS', href: '/ods' },
+  { label: 'Equipo', href: '/equipo' },
+  { label: 'Contacto', href: '/contacto' },
+  { label: 'Donar', href: '/dona', isButton: true },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class:list={['items-center gap-1', className]} role="navigation" aria-label="Navegación principal">
+  <ul class="flex items-center gap-1">
+    {
+      navItems.map((item) => {
+        const isActive = currentPath === item.href ||
+          (item.href !== '/' && currentPath.startsWith(item.href));
+
+        if (item.isButton) {
+          return (
+            <li>
+              <a
+                href={item.href}
+                class="ml-4 inline-flex items-center justify-center rounded-full bg-primary-400 px-6 py-2.5 font-medium text-neutral-900 transition-all hover:bg-primary-500 hover:shadow-lg hover:shadow-primary-400/25 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2"
+              >
+                {item.label}
+              </a>
+            </li>
+          );
+        }
+
+        return (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                'relative inline-flex items-center px-4 py-2 text-sm font-medium transition-colors rounded-lg',
+                transparent
+                  ? 'text-white/90 hover:text-white hover:bg-white/10'
+                  : 'text-neutral-600 hover:text-neutral-900 hover:bg-neutral-100',
+                isActive && !transparent && 'text-primary-600 bg-primary-50',
+                isActive && transparent && 'text-white bg-white/10',
+              ]}
+              aria-current={isActive ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        );
+      })
+    }
+  </ul>
+</nav>

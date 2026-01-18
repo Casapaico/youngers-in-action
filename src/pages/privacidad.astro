@@ -1,0 +1,875 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import Section from '../components/ui/Section.astro';
+import Badge from '../components/ui/Badge.astro';
+
+// Fecha de última actualización
+const fechaActualizacion = '15 de enero de 2025';
+
+// Datos del titular (REQUERIDO por Ley 29733)
+const titular = {
+  nombre: 'Youngers in Action',
+  tipo: 'Organización juvenil sin fines de lucro',
+  domicilio: 'Lima, Perú',
+  email: 'youngers.global@gmail.com',
+  telefono: '+51 999 888 777', // Provisional
+};
+
+// Secciones de privacidad según Ley N.º 29733
+const secciones = [
+  {
+    id: 'titular',
+    icono: '🏢',
+    titulo: 'Identidad del responsable',
+    requerido: true,
+    contenido: `
+      <div class="rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 p-6 ring-1 ring-primary-100">
+        <p class="text-sm font-medium uppercase tracking-wide text-primary-600">Titular del banco de datos personales</p>
+        <h3 class="mt-2 font-display text-2xl font-bold text-neutral-900">${titular.nombre}</h3>
+        <p class="mt-1 text-neutral-600">${titular.tipo}</p>
+
+        <div class="mt-6 grid gap-4 sm:grid-cols-2">
+          <div class="rounded-xl bg-white p-4 shadow-sm">
+            <span class="text-xl">📍</span>
+            <p class="mt-2 text-sm font-medium text-neutral-700">Domicilio</p>
+            <p class="text-neutral-600">${titular.domicilio}</p>
+          </div>
+          <div class="rounded-xl bg-white p-4 shadow-sm">
+            <span class="text-xl">📧</span>
+            <p class="mt-2 text-sm font-medium text-neutral-700">Correo electrónico</p>
+            <a href="mailto:${titular.email}" class="text-primary-600 hover:underline">${titular.email}</a>
+          </div>
+        </div>
+
+        <div class="mt-6 rounded-xl bg-amber-50 p-4 ring-1 ring-amber-200">
+          <p class="flex items-start gap-2 text-sm text-amber-800">
+            <span>⚖️</span>
+            <span>Esta política cumple con la <strong>Ley N.º 29733</strong> - Ley de Protección de Datos Personales del Perú y su Reglamento D.S. N.º 003-2013-JUS.</span>
+          </p>
+        </div>
+      </div>
+    `,
+  },
+  {
+    id: 'finalidad',
+    icono: '🎯',
+    titulo: 'Finalidad del tratamiento',
+    requerido: true,
+    contenido: `
+      <p>Recopilamos y tratamos tus datos personales para las siguientes finalidades <strong>específicas y explícitas</strong>:</p>
+
+      <div class="mt-6 space-y-4">
+        <div class="rounded-xl border-l-4 border-primary-400 bg-primary-50 p-4">
+          <h4 class="font-semibold text-primary-900">1. Gestión del voluntariado</h4>
+          <p class="mt-1 text-sm text-primary-800">Procesar solicitudes, coordinar actividades, emitir certificados y mantener comunicación con voluntarios.</p>
+        </div>
+
+        <div class="rounded-xl border-l-4 border-secondary-400 bg-secondary-50 p-4">
+          <h4 class="font-semibold text-secondary-900">2. Administración de donaciones</h4>
+          <p class="mt-1 text-sm text-secondary-800">Registrar aportes, emitir constancias de donación y agradecer a nuestros donantes.</p>
+        </div>
+
+        <div class="rounded-xl border-l-4 border-accent-400 bg-accent-50 p-4">
+          <h4 class="font-semibold text-accent-900">3. Comunicaciones institucionales</h4>
+          <p class="mt-1 text-sm text-accent-800">Enviar boletines informativos, invitaciones a eventos y novedades de nuestros programas (solo si has dado tu consentimiento).</p>
+        </div>
+
+        <div class="rounded-xl border-l-4 border-neutral-400 bg-neutral-50 p-4">
+          <h4 class="font-semibold text-neutral-900">4. Atención de consultas</h4>
+          <p class="mt-1 text-sm text-neutral-700">Responder preguntas, solicitudes de información y comunicaciones a través de nuestros canales de contacto.</p>
+        </div>
+
+        <div class="rounded-xl border-l-4 border-green-400 bg-green-50 p-4">
+          <h4 class="font-semibold text-green-900">5. Gestión de programas educativos</h4>
+          <p class="mt-1 text-sm text-green-800">Inscripción y seguimiento de participantes en EmpoderArLAS y otros programas (requiere consentimiento de tutores para menores).</p>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-blue-50 p-4 ring-1 ring-blue-200">
+        <p class="flex items-start gap-2 text-blue-800">
+          <span>ℹ️</span>
+          <span><strong>No utilizamos</strong> tus datos para finalidades distintas a las señaladas sin tu consentimiento previo.</span>
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'datos-recopilados',
+    icono: '📋',
+    titulo: 'Datos personales recopilados',
+    requerido: true,
+    contenido: `
+      <p>Recopilamos los siguientes tipos de datos personales según el servicio utilizado:</p>
+
+      <div class="mt-6 overflow-hidden rounded-xl ring-1 ring-neutral-200">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-neutral-100">
+            <tr>
+              <th class="px-4 py-3 font-semibold">Categoría</th>
+              <th class="px-4 py-3 font-semibold">Datos específicos</th>
+              <th class="px-4 py-3 font-semibold">Contexto</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100 bg-white">
+            <tr>
+              <td class="px-4 py-3 font-medium">👤 Identificación</td>
+              <td class="px-4 py-3 text-neutral-600">Nombre completo, DNI (opcional)</td>
+              <td class="px-4 py-3 text-neutral-500">Voluntariado, donaciones</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium">📧 Contacto</td>
+              <td class="px-4 py-3 text-neutral-600">Correo electrónico, teléfono</td>
+              <td class="px-4 py-3 text-neutral-500">Todos los formularios</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium">📍 Ubicación</td>
+              <td class="px-4 py-3 text-neutral-600">Distrito, ciudad</td>
+              <td class="px-4 py-3 text-neutral-500">Voluntariado, coordinaciones</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium">🎂 Demográficos</td>
+              <td class="px-4 py-3 text-neutral-600">Edad, ocupación, institución educativa</td>
+              <td class="px-4 py-3 text-neutral-500">Voluntariado</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3 font-medium">💼 Profesionales</td>
+              <td class="px-4 py-3 text-neutral-600">Habilidades, experiencia previa</td>
+              <td class="px-4 py-3 text-neutral-500">Voluntariado</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl bg-green-50 p-4 ring-1 ring-green-200">
+          <h4 class="flex items-center gap-2 font-semibold text-green-800">
+            <span>✅</span> Datos que NO recopilamos
+          </h4>
+          <ul class="mt-2 space-y-1 text-sm text-green-700">
+            <li>• Datos financieros o bancarios</li>
+            <li>• Información de salud</li>
+            <li>• Creencias religiosas o políticas</li>
+            <li>• Datos biométricos</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl bg-amber-50 p-4 ring-1 ring-amber-200">
+          <h4 class="flex items-center gap-2 font-semibold text-amber-800">
+            <span>👶</span> Datos de menores
+          </h4>
+          <p class="mt-2 text-sm text-amber-700">
+            Solo recopilamos datos de menores con <strong>autorización expresa del padre, madre o tutor legal</strong>, conforme al Art. 13 de la Ley 29733.
+          </p>
+        </div>
+      </div>
+    `,
+  },
+  {
+    id: 'consentimiento',
+    icono: '✍️',
+    titulo: 'Consentimiento',
+    requerido: true,
+    contenido: `
+      <p>Tu consentimiento es la base legal para el tratamiento de tus datos. Lo obtenemos de las siguientes formas:</p>
+
+      <div class="mt-6 space-y-4">
+        <div class="flex items-start gap-4 rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xl">📝</span>
+          <div>
+            <h4 class="font-semibold text-neutral-900">Formularios web</h4>
+            <p class="mt-1 text-sm text-neutral-600">Al completar y enviar un formulario (voluntariado, contacto, newsletter), otorgas tu consentimiento para las finalidades indicadas en cada formulario.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary-100 text-xl">☑️</span>
+          <div>
+            <h4 class="font-semibold text-neutral-900">Casillas de verificación</h4>
+            <p class="mt-1 text-sm text-neutral-600">Para comunicaciones opcionales (newsletter), usamos casillas de verificación que debes marcar activamente.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent-100 text-xl">👨‍👩‍👧</span>
+          <div>
+            <h4 class="font-semibold text-neutral-900">Autorización de tutores</h4>
+            <p class="mt-1 text-sm text-neutral-600">Para menores de edad, requerimos autorización firmada del padre, madre o tutor legal antes de cualquier tratamiento de datos.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-blue-50 p-5 ring-1 ring-blue-200">
+        <h4 class="font-semibold text-blue-900">🔄 Revocación del consentimiento</h4>
+        <p class="mt-2 text-sm text-blue-800">
+          Puedes revocar tu consentimiento en cualquier momento enviando un correo a <a href="mailto:${titular.email}" class="font-semibold underline">${titular.email}</a> con el asunto "Revocación de consentimiento". La revocación no afecta la licitud del tratamiento previo.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'destinatarios',
+    icono: '🔗',
+    titulo: 'Destinatarios y terceros',
+    requerido: true,
+    contenido: `
+      <p>Información sobre con quién compartimos (o no compartimos) tus datos:</p>
+
+      <div class="mt-6 rounded-2xl bg-gradient-to-br from-green-50 to-white p-6 ring-1 ring-green-200">
+        <div class="flex items-start gap-4">
+          <span class="text-4xl">🔒</span>
+          <div>
+            <h4 class="font-display text-lg font-semibold text-green-900">Política de no venta</h4>
+            <p class="mt-2 text-green-800">
+              <strong>No vendemos, alquilamos ni comercializamos</strong> tus datos personales a terceros bajo ninguna circunstancia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <h4 class="mt-8 font-display text-lg font-semibold text-neutral-900">Terceros con acceso limitado:</h4>
+
+      <div class="mt-4 space-y-3">
+        <div class="rounded-xl bg-neutral-50 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">☁️</span>
+              <div>
+                <p class="font-medium text-neutral-900">Proveedores de servicios tecnológicos</p>
+                <p class="text-sm text-neutral-600">Hosting, email, formularios</p>
+              </div>
+            </div>
+            <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-700">Procesadores</span>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-neutral-50 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">🏛️</span>
+              <div>
+                <p class="font-medium text-neutral-900">Entidades públicas (SENAJU, UGEL)</p>
+                <p class="text-sm text-neutral-600">Solo datos agregados y anónimos para reportes de impacto</p>
+              </div>
+            </div>
+            <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-medium text-green-700">Datos anónimos</span>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-neutral-50 p-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-xl">⚖️</span>
+              <div>
+                <p class="font-medium text-neutral-900">Autoridades competentes</p>
+                <p class="text-sm text-neutral-600">Solo cuando exista obligación legal o requerimiento judicial</p>
+              </div>
+            </div>
+            <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-700">Por ley</span>
+          </div>
+        </div>
+      </div>
+    `,
+  },
+  {
+    id: 'derechos-arco',
+    icono: '⚖️',
+    titulo: 'Derechos ARCO',
+    requerido: true,
+    contenido: `
+      <p>Conforme a la Ley 29733, tienes los siguientes derechos sobre tus datos personales:</p>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 p-6 text-white">
+          <span class="text-4xl">👁️</span>
+          <h4 class="mt-3 font-display text-xl font-bold">Acceso</h4>
+          <p class="mt-2 text-sm text-blue-100">
+            Conocer qué datos personales tuyos tenemos almacenados y cómo los tratamos.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-green-500 to-green-600 p-6 text-white">
+          <span class="text-4xl">✏️</span>
+          <h4 class="mt-3 font-display text-xl font-bold">Rectificación</h4>
+          <p class="mt-2 text-sm text-green-100">
+            Solicitar la corrección de datos inexactos o incompletos.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-red-500 to-red-600 p-6 text-white">
+          <span class="text-4xl">🗑️</span>
+          <h4 class="mt-3 font-display text-xl font-bold">Cancelación</h4>
+          <p class="mt-2 text-sm text-red-100">
+            Solicitar la eliminación de tus datos cuando ya no sean necesarios o retires tu consentimiento.
+          </p>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 p-6 text-white">
+          <span class="text-4xl">🚫</span>
+          <h4 class="mt-3 font-display text-xl font-bold">Oposición</h4>
+          <p class="mt-2 text-sm text-orange-100">
+            Oponerte al tratamiento de tus datos para finalidades específicas.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl bg-neutral-900 p-6 text-white">
+        <h4 class="font-display text-lg font-semibold">📬 Cómo ejercer tus derechos</h4>
+        <div class="mt-4 space-y-3">
+          <div class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-400 text-xs font-bold text-neutral-900">1</span>
+            <p class="text-neutral-300">Envía un correo a <a href="mailto:${titular.email}" class="font-semibold text-primary-400">${titular.email}</a></p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-400 text-xs font-bold text-neutral-900">2</span>
+            <p class="text-neutral-300">Indica en el asunto: "Ejercicio de Derecho ARCO - [Acceso/Rectificación/Cancelación/Oposición]"</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-400 text-xs font-bold text-neutral-900">3</span>
+            <p class="text-neutral-300">Incluye tu nombre completo, correo de registro y descripción de tu solicitud</p>
+          </div>
+          <div class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-400 text-xs font-bold text-neutral-900">4</span>
+            <p class="text-neutral-300">Adjunta copia de tu DNI para verificar tu identidad</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-neutral-400">
+          Plazo de respuesta: máximo <strong>20 días hábiles</strong> según Ley 29733.
+        </p>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-amber-50 p-4 ring-1 ring-amber-200">
+        <p class="text-sm text-amber-800">
+          <strong>⚠️ Autoridad de control:</strong> Si consideras que no hemos atendido adecuadamente tus derechos, puedes presentar una reclamación ante la <strong>Autoridad Nacional de Protección de Datos Personales</strong> del Ministerio de Justicia.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'seguridad',
+    icono: '🛡️',
+    titulo: 'Medidas de seguridad',
+    requerido: true,
+    contenido: `
+      <p>Implementamos medidas técnicas y organizativas para proteger tus datos:</p>
+
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-xl bg-neutral-50 p-5">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-green-100 text-xl">🔐</span>
+            <h4 class="font-semibold">Medidas técnicas</h4>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm text-neutral-600">
+            <li>• Conexiones cifradas (HTTPS/SSL)</li>
+            <li>• Acceso restringido por credenciales</li>
+            <li>• Almacenamiento en servicios seguros</li>
+            <li>• Respaldos periódicos</li>
+          </ul>
+        </div>
+
+        <div class="rounded-xl bg-neutral-50 p-5">
+          <div class="flex items-center gap-3">
+            <span class="flex h-10 w-10 items-center justify-center rounded-full bg-blue-100 text-xl">👥</span>
+            <h4 class="font-semibold">Medidas organizativas</h4>
+          </div>
+          <ul class="mt-4 space-y-2 text-sm text-neutral-600">
+            <li>• Personal capacitado en privacidad</li>
+            <li>• Acceso basado en necesidad</li>
+            <li>• Políticas internas de confidencialidad</li>
+            <li>• Revisión periódica de accesos</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-blue-50 p-4 ring-1 ring-blue-200">
+        <p class="text-sm text-blue-800">
+          <strong>ℹ️ Nota:</strong> Ningún sistema es 100% seguro. En caso de brecha de seguridad que afecte tus datos, te notificaremos conforme a la normativa vigente.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'transferencias',
+    icono: '🌍',
+    titulo: 'Transferencias internacionales',
+    requerido: true,
+    contenido: `
+      <p>Información sobre el flujo transfronterizo de datos:</p>
+
+      <div class="mt-6 rounded-2xl bg-gradient-to-br from-blue-50 to-white p-6 ring-1 ring-blue-200">
+        <div class="flex items-start gap-4">
+          <span class="text-4xl">☁️</span>
+          <div>
+            <h4 class="font-semibold text-blue-900">Servicios en la nube</h4>
+            <p class="mt-2 text-blue-800">
+              Utilizamos servicios tecnológicos (hosting, email, formularios) cuyos servidores pueden estar ubicados fuera del Perú, principalmente en Estados Unidos.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-4">
+        <div class="rounded-xl bg-white p-4 shadow-sm ring-1 ring-neutral-200">
+          <h4 class="font-semibold text-neutral-900">Proveedores principales:</h4>
+          <ul class="mt-3 space-y-2 text-sm text-neutral-600">
+            <li class="flex items-center justify-between">
+              <span>• Plataforma web y hosting</span>
+              <span class="text-neutral-400">Vercel / Netlify (EE.UU.)</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>• Correo electrónico</span>
+              <span class="text-neutral-400">Google Workspace (EE.UU.)</span>
+            </li>
+            <li class="flex items-center justify-between">
+              <span>• Formularios</span>
+              <span class="text-neutral-400">Google Forms (EE.UU.)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-green-50 p-4 ring-1 ring-green-200">
+        <p class="text-sm text-green-800">
+          <strong>✅ Garantías:</strong> Estos proveedores cumplen con estándares internacionales de protección de datos y cuentan con certificaciones de seguridad reconocidas.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'conservacion',
+    icono: '⏱️',
+    titulo: 'Plazo de conservación',
+    requerido: true,
+    contenido: `
+      <p>Conservamos tus datos personales solo durante el tiempo necesario:</p>
+
+      <div class="mt-6 overflow-hidden rounded-xl ring-1 ring-neutral-200">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-neutral-100">
+            <tr>
+              <th class="px-4 py-3 font-semibold">Tipo de dato</th>
+              <th class="px-4 py-3 font-semibold">Plazo de conservación</th>
+              <th class="px-4 py-3 font-semibold">Motivo</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100 bg-white">
+            <tr>
+              <td class="px-4 py-3">Voluntarios activos</td>
+              <td class="px-4 py-3 text-neutral-600">Durante la relación + 2 años</td>
+              <td class="px-4 py-3 text-neutral-500">Certificados, referencias</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Donantes</td>
+              <td class="px-4 py-3 text-neutral-600">5 años</td>
+              <td class="px-4 py-3 text-neutral-500">Obligaciones tributarias</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Newsletter</td>
+              <td class="px-4 py-3 text-neutral-600">Hasta que te des de baja</td>
+              <td class="px-4 py-3 text-neutral-500">Consentimiento activo</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Consultas de contacto</td>
+              <td class="px-4 py-3 text-neutral-600">1 año</td>
+              <td class="px-4 py-3 text-neutral-500">Seguimiento</td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">Participantes programas</td>
+              <td class="px-4 py-3 text-neutral-600">Duración del programa + 3 años</td>
+              <td class="px-4 py-3 text-neutral-500">Medición de impacto</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-neutral-100 p-4">
+        <p class="text-sm text-neutral-700">
+          <strong>Después del plazo:</strong> Los datos son eliminados de forma segura o anonimizados para fines estadísticos.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'menores',
+    icono: '👶',
+    titulo: 'Protección de menores de edad',
+    requerido: true,
+    contenido: `
+      <div class="rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 p-6 ring-1 ring-amber-200">
+        <div class="flex items-start gap-4">
+          <span class="text-5xl">👨‍👩‍👧‍👦</span>
+          <div>
+            <h4 class="font-display text-xl font-semibold text-amber-900">Compromiso con la protección infantil</h4>
+            <p class="mt-2 text-amber-800">
+              Trabajamos con escolares de 10-12 años en nuestro programa EmpoderArLAS. Por ello, cumplimos estrictamente con las disposiciones del Art. 13 de la Ley 29733.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-4">
+        <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <h4 class="flex items-center gap-2 font-semibold text-neutral-900">
+            <span>📝</span> Consentimiento parental obligatorio
+          </h4>
+          <p class="mt-2 text-sm text-neutral-600">
+            No recopilamos datos de menores sin autorización expresa y verificable del padre, madre o tutor legal.
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <h4 class="flex items-center gap-2 font-semibold text-neutral-900">
+            <span>📸</span> Uso de imagen
+          </h4>
+          <p class="mt-2 text-sm text-neutral-600">
+            Las fotografías de menores solo se utilizan con autorización específica y nunca de forma que permita su identificación pública sin consentimiento.
+          </p>
+        </div>
+
+        <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-neutral-200">
+          <h4 class="flex items-center gap-2 font-semibold text-neutral-900">
+            <span>🔒</span> Datos mínimos
+          </h4>
+          <p class="mt-2 text-sm text-neutral-600">
+            Solo recopilamos los datos estrictamente necesarios para la gestión del programa educativo.
+          </p>
+        </div>
+      </div>
+    `,
+  },
+  {
+    id: 'cookies',
+    icono: '🍪',
+    titulo: 'Cookies',
+    requerido: false,
+    contenido: `
+      <p>Utilizamos cookies para mejorar tu experiencia en el sitio:</p>
+
+      <div class="mt-6 overflow-hidden rounded-xl ring-1 ring-neutral-200">
+        <table class="w-full text-left text-sm">
+          <thead class="bg-neutral-100">
+            <tr>
+              <th class="px-4 py-3 font-semibold">Tipo</th>
+              <th class="px-4 py-3 font-semibold">Finalidad</th>
+              <th class="px-4 py-3 font-semibold">Duración</th>
+              <th class="px-4 py-3 font-semibold">Obligatoria</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-neutral-100 bg-white">
+            <tr>
+              <td class="px-4 py-3">🔧 Técnicas</td>
+              <td class="px-4 py-3 text-neutral-600">Funcionamiento del sitio</td>
+              <td class="px-4 py-3 text-neutral-500">Sesión</td>
+              <td class="px-4 py-3"><span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">Sí</span></td>
+            </tr>
+            <tr>
+              <td class="px-4 py-3">📊 Analíticas</td>
+              <td class="px-4 py-3 text-neutral-600">Estadísticas anónimas de uso</td>
+              <td class="px-4 py-3 text-neutral-500">2 años</td>
+              <td class="px-4 py-3"><span class="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700">No</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mt-6 rounded-xl bg-neutral-100 p-4">
+        <p class="text-sm text-neutral-700">
+          <strong>🔧 Gestión:</strong> Puedes configurar tu navegador para rechazar cookies. Ten en cuenta que esto podría afectar algunas funcionalidades del sitio.
+        </p>
+      </div>
+    `,
+  },
+  {
+    id: 'cambios',
+    icono: '🔄',
+    titulo: 'Cambios a esta política',
+    requerido: false,
+    contenido: `
+      <div class="rounded-2xl bg-gradient-to-br from-neutral-50 to-white p-6 ring-1 ring-neutral-200">
+        <p>Podemos actualizar esta política periódicamente. Cuando lo hagamos:</p>
+        <ul class="mt-4 space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-bold text-primary-600">1</span>
+            <span>Actualizaremos la fecha de "última modificación" al inicio del documento</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-bold text-primary-600">2</span>
+            <span>Para cambios significativos, te notificaremos por correo electrónico (si nos lo proporcionaste)</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary-100 text-xs font-bold text-primary-600">3</span>
+            <span>Publicaremos un aviso visible en nuestro sitio web</span>
+          </li>
+        </ul>
+      </div>
+    `,
+  },
+  {
+    id: 'contacto',
+    icono: '💬',
+    titulo: 'Contacto para temas de privacidad',
+    requerido: true,
+    contenido: `
+      <div class="text-center">
+        <p class="text-lg">Para cualquier consulta relacionada con esta política o el tratamiento de tus datos:</p>
+
+        <div class="mt-8 inline-flex flex-col items-center gap-4 rounded-2xl bg-gradient-to-br from-primary-50 to-secondary-50 p-8 ring-1 ring-primary-100">
+          <span class="text-5xl">📧</span>
+          <div>
+            <p class="text-sm font-medium text-neutral-500">Responsable de datos personales</p>
+            <p class="font-display text-lg font-semibold text-neutral-900">${titular.nombre}</p>
+            <a href="mailto:${titular.email}" class="mt-2 block font-display text-2xl font-bold text-primary-600 hover:text-primary-700">
+              ${titular.email}
+            </a>
+          </div>
+          <p class="text-sm text-neutral-500">Respondemos en un plazo máximo de 10 días hábiles</p>
+        </div>
+      </div>
+    `,
+  },
+];
+---
+
+<PageLayout
+  title="Política de Privacidad - Youngers in Action"
+  description="Política de Privacidad de Youngers in Action conforme a la Ley N.º 29733 de Protección de Datos Personales del Perú."
+>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-br from-secondary-900 via-neutral-900 to-primary-900 py-20">
+    <div class="absolute inset-0 opacity-20">
+      <div class="absolute top-10 right-10 h-64 w-64 rounded-full bg-primary-400 blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-10 left-10 h-48 w-48 rounded-full bg-secondary-400 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    </div>
+
+    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <span class="text-6xl">🔒</span>
+      <h1 class="mt-6 font-display text-4xl font-bold text-white sm:text-5xl">
+        Política de Privacidad
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-300">
+        Conforme a la Ley N.º 29733 - Ley de Protección de Datos Personales del Perú
+      </p>
+      <p class="mt-6 text-sm text-neutral-400">
+        Última actualización: {fechaActualizacion}
+      </p>
+
+      <!-- Resumen ejecutivo -->
+      <div class="mt-10 rounded-2xl bg-white/10 p-6 text-left backdrop-blur ring-1 ring-white/20">
+        <h2 class="flex items-center gap-2 font-semibold text-white">
+          <span>📌</span> Resumen ejecutivo
+        </h2>
+        <div class="mt-4 grid gap-3 text-sm sm:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-xl bg-white/10 p-3">
+            <p class="text-neutral-200">🏢 <strong>Responsable:</strong> Youngers in Action</p>
+          </div>
+          <div class="rounded-xl bg-white/10 p-3">
+            <p class="text-neutral-200">🎯 <strong>Finalidad:</strong> Gestión de voluntariado y programas</p>
+          </div>
+          <div class="rounded-xl bg-white/10 p-3">
+            <p class="text-neutral-200">⚖️ <strong>Derechos:</strong> ARCO (Acceso, Rectificación, Cancelación, Oposición)</p>
+          </div>
+          <div class="rounded-xl bg-white/10 p-3">
+            <p class="text-neutral-200">📧 <strong>Contacto:</strong> ${titular.email}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barra de cumplimiento -->
+  <section class="border-b border-neutral-200 bg-green-50 py-3">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <p class="flex items-center justify-center gap-2 text-sm text-green-800">
+        <span>✅</span>
+        <span>Esta política cumple con los requisitos de la <strong>Ley N.º 29733</strong> y su Reglamento D.S. N.º 003-2013-JUS</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Navegación rápida -->
+  <section class="sticky top-16 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <nav class="flex gap-1 overflow-x-auto py-3 scrollbar-hide" aria-label="Secciones">
+        {secciones.map((seccion) => (
+          <a
+            href={`#${seccion.id}`}
+            class:list={[
+              "flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all hover:bg-primary-50 hover:text-primary-700",
+              seccion.requerido ? "text-neutral-700" : "text-neutral-500"
+            ]}
+          >
+            <span>{seccion.icono}</span>
+            <span class="hidden lg:inline">{seccion.titulo}</span>
+            {seccion.requerido && (
+              <span class="hidden h-1.5 w-1.5 rounded-full bg-red-400 sm:block" title="Requerido por ley"></span>
+            )}
+          </a>
+        ))}
+      </nav>
+    </div>
+  </section>
+
+  <!-- Contenido con acordeones -->
+  <Section background="gray" spacing="xl">
+    <div class="mx-auto max-w-4xl space-y-6">
+      {secciones.map((seccion) => (
+        <article
+          id={seccion.id}
+          class="group rounded-2xl bg-white shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-md scroll-mt-32"
+        >
+          <button
+            class="accordion-trigger flex w-full items-center justify-between p-6 text-left"
+            aria-expanded="true"
+            aria-controls={`content-${seccion.id}`}
+          >
+            <div class="flex items-center gap-4">
+              <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary-100 to-secondary-100 text-2xl transition-transform group-hover:scale-110">
+                {seccion.icono}
+              </span>
+              <div class="flex items-center gap-3">
+                <h2 class="font-display text-xl font-bold text-neutral-900">
+                  {seccion.titulo}
+                </h2>
+                {seccion.requerido && (
+                  <span class="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                    Obligatorio
+                  </span>
+                )}
+              </div>
+            </div>
+            <span class="accordion-icon flex h-8 w-8 items-center justify-center rounded-full bg-neutral-100 text-neutral-500 transition-transform">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </button>
+
+          <div
+            id={`content-${seccion.id}`}
+            class="accordion-content overflow-hidden"
+          >
+            <div class="border-t border-neutral-100 px-6 pb-6 pt-4">
+              <div class="prose prose-neutral max-w-none" set:html={seccion.contenido} />
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </Section>
+
+  <!-- Marco legal final -->
+  <section class="bg-neutral-900 py-12">
+    <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+      <div class="rounded-2xl bg-white/5 p-8 ring-1 ring-white/10">
+        <span class="text-4xl">⚖️</span>
+        <h2 class="mt-4 font-display text-xl font-semibold text-white">
+          Marco legal aplicable
+        </h2>
+        <div class="mt-6 flex flex-wrap justify-center gap-4">
+          <div class="rounded-xl bg-white/10 px-4 py-2">
+            <p class="text-sm text-neutral-300">Ley N.º 29733</p>
+            <p class="text-xs text-neutral-500">Protección de Datos Personales</p>
+          </div>
+          <div class="rounded-xl bg-white/10 px-4 py-2">
+            <p class="text-sm text-neutral-300">D.S. N.º 003-2013-JUS</p>
+            <p class="text-xs text-neutral-500">Reglamento</p>
+          </div>
+          <div class="rounded-xl bg-white/10 px-4 py-2">
+            <p class="text-sm text-neutral-300">APDP</p>
+            <p class="text-xs text-neutral-500">Autoridad de Protección de Datos</p>
+          </div>
+        </div>
+        <p class="mt-6 text-sm text-neutral-400">
+          Jurisdicción: Lima, Perú
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-gradient-to-br from-primary-50 via-white to-secondary-50 py-12">
+    <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+      <p class="text-neutral-600">
+        ¿Tienes preguntas sobre cómo tratamos tus datos?
+      </p>
+      <div class="mt-6 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <a
+          href="/contacto"
+          class="inline-flex items-center gap-2 rounded-full bg-primary-400 px-6 py-3 font-semibold text-neutral-900 transition-all hover:bg-primary-500"
+        >
+          Contáctanos
+        </a>
+        <a
+          href="/terminos"
+          class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-6 py-3 font-semibold text-neutral-700 transition-all hover:bg-neutral-200"
+        >
+          Ver Términos y Condiciones
+        </a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .accordion-content {
+    max-height: 3000px;
+    transition: max-height 0.3s ease-out;
+  }
+
+  .accordion-content.collapsed {
+    max-height: 0;
+  }
+
+  .accordion-trigger[aria-expanded="false"] .accordion-icon {
+    transform: rotate(-90deg);
+  }
+
+  .prose ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .prose p {
+    margin-bottom: 0;
+  }
+
+  .prose p + p {
+    margin-top: 1rem;
+  }
+</style>
+
+<script>
+  // Acordeón interactivo
+  document.querySelectorAll('.accordion-trigger').forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const expanded = trigger.getAttribute('aria-expanded') === 'true';
+      const contentId = trigger.getAttribute('aria-controls');
+      const content = document.getElementById(contentId || '');
+
+      trigger.setAttribute('aria-expanded', (!expanded).toString());
+
+      if (content) {
+        content.classList.toggle('collapsed', expanded);
+      }
+    });
+  });
+
+  // Smooth scroll para navegación
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      const href = anchor.getAttribute('href');
+      if (href) {
+        const target = document.querySelector(href);
+        target?.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>

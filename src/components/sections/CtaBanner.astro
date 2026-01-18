@@ -1,0 +1,190 @@
+---
+import Button from '../ui/Button.astro';
+
+type Background = 'primary' | 'secondary' | 'gradient' | 'image';
+type Layout = 'centered' | 'split';
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Image {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  primaryCTA: CTA;
+  secondaryCTA?: CTA;
+  background?: Background;
+  image?: Image;
+  layout?: Layout;
+}
+
+const {
+  title,
+  description,
+  primaryCTA,
+  secondaryCTA,
+  background = 'primary',
+  image,
+  layout = 'centered',
+} = Astro.props;
+
+const backgroundStyles: Record<Background, string> = {
+  primary: 'bg-primary-400',
+  secondary: 'bg-secondary-600',
+  gradient: 'bg-gradient-to-r from-secondary-600 via-secondary-700 to-secondary-800',
+  image: 'bg-neutral-900',
+};
+
+const textStyles: Record<Background, { title: string; description: string }> = {
+  primary: {
+    title: 'text-neutral-900',
+    description: 'text-neutral-800',
+  },
+  secondary: {
+    title: 'text-white',
+    description: 'text-secondary-100',
+  },
+  gradient: {
+    title: 'text-white',
+    description: 'text-secondary-100',
+  },
+  image: {
+    title: 'text-white',
+    description: 'text-neutral-200',
+  },
+};
+
+const buttonVariant = background === 'primary' ? 'secondary' : 'primary';
+const secondaryButtonClass = background === 'primary'
+  ? 'border-neutral-900 text-neutral-900 hover:bg-neutral-900/10'
+  : 'border-white text-white hover:bg-white/10';
+---
+
+<section
+  class:list={[
+    'relative overflow-hidden py-16 md:py-24',
+    backgroundStyles[background],
+  ]}
+>
+  {background === 'image' && image && (
+    <>
+      <picture class="absolute inset-0 -z-10">
+        <img
+          src={image.src}
+          alt={image.alt}
+          class="h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
+      <div
+        class="absolute inset-0 -z-10 bg-neutral-900/70"
+        aria-hidden="true"
+      />
+    </>
+  )}
+
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {layout === 'centered' ? (
+      <div class="flex flex-col items-center text-center" data-reveal>
+        <h2
+          class:list={[
+            'font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl',
+            textStyles[background].title,
+          ]}
+        >
+          {title}
+        </h2>
+
+        {description && (
+          <p
+            class:list={[
+              'mt-4 max-w-2xl text-lg sm:text-xl',
+              textStyles[background].description,
+            ]}
+          >
+            {description}
+          </p>
+        )}
+
+        <nav class="mt-8 flex flex-col gap-4 sm:flex-row" aria-label="Acciones">
+          <Button href={primaryCTA.href} variant={buttonVariant} size="lg">
+            {primaryCTA.label}
+          </Button>
+          {secondaryCTA && (
+            <Button
+              href={secondaryCTA.href}
+              variant="outline"
+              size="lg"
+              class={secondaryButtonClass}
+            >
+              {secondaryCTA.label}
+            </Button>
+          )}
+        </nav>
+
+        <slot />
+      </div>
+    ) : (
+      <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-16" data-reveal>
+        <div class="flex flex-col">
+          <h2
+            class:list={[
+              'font-display text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl',
+              textStyles[background].title,
+            ]}
+          >
+            {title}
+          </h2>
+
+          {description && (
+            <p
+              class:list={[
+                'mt-4 text-lg sm:text-xl',
+                textStyles[background].description,
+              ]}
+            >
+              {description}
+            </p>
+          )}
+
+          <nav class="mt-8 flex flex-col gap-4 sm:flex-row" aria-label="Acciones">
+            <Button href={primaryCTA.href} variant={buttonVariant} size="lg">
+              {primaryCTA.label}
+            </Button>
+            {secondaryCTA && (
+              <Button
+                href={secondaryCTA.href}
+                variant="outline"
+                size="lg"
+                class={secondaryButtonClass}
+              >
+              {secondaryCTA.label}
+              </Button>
+            )}
+          </nav>
+        </div>
+
+        {layout === 'split' && image && background !== 'image' && (
+          <figure class="relative aspect-[4/3] overflow-hidden rounded-2xl lg:aspect-square">
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="h-full w-full object-cover"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        )}
+
+        <slot />
+      </div>
+    )}
+  </div>
+</section>

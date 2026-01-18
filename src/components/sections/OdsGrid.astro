@@ -1,0 +1,148 @@
+---
+import OdsCard from '../ui/OdsCard.astro';
+import Button from '../ui/Button.astro';
+
+interface OdsItem {
+  number: number;
+  title?: string;
+  description?: string;
+  href?: string;
+}
+
+interface CTA {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  items?: OdsItem[];
+  showAll?: boolean;
+  cta?: CTA;
+}
+
+const {
+  title,
+  subtitle,
+  items,
+  showAll = false,
+  cta,
+} = Astro.props;
+
+// ODS priorizados por SENAJU (juventud peruana)
+const senajuPriority: OdsItem[] = [
+  {
+    number: 4,
+    title: 'Educación de calidad',
+    description: 'Garantizar una educación inclusiva, equitativa y de calidad.',
+  },
+  {
+    number: 8,
+    title: 'Trabajo decente',
+    description: 'Promover el crecimiento económico y el empleo digno para jóvenes.',
+  },
+  {
+    number: 9,
+    title: 'Innovación',
+    description: 'Construir infraestructuras resilientes y fomentar la innovación.',
+  },
+  {
+    number: 10,
+    title: 'Reducir desigualdades',
+    description: 'Reducir la desigualdad en y entre los países.',
+  },
+  {
+    number: 16,
+    title: 'Paz y justicia',
+    description: 'Promover sociedades pacíficas e inclusivas para el desarrollo sostenible.',
+  },
+];
+
+// Todos los 17 ODS
+const allOds: OdsItem[] = [
+  { number: 1, title: 'Fin de la pobreza' },
+  { number: 2, title: 'Hambre cero' },
+  { number: 3, title: 'Salud y bienestar' },
+  { number: 4, title: 'Educación de calidad' },
+  { number: 5, title: 'Igualdad de género' },
+  { number: 6, title: 'Agua limpia' },
+  { number: 7, title: 'Energía asequible' },
+  { number: 8, title: 'Trabajo decente' },
+  { number: 9, title: 'Innovación' },
+  { number: 10, title: 'Reducir desigualdades' },
+  { number: 11, title: 'Ciudades sostenibles' },
+  { number: 12, title: 'Consumo responsable' },
+  { number: 13, title: 'Acción por el clima' },
+  { number: 14, title: 'Vida submarina' },
+  { number: 15, title: 'Vida terrestre' },
+  { number: 16, title: 'Paz y justicia' },
+  { number: 17, title: 'Alianzas' },
+];
+
+// Determinar qué ODS mostrar
+const odsToShow = items || (showAll ? allOds : senajuPriority);
+const isFeatured = !showAll && !items;
+
+// Grid columns según cantidad de items
+const getGridCols = (count: number): string => {
+  if (count <= 3) return 'sm:grid-cols-2 lg:grid-cols-3';
+  if (count <= 5) return 'sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5';
+  return 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6';
+};
+---
+
+<section class="bg-neutral-50 py-16 md:py-24">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {(title || subtitle) && (
+      <header class="mb-12 text-center md:mb-16" data-reveal>
+        {title && (
+          <h2 class="font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
+            {title}
+          </h2>
+        )}
+        {subtitle && (
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+            {subtitle}
+          </p>
+        )}
+
+        {isFeatured && (
+          <p class="mt-3 text-sm font-medium uppercase tracking-wide text-primary-600">
+            ODS priorizados por SENAJU
+          </p>
+        )}
+      </header>
+    )}
+
+    <ul
+      class:list={[
+        'grid grid-cols-1 gap-4 md:gap-6',
+        getGridCols(odsToShow.length),
+      ]}
+      role="list"
+      aria-label="Objetivos de Desarrollo Sostenible"
+      data-reveal-stagger
+    >
+      {odsToShow.map((ods) => (
+        <li>
+          <OdsCard
+            number={ods.number}
+            title={ods.title}
+            description={isFeatured ? ods.description : undefined}
+            href={ods.href}
+            size={showAll ? 'sm' : 'md'}
+          />
+        </li>
+      ))}
+    </ul>
+
+    {cta && (
+      <nav class="mt-12 flex justify-center">
+        <Button href={cta.href} variant="outline">
+          {cta.label}
+        </Button>
+      </nav>
+    )}
+  </div>
+</section>
