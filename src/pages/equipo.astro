@@ -2,184 +2,253 @@
 import PageLayout from '../layouts/PageLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import Section from '../components/ui/Section.astro';
+import TeamMemberProfile from '../components/ui/TeamMemberProfile.astro';
 import TeamMemberCard from '../components/ui/TeamMemberCard.astro';
 import CtaBanner from '../components/sections/CtaBanner.astro';
 
-// Equipo fundador
-const founders = [
+// Estructura organizacional
+// Dirección -> Coordinador General -> Programas y Proyectos / Fortalecimiento Organizacional / Comunicaciones y Alianzas
+
+// Dirección
+const direccion = {
+  name: 'Jheison',
+  role: 'Director',
+  area: 'Dirección',
+  image: { src: '/images/team/Jheison.png', alt: 'Jheison - Director de Youngers in Action' },
+  quote: 'Agrega aquí tu frase o visión...',
+  socials: [
+    { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
+    { platform: 'instagram' as const, url: 'https://instagram.com/' },
+  ],
+  featured: true,
+};
+
+// Coordinación General
+const coordinacionGeneral = {
+  name: 'Daisy',
+  role: 'Coordinadora General',
+  area: 'Coordinación General',
+  image: { src: '/images/team/Fundadora.webp', alt: 'Daisy - Coordinadora General y Fundadora' },
+  quote: 'Agrega aquí tu frase o visión...',
+  badges: ['Fundadora', 'Mentora'],
+  socials: [
+    { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
+    { platform: 'instagram' as const, url: 'https://instagram.com/' },
+  ],
+  featured: true,
+};
+
+// Áreas de coordinación
+const areasCoordinacion = [
   {
-    name: 'Nombre del Fundador/a',
-    role: 'Fundador/a & Director/a General',
-    image: { src: '/images/team/founder-1.jpg', alt: 'Fundador/a de Youngers in Action' },
-    bio: 'Joven líder comprometido/a con el desarrollo juvenil y los ODS. Impulsor/a de EmpoderArLAS y la visión de que ninguna juventud se quede atrás.',
+    name: 'Alex',
+    role: 'Coordinador',
+    area: 'Programas y Proyectos',
+    image: { src: '/images/team/alex.webp', alt: 'Alex - Coordinador de Programas y Proyectos' },
+    quote: 'Agrega aquí tu frase o visión...',
     socials: [
       { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
-      { platform: 'instagram' as const, url: 'https://instagram.com/' },
     ],
-    featured: true,
   },
   {
-    name: 'Nombre del Cofundador/a',
-    role: 'Cofundador/a & Coordinación de Proyectos',
-    image: { src: '/images/team/founder-2.jpg', alt: 'Cofundador/a de Youngers in Action' },
-    bio: 'Especialista en diseño de programas educativos y gestión de voluntariado. Lidera la implementación de EmpoderArLAS en territorio.',
-    socials: [
-      { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
-    ],
-    featured: true,
+    name: 'Por Elegir',
+    role: 'Coordinador/a',
+    area: 'Fortalecimiento Organizacional',
+    quote: 'Próximamente...',
+  },
+  {
+    name: 'Por Elegir',
+    role: 'Coordinador/a',
+    area: 'Comunicaciones y Alianzas',
+    quote: 'Próximamente...',
   },
 ];
 
-// Equipo de coordinación
-const coordinators = [
+// Mentores
+const mentores = [
   {
-    name: 'Coordinador/a de Voluntariado',
-    role: 'Coordinación de Voluntariado',
-    image: { src: '/images/team/coord-1.jpg', alt: 'Coordinador/a de Voluntariado' },
-    bio: 'Gestiona la red de mentores y facilita la experiencia del voluntariado juvenil.',
-    socials: [
-      { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
-    ],
+    name: 'Wildo',
+    role: 'Mentor',
+    image: { src: '/images/team/wildo.webp', alt: 'Wildo - Mentor' },
+    bio: 'Agrega aquí una breve descripción o frase...',
   },
   {
-    name: 'Coordinador/a de Comunicaciones',
-    role: 'Comunicaciones & Redes',
-    image: { src: '/images/team/coord-2.jpg', alt: 'Coordinador/a de Comunicaciones' },
-    bio: 'Responsable de la estrategia digital y difusión del impacto de YIA.',
-    socials: [
-      { platform: 'instagram' as const, url: 'https://instagram.com/' },
-    ],
-  },
-  {
-    name: 'Coordinador/a Pedagógico',
-    role: 'Diseño Metodológico',
-    image: { src: '/images/team/coord-3.jpg', alt: 'Coordinador/a Pedagógico' },
-    bio: 'Desarrolla los contenidos y metodologías de EmpoderArLAS.',
-    socials: [
-      { platform: 'linkedin' as const, url: 'https://linkedin.com/in/' },
-    ],
-  },
-];
-
-// Mentores voluntarios activos
-const mentors = [
-  {
-    name: 'Mentor/a 1',
-    role: 'Mentor Voluntario',
-    image: { src: '/images/team/mentor-1.jpg', alt: 'Mentor voluntario' },
-    bio: 'Estudiante universitario comprometido con el empoderamiento de escolares.',
-  },
-  {
-    name: 'Mentor/a 2',
-    role: 'Mentora Voluntaria',
-    image: { src: '/images/team/mentor-2.jpg', alt: 'Mentora voluntaria' },
-    bio: 'Facilitadora de talleres de liderazgo y autoestima.',
-  },
-  {
-    name: 'Mentor/a 3',
-    role: 'Mentor Voluntario',
-    image: { src: '/images/team/mentor-3.jpg', alt: 'Mentor voluntario' },
-    bio: 'Especialista en dinámicas grupales y educación financiera.',
-  },
-  {
-    name: 'Mentor/a 4',
-    role: 'Mentora Voluntaria',
-    image: { src: '/images/team/mentor-4.jpg', alt: 'Mentora voluntaria' },
-    bio: 'Apasionada por la educación con enfoque de género.',
-  },
-  {
-    name: 'Mentor/a 5',
-    role: 'Mentor Voluntario',
-    image: { src: '/images/team/mentor-5.jpg', alt: 'Mentor voluntario' },
-    bio: 'Joven líder comprometido con el desarrollo comunitario.',
-  },
-  {
-    name: 'Mentor/a 6',
-    role: 'Mentora Voluntaria',
-    image: { src: '/images/team/mentor-6.jpg', alt: 'Mentora voluntaria' },
-    bio: 'Facilitadora de espacios seguros para el aprendizaje.',
+    name: 'Daisy',
+    role: 'Mentora',
+    image: { src: '/images/team/Fundadora.webp', alt: 'Daisy - Mentora' },
+    bio: 'Fundadora y mentora comprometida con el empoderamiento juvenil.',
+    badges: ['Fundadora'],
   },
 ];
 
 // Valores del equipo
 const teamValues = [
   {
-    icon: '🌟',
-    title: 'Juventud al frente',
-    description: 'Liderado por y para jóvenes, con voz y decisión en cada proceso.',
+    icon: '🎯',
+    title: 'Liderazgo juvenil',
+    description: 'Jóvenes liderando para jóvenes, impulsando el cambio desde nuestra generación.',
   },
   {
     icon: '🤝',
-    title: 'Colaboración horizontal',
-    description: 'Trabajamos en equipo, valorando cada aporte y perspectiva.',
+    title: 'Trabajo colaborativo',
+    description: 'Unidos por un propósito común, construimos juntos el futuro.',
   },
   {
-    icon: '📚',
-    title: 'Aprendizaje continuo',
-    description: 'Cada proyecto es una oportunidad para crecer juntos.',
+    icon: '💡',
+    title: 'Innovación social',
+    description: 'Creamos soluciones creativas para los desafíos de nuestra comunidad.',
   },
   {
     icon: '💛',
     title: 'Compromiso con el impacto',
-    description: 'Cada acción está orientada a generar cambio real.',
+    description: 'Cada acción está orientada a generar cambio real y medible.',
   },
 ];
 ---
 
 <PageLayout
   title="Nuestro Equipo - Youngers in Action"
-  description="Conoce al equipo de jóvenes líderes que impulsa EmpoderArLAS y trabaja para que ninguna juventud se quede atrás."
+  description="Conoce al equipo de jóvenes líderes que impulsa Youngers in Action y trabaja para que ninguna juventud se quede atrás."
 >
   <!-- Hero -->
   <Hero
-    title="El equipo detrás del cambio"
-    subtitle="Somos un equipo 100% juvenil comprometido con el empoderamiento de las nuevas generaciones. Conoce a quienes hacen posible que ninguna juventud se quede atrás."
+    title="Nuestro Equipo"
+    subtitle="Conoce a las personas que hacen posible Youngers in Action. Un equipo comprometido con el empoderamiento y desarrollo de las juventudes."
     size="md"
     align="center"
   />
 
-  <!-- Stats del equipo -->
-  <section class="bg-primary-400 py-12" data-reveal>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <dl class="grid grid-cols-2 gap-8 text-center md:grid-cols-4">
-        <div>
-          <dt class="text-sm font-medium uppercase tracking-wide text-neutral-800">Edad promedio</dt>
-          <dd class="mt-2 font-display text-4xl font-bold text-neutral-900">22</dd>
-          <dd class="text-sm text-neutral-700">años</dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium uppercase tracking-wide text-neutral-800">Mentores activos</dt>
-          <dd class="mt-2 font-display text-4xl font-bold text-neutral-900">6</dd>
-          <dd class="text-sm text-neutral-700">voluntarios</dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium uppercase tracking-wide text-neutral-800">Horas donadas</dt>
-          <dd class="mt-2 font-display text-4xl font-bold text-neutral-900">+200</dd>
-          <dd class="text-sm text-neutral-700">en 2024</dd>
-        </div>
-        <div>
-          <dt class="text-sm font-medium uppercase tracking-wide text-neutral-800">Escolares impactados</dt>
-          <dd class="mt-2 font-display text-4xl font-bold text-neutral-900">35</dd>
-          <dd class="text-sm text-neutral-700">por mentor</dd>
-        </div>
-      </dl>
-    </div>
-  </section>
-
-  <!-- Valores del equipo -->
+  <!-- Organigrama visual simple -->
   <Section background="white" spacing="lg">
     <div class="text-center" data-reveal>
-      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
-        Cómo trabajamos
+      <span class="inline-block rounded-full bg-neutral-100 px-4 py-1 text-sm font-medium text-neutral-700">
+        Estructura Organizacional
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Cómo nos organizamos
+      </h2>
+    </div>
+
+    <!-- Organigrama simplificado -->
+    <div class="mt-12 flex flex-col items-center gap-4" data-reveal>
+      <!-- Dirección -->
+      <div class="rounded-xl bg-primary-400 px-6 py-3 font-semibold text-neutral-900 shadow-lg">
+        Dirección
+      </div>
+      <div class="h-8 w-0.5 bg-neutral-300"></div>
+
+      <!-- Coordinación General -->
+      <div class="rounded-xl bg-secondary-400 px-6 py-3 font-semibold text-white shadow-lg">
+        Coordinación General
+      </div>
+      <div class="h-8 w-0.5 bg-neutral-300"></div>
+
+      <!-- Áreas -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="rounded-xl bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 ring-1 ring-neutral-200">
+          Programas y Proyectos
+        </div>
+        <div class="rounded-xl bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 ring-1 ring-neutral-200">
+          Fortalecimiento Organizacional
+        </div>
+        <div class="rounded-xl bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 ring-1 ring-neutral-200">
+          Comunicaciones y Alianzas
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Dirección -->
+  <Section background="gray" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-block rounded-full bg-primary-100 px-4 py-1 text-sm font-medium text-primary-700">
+        Dirección
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Liderazgo de la organización
+      </h2>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-4xl" data-reveal>
+      <TeamMemberProfile {...direccion} imagePosition="left" />
+    </div>
+  </Section>
+
+  <!-- Coordinación General -->
+  <Section background="white" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-block rounded-full bg-secondary-100 px-4 py-1 text-sm font-medium text-secondary-700">
+        Coordinación General
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Gestión y estrategia
+      </h2>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-4xl" data-reveal>
+      <TeamMemberProfile {...coordinacionGeneral} imagePosition="right" />
+    </div>
+  </Section>
+
+  <!-- Áreas de Coordinación -->
+  <Section background="gray" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-block rounded-full bg-accent-100 px-4 py-1 text-sm font-medium text-accent-700">
+        Áreas
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Coordinaciones de área
       </h2>
       <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Nuestro equipo se rige por valores que guían cada acción y decisión.
+        Cada área trabaja de manera coordinada para lograr nuestros objetivos.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-4xl space-y-8" data-reveal-stagger>
+      {areasCoordinacion.map((member, index) => (
+        <TeamMemberProfile
+          {...member}
+          imagePosition={index % 2 === 0 ? 'left' : 'right'}
+        />
+      ))}
+    </div>
+  </Section>
+
+  <!-- Mentores -->
+  <Section background="white" spacing="lg">
+    <div class="text-center" data-reveal>
+      <span class="inline-block rounded-full bg-primary-100 px-4 py-1 text-sm font-medium text-primary-700">
+        Mentoría
+      </span>
+      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Nuestros Mentores
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Personas comprometidas que guían y acompañan el crecimiento de nuestra organización.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 grid max-w-3xl gap-8 sm:grid-cols-2" data-reveal-stagger>
+      {mentores.map((mentor) => (
+        <TeamMemberCard {...mentor} />
+      ))}
+    </div>
+  </Section>
+
+  <!-- Valores del equipo -->
+  <Section background="gray" spacing="lg">
+    <div class="text-center" data-reveal>
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
+        Nuestros valores
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
+        Los principios que guían nuestro trabajo diario.
       </p>
     </div>
 
     <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
       {teamValues.map((value) => (
-        <div class="rounded-xl bg-neutral-50 p-6 text-center ring-1 ring-neutral-200 hover-lift">
+        <div class="rounded-xl bg-white p-6 text-center ring-1 ring-neutral-200 hover-lift">
           <span class="text-4xl" aria-hidden="true">{value.icon}</span>
           <h3 class="mt-4 font-display text-lg font-bold text-neutral-900">{value.title}</h3>
           <p class="mt-2 text-sm text-neutral-600">{value.description}</p>
@@ -188,139 +257,12 @@ const teamValues = [
     </div>
   </Section>
 
-  <!-- Equipo fundador -->
-  <Section background="gray" spacing="lg">
-    <div class="text-center" data-reveal>
-      <span class="inline-block rounded-full bg-primary-100 px-4 py-1 text-sm font-medium text-primary-700">
-        Liderazgo
-      </span>
-      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
-        Equipo fundador
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Los jóvenes visionarios que dieron vida a Youngers in Action y lideran la misión de empoderar juventudes.
-      </p>
-    </div>
-
-    <div class="mx-auto mt-12 grid max-w-4xl gap-8 sm:grid-cols-2" data-reveal-stagger>
-      {founders.map((member) => (
-        <TeamMemberCard {...member} />
-      ))}
-    </div>
-  </Section>
-
-  <!-- Equipo de coordinación -->
-  <Section background="white" spacing="lg">
-    <div class="text-center" data-reveal>
-      <span class="inline-block rounded-full bg-secondary-100 px-4 py-1 text-sm font-medium text-secondary-700">
-        Coordinación
-      </span>
-      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
-        Equipo de coordinación
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Jóvenes que lideran las áreas clave para el funcionamiento de nuestros programas.
-      </p>
-    </div>
-
-    <div class="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-      {coordinators.map((member) => (
-        <TeamMemberCard {...member} />
-      ))}
-    </div>
-  </Section>
-
-  <!-- Mentores voluntarios -->
-  <Section background="gray" spacing="lg">
-    <div class="text-center" data-reveal>
-      <span class="inline-block rounded-full bg-accent-100 px-4 py-1 text-sm font-medium text-accent-700">
-        Voluntariado
-      </span>
-      <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">
-        Mentores voluntarios
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Jóvenes universitarios que donan su tiempo para acompañar a escolares en su proceso de empoderamiento.
-      </p>
-    </div>
-
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-      {mentors.map((member) => (
-        <TeamMemberCard {...member} />
-      ))}
-    </div>
-
-    <div class="mt-12 text-center" data-reveal>
-      <p class="text-neutral-600">
-        ¿Quieres unirte como mentor/a voluntario/a?
-      </p>
-      <a
-        href="/voluntariado"
-        class="mt-4 inline-flex items-center gap-2 rounded-full bg-primary-400 px-6 py-3 font-semibold text-neutral-900 transition-all hover:bg-primary-500 hover:shadow-lg press-effect"
-      >
-        Postula ahora
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14"/>
-          <path d="m12 5 7 7-7 7"/>
-        </svg>
-      </a>
-    </div>
-  </Section>
-
-  <!-- Sección de reconocimiento -->
-  <Section background="white" spacing="lg">
-    <div class="mx-auto max-w-4xl" data-reveal>
-      <div class="rounded-2xl bg-gradient-to-br from-secondary-50 to-primary-50 p-8 md:p-12">
-        <div class="text-center">
-          <span class="text-5xl">🏆</span>
-          <h2 class="mt-4 font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
-            Reconocimientos del equipo
-          </h2>
-          <p class="mt-4 text-neutral-600">
-            Nuestro trabajo ha sido reconocido por instituciones comprometidas con el desarrollo juvenil.
-          </p>
-        </div>
-
-        <div class="mt-8 grid gap-4 sm:grid-cols-2">
-          <div class="rounded-xl bg-white/80 p-5 ring-1 ring-neutral-200">
-            <p class="text-sm font-medium text-secondary-600">SENAJU 2024</p>
-            <p class="mt-1 font-display font-semibold text-neutral-900">
-              Organización juvenil reconocida
-            </p>
-            <p class="mt-2 text-sm text-neutral-600">
-              Registro oficial como organización de voluntariado juvenil ante la Secretaría Nacional de la Juventud.
-            </p>
-          </div>
-          <div class="rounded-xl bg-white/80 p-5 ring-1 ring-neutral-200">
-            <p class="text-sm font-medium text-secondary-600">Alianzas 2024</p>
-            <p class="mt-1 font-display font-semibold text-neutral-900">
-              Red de aliados estratégicos
-            </p>
-            <p class="mt-2 text-sm text-neutral-600">
-              Parte de la red de organizaciones juveniles junto a América Solidaria, YMCA, y más.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Únete al equipo CTA -->
+  <!-- CTA -->
   <CtaBanner
-    title="¿Quieres ser parte del cambio?"
+    title="¿Quieres ser parte del equipo?"
     description="Buscamos jóvenes comprometidos con el empoderamiento juvenil. No necesitas experiencia previa, solo ganas de aportar."
-    primaryCTA={{ label: 'Postula como voluntario/a', href: '/voluntariado' }}
-    secondaryCTA={{ label: 'Escríbenos', href: '/contacto' }}
+    primaryCTA={{ label: 'Únete como voluntario/a', href: '/voluntariado' }}
+    secondaryCTA={{ label: 'Contáctanos', href: '/contacto' }}
     background="secondary"
   />
-
-  <!-- Nota sobre datos -->
-  <Section background="gray" spacing="md">
-    <div class="mx-auto max-w-2xl text-center" data-reveal>
-      <p class="text-sm text-neutral-500">
-        Los nombres y fotografías mostrados son placeholders. Por protección de datos y privacidad de nuestro equipo juvenil,
-        los perfiles reales se actualizarán con consentimiento de cada integrante.
-      </p>
-    </div>
-  </Section>
 </PageLayout>

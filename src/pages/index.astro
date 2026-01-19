@@ -79,12 +79,17 @@ const logos = [
   title="Youngers in Action - Empoderando juventudes para que nadie quede atrás"
   description="ONG juvenil en Lima, Perú. Empoderamos a escolares de 10-12 años a través de EmpoderArLAS, programa alineado con los ODS y SENAJU."
 >
-  <!-- 1. Hero -->
+  <!-- 1. Hero con slideshow de imágenes -->
   <Hero
     title="Empoderamos a las juventudes de hoy para que nadie se quede atrás mañana"
     subtitle="Somos una ONG juvenil que transforma realidades a través de programas de empoderamiento para escolares en Lima, Perú."
     primaryCTA={{ label: 'Conoce EmpoderArLAS', href: '/proyectos/empoderarlas' }}
     secondaryCTA={{ label: 'Sé voluntario', href: '/voluntariado' }}
+    images={[
+      { src: '/images/fondo_de_inicio.png', alt: 'Voluntarios de Youngers in Action' },
+      { src: '/images/fondo_de_inicio_2.png', alt: 'Equipo de voluntariado en acción' },
+    ]}
+    slideInterval={5000}
     size="lg"
     align="center"
   />

@@ -18,6 +18,8 @@ interface Props {
   title: string;
   subtitle?: string;
   image?: Image;
+  images?: Image[];
+  slideInterval?: number;
   overlay?: boolean;
   align?: Align;
   primaryCTA?: CTA;
@@ -29,6 +31,8 @@ const {
   title,
   subtitle,
   image,
+  images,
+  slideInterval = 5000,
   overlay = true,
   align = 'center',
   primaryCTA,
@@ -52,6 +56,9 @@ const contentAlignStyles: Record<Align, string> = {
   left: 'items-start',
   center: 'items-center',
 };
+
+const hasSlideshow = images && images.length > 1;
+const allImages = images || (image ? [image] : []);
 ---
 
 <section
@@ -60,32 +67,46 @@ const contentAlignStyles: Record<Align, string> = {
     sizeStyles[size],
   ]}
 >
-  {image && (
-    <picture class="absolute inset-0 -z-10">
-      <img
-        src={image.src}
-        alt={image.alt}
-        class="h-full w-full object-cover"
-        loading="eager"
-        decoding="async"
-      />
-    </picture>
+  {/* Slideshow de imágenes */}
+  {allImages.length > 0 && (
+    <div class="hero-slideshow absolute inset-0 -z-10">
+      {allImages.map((img, index) => (
+        <picture
+          class:list={[
+            'hero-slide absolute inset-0 transition-opacity duration-1000',
+            index === 0 ? 'opacity-100' : 'opacity-0'
+          ]}
+          data-slide-index={index}
+        >
+          <img
+            src={img.src}
+            alt={img.alt}
+            class="h-full w-full object-cover"
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </picture>
+      ))}
+    </div>
   )}
 
-  {image && overlay && (
+  {/* Overlay */}
+  {allImages.length > 0 && overlay && (
     <div
       class="absolute inset-0 -z-10 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/70"
       aria-hidden="true"
     />
   )}
 
-  {!image && (
+  {/* Fondo degradado si no hay imágenes */}
+  {allImages.length === 0 && (
     <div
       class="absolute inset-0 -z-10 bg-gradient-to-br from-secondary-900 via-secondary-800 to-neutral-900"
       aria-hidden="true"
     />
   )}
 
+  {/* Contenido */}
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
     <div
       class:list={[
@@ -134,4 +155,69 @@ const contentAlignStyles: Record<Align, string> = {
       <slot />
     </div>
   </div>
+
+  {/* Indicadores del slideshow */}
+  {hasSlideshow && (
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+      {allImages.map((_, index) => (
+        <button
+          type="button"
+          class:list={[
+            'hero-indicator h-2 w-8 rounded-full transition-all duration-300',
+            index === 0 ? 'bg-white' : 'bg-white/40 hover:bg-white/60'
+          ]}
+          data-indicator-index={index}
+          aria-label={`Ir a imagen ${index + 1}`}
+        />
+      ))}
+    </div>
+  )}
 </section>
+
+{hasSlideshow && (
+  <script define:vars={{ slideInterval, totalSlides: allImages.length }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      const slides = document.querySelectorAll('.hero-slide');
+      const indicators = document.querySelectorAll('.hero-indicator');
+      let currentSlide = 0;
+      let intervalId;
+
+      function showSlide(index) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle('opacity-100', i === index);
+          slide.classList.toggle('opacity-0', i !== index);
+        });
+        indicators.forEach((indicator, i) => {
+          indicator.classList.toggle('bg-white', i === index);
+          indicator.classList.toggle('bg-white/40', i !== index);
+        });
+        currentSlide = index;
+      }
+
+      function nextSlide() {
+        const next = (currentSlide + 1) % totalSlides;
+        showSlide(next);
+      }
+
+      function startAutoplay() {
+        intervalId = setInterval(nextSlide, slideInterval);
+      }
+
+      function resetAutoplay() {
+        clearInterval(intervalId);
+        startAutoplay();
+      }
+
+      // Click en indicadores
+      indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+          showSlide(index);
+          resetAutoplay();
+        });
+      });
+
+      // Iniciar autoplay
+      startAutoplay();
+    });
+  </script>
+)}
