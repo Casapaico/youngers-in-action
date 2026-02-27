@@ -1,0 +1,93 @@
+---
+interface Section {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  sections: Section[];
+}
+
+const { sections } = Astro.props;
+---
+
+<nav
+  class="dot-navigation fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-4 lg:flex"
+  aria-label="Navegación por secciones"
+>
+  {sections.map((section, i) => (
+    <button
+      class="dot-nav-item group relative flex items-center justify-end"
+      data-section={section.id}
+      aria-label={`Ir a ${section.label}`}
+    >
+      <!-- Label tooltip -->
+      <span class="mr-4 whitespace-nowrap rounded-full bg-neutral-900/80 px-3 py-1 text-xs font-medium text-white opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100">
+        {section.label}
+      </span>
+      <!-- Dot -->
+      <span
+        class="dot block h-2.5 w-2.5 rounded-full bg-white/40 transition-all duration-300"
+        aria-hidden="true"
+      />
+    </button>
+  ))}
+</nav>
+
+<script>
+  function initDotNavigation() {
+    const nav = document.querySelector('.dot-navigation');
+    if (!nav) return;
+
+    const dots = nav.querySelectorAll('.dot-nav-item');
+    const container = document.querySelector('.fullpage-container') as HTMLElement;
+    if (!container) return;
+
+    // Click to scroll
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const sectionId = (dot as HTMLElement).dataset.section;
+        const target = document.getElementById(sectionId || '');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Intersection Observer to detect active section
+    const sections = container.querySelectorAll('.fullpage-section');
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            dots.forEach(dot => {
+              const dotEl = dot as HTMLElement;
+              const dotCircle = dotEl.querySelector('.dot') as HTMLElement;
+              if (dotEl.dataset.section === id) {
+                dotCircle.classList.remove('bg-white/40', 'h-2.5', 'w-2.5');
+                dotCircle.classList.add('bg-[#FFB800]', 'h-3.5', 'w-3.5');
+              } else {
+                dotCircle.classList.add('bg-white/40', 'h-2.5', 'w-2.5');
+                dotCircle.classList.remove('bg-[#FFB800]', 'h-3.5', 'w-3.5');
+              }
+            });
+          }
+        });
+      },
+      {
+        root: container,
+        threshold: 0.5,
+      }
+    );
+
+    sections.forEach(section => observer.observe(section));
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDotNavigation);
+  } else {
+    initDotNavigation();
+  }
+  document.addEventListener('astro:page-load', initDotNavigation);
+</script>

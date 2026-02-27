@@ -1,17 +1,10 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/ui/Section.astro';
-import Badge from '../components/ui/Badge.astro';
-import Button from '../components/ui/Button.astro';
+import MinimalLayout from '../layouts/MinimalLayout.astro';
 import OdsCard from '../components/ui/OdsCard.astro';
-import CtaBanner from '../components/sections/CtaBanner.astro';
 
-// ODS que trabaja Youngers in Action
 const odsData = [
   {
-    number: 4,
-    title: 'Educación de calidad',
-    color: '#C5192D',
+    number: 4, title: 'Educación de calidad', color: '#C5192D',
     descripcion: 'Garantizar una educación inclusiva, equitativa y de calidad, y promover oportunidades de aprendizaje durante toda la vida para todos.',
     comoContribuimos: [
       'EmpoderArLAS desarrolla habilidades blandas y liderazgo en escolares de 10-12 años',
@@ -20,16 +13,10 @@ const odsData = [
       'Capacitación a mentores voluntarios en técnicas pedagógicas innovadoras',
     ],
     meta: 'Meta 4.4: Aumentar las competencias para acceder al empleo, trabajo decente y emprendimiento',
-    impacto: {
-      valor: '35',
-      descripcion: 'escolares formados en habilidades de vida',
-    },
-    imagePlaceholder: '/images/ods/ods-4-educacion.jpg',
+    impacto: { valor: '35', descripcion: 'escolares formados en habilidades de vida' },
   },
   {
-    number: 5,
-    title: 'Igualdad de género',
-    color: '#FF3A21',
+    number: 5, title: 'Igualdad de género', color: '#FF3A21',
     descripcion: 'Lograr la igualdad entre los géneros y empoderar a todas las mujeres y las niñas.',
     comoContribuimos: [
       'EmpoderArLAS prioriza la participación equitativa de niñas y niños',
@@ -38,16 +25,10 @@ const odsData = [
       'Análisis de género en todas las propuestas generadas por participantes',
     ],
     meta: 'Meta 5.5: Asegurar la participación plena y efectiva de las mujeres en todos los niveles',
-    impacto: {
-      valor: '50%',
-      descripcion: 'de participantes son niñas empoderadas',
-    },
-    imagePlaceholder: '/images/ods/ods-5-genero.jpg',
+    impacto: { valor: '50%', descripcion: 'de participantes son niñas empoderadas' },
   },
   {
-    number: 3,
-    title: 'Salud y bienestar',
-    color: '#4C9F38',
+    number: 3, title: 'Salud y bienestar', color: '#4C9F38',
     descripcion: 'Garantizar una vida sana y promover el bienestar para todos en todas las edades.',
     comoContribuimos: [
       'Sesiones enfocadas en salud mental y bienestar emocional',
@@ -56,16 +37,10 @@ const odsData = [
       'Herramientas para identificar y comunicar estados emocionales',
     ],
     meta: 'Meta 3.4: Promover la salud mental y el bienestar',
-    impacto: {
-      valor: '85%',
-      descripcion: 'reportan mayor confianza en sí mismos',
-    },
-    imagePlaceholder: '/images/ods/ods-3-salud.jpg',
+    impacto: { valor: '85%', descripcion: 'reportan mayor confianza en sí mismos' },
   },
   {
-    number: 8,
-    title: 'Trabajo decente y crecimiento económico',
-    color: '#A21942',
+    number: 8, title: 'Trabajo decente y crecimiento económico', color: '#A21942',
     descripcion: 'Promover el crecimiento económico sostenido, inclusivo y sostenible, el empleo pleno y productivo y el trabajo decente para todos.',
     comoContribuimos: [
       'Educación financiera desde temprana edad para toma de decisiones informadas',
@@ -74,16 +49,10 @@ const odsData = [
       'Conexión con voluntarios profesionales que comparten experiencias laborales',
     ],
     meta: 'Meta 8.6: Reducir la proporción de jóvenes sin empleo ni formación',
-    impacto: {
-      valor: '12',
-      descripcion: 'iniciativas de emprendimiento generadas',
-    },
-    imagePlaceholder: '/images/ods/ods-8-trabajo.jpg',
+    impacto: { valor: '12', descripcion: 'iniciativas de emprendimiento generadas' },
   },
   {
-    number: 17,
-    title: 'Alianzas para lograr los objetivos',
-    color: '#19486A',
+    number: 17, title: 'Alianzas para lograr los objetivos', color: '#19486A',
     descripcion: 'Fortalecer los medios de implementación y revitalizar la Alianza Mundial para el Desarrollo Sostenible.',
     comoContribuimos: [
       'Alianza estratégica con SENAJU para articular esfuerzos juveniles',
@@ -92,382 +61,183 @@ const odsData = [
       'Red de voluntarios y mentores de diversas organizaciones',
     ],
     meta: 'Meta 17.17: Fomentar alianzas eficaces en las esferas pública, público-privada y de la sociedad civil',
-    impacto: {
-      valor: '10+',
-      descripcion: 'alianzas institucionales activas',
-    },
-    imagePlaceholder: '/images/ods/ods-17-alianzas.jpg',
+    impacto: { valor: '10+', descripcion: 'alianzas institucionales activas' },
   },
-];
-
-// Estadísticas globales de impacto ODS
-const statsOds = [
-  { valor: '5', label: 'ODS priorizados', icono: '🎯' },
-  { valor: '35', label: 'Beneficiarios directos', icono: '👥' },
-  { valor: '10+', label: 'Alianzas activas', icono: '🤝' },
-  { valor: '100%', label: 'Alineación con Agenda 2030', icono: '🌍' },
 ];
 ---
 
-<PageLayout
-  title="Objetivos de Desarrollo Sostenible - Youngers in Action"
+<MinimalLayout
+  title="Objetivos de Desarrollo Sostenible"
   description="Conoce cómo Youngers in Action contribuye a los ODS 3, 4, 5, 8 y 17. Trabajamos alineados con la Agenda 2030 y SENAJU."
+  headerVariant="dark"
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-neutral-900 via-secondary-900 to-neutral-900 py-20 md:py-28">
-    <!-- Patrón decorativo -->
+  <section class="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-900">
     <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <div class="absolute top-10 left-10 h-64 w-64 rounded-full bg-[#C5192D] blur-3xl"></div>
       <div class="absolute top-1/2 right-20 h-48 w-48 rounded-full bg-[#4C9F38] blur-3xl"></div>
       <div class="absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-[#19486A] blur-3xl"></div>
     </div>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <Badge variant="primary" size="lg" rounded>
-          Agenda 2030
-        </Badge>
+    <div class="relative z-10 mx-auto max-w-5xl px-6 text-center">
+      <span class="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Agenda 2030</span>
+      <h1 class="font-display text-4xl font-bold text-white sm:text-5xl lg:text-7xl" data-reveal>
+        Nuestro compromiso con los ODS
+      </h1>
+      <p class="mx-auto mt-6 max-w-3xl text-lg text-neutral-300 sm:text-xl" data-reveal style="--delay: 200ms">
+        Trabajamos alineados con los Objetivos de Desarrollo Sostenible de las Naciones Unidas y las prioridades de SENAJU para las juventudes peruanas.
+      </p>
 
-        <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
-          Nuestro compromiso con los <span class="text-primary-400">ODS</span>
-        </h1>
-
-        <p class="mx-auto mt-6 max-w-3xl text-lg text-neutral-300 sm:text-xl">
-          Trabajamos alineados con los Objetivos de Desarrollo Sostenible de las Naciones Unidas y las prioridades de SENAJU para las juventudes peruanas.
-        </p>
-
-        <!-- ODS Cards en miniatura -->
-        <div class="mt-10 flex flex-wrap justify-center gap-3">
-          {odsData.map((ods) => (
-            <a
-              href={`#ods-${ods.number}`}
-              class="flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white transition-transform hover:scale-110"
-              style={`background-color: ${ods.color};`}
-              aria-label={`Ir a ODS ${ods.number}: ${ods.title}`}
-            >
-              {ods.number}
-            </a>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats ODS -->
-  <section class="bg-white py-8 shadow-sm">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
-        {statsOds.map((stat) => (
-          <div class="text-center">
-            <span class="text-3xl">{stat.icono}</span>
-            <p class="mt-2 font-display text-3xl font-bold text-neutral-900">{stat.valor}</p>
-            <p class="text-sm text-neutral-600">{stat.label}</p>
-          </div>
+      <div class="mt-10 flex flex-wrap justify-center gap-3" data-reveal style="--delay: 400ms">
+        {odsData.map((ods) => (
+          <a
+            href={`#ods-${ods.number}`}
+            class="flex h-16 w-16 items-center justify-center rounded-xl text-2xl font-bold text-white transition-transform hover:scale-110"
+            style={`background-color: ${ods.color};`}
+            aria-label={`Ir a ODS ${ods.number}: ${ods.title}`}
+          >
+            {ods.number}
+          </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Qué son los ODS -->
-  <Section background="gray" spacing="lg">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <Badge variant="secondary" size="sm">Contexto global</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          ¿Qué son los ODS?
-        </h2>
-        <p class="mt-4 text-lg text-neutral-600 leading-relaxed">
-          Los Objetivos de Desarrollo Sostenible (ODS) son 17 metas globales adoptadas por las Naciones Unidas en 2015 como parte de la Agenda 2030. Representan un llamado universal a la acción para erradicar la pobreza, proteger el planeta y garantizar paz y prosperidad para todos.
-        </p>
-        <p class="mt-4 text-neutral-600">
-          En Youngers in Action, hemos priorizado <strong>5 ODS</strong> donde las juventudes pueden generar el mayor impacto a través de nuestros programas de empoderamiento.
-        </p>
-
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a href="https://www.un.org/sustainabledevelopment/es/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full bg-neutral-100 px-4 py-2 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200">
-            <span>Más sobre los ODS</span>
-            <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-            </svg>
-          </a>
+  <!-- Stats -->
+  <section class="bg-white py-12 shadow-sm">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="grid grid-cols-2 gap-6 text-center md:grid-cols-4" data-reveal-stagger>
+        <div>
+          <p class="font-display text-4xl font-bold text-neutral-900">5</p>
+          <p class="mt-1 text-sm text-neutral-600">ODS priorizados</p>
+        </div>
+        <div>
+          <p class="font-display text-4xl font-bold text-neutral-900">35</p>
+          <p class="mt-1 text-sm text-neutral-600">Beneficiarios directos</p>
+        </div>
+        <div>
+          <p class="font-display text-4xl font-bold text-neutral-900">10+</p>
+          <p class="mt-1 text-sm text-neutral-600">Alianzas activas</p>
+        </div>
+        <div>
+          <p class="font-display text-4xl font-bold text-neutral-900">100%</p>
+          <p class="mt-1 text-sm text-neutral-600">Alineación Agenda 2030</p>
         </div>
       </div>
-
-      <!-- Placeholder para imagen/gráfico de los ODS -->
-      <figure class="relative">
-        <div class="aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-200 to-neutral-100 ring-1 ring-neutral-200">
-          <!-- PLACEHOLDER: Imagen de los 17 ODS o infografía -->
-          <img
-            src="/images/ods/ods-wheel.png"
-            alt="Rueda de los 17 Objetivos de Desarrollo Sostenible"
-            class="h-full w-full object-contain p-4"
-            loading="lazy"
-          />
-          <!-- Si no hay imagen, mostrar placeholder -->
-          <div class="absolute inset-0 flex items-center justify-center bg-neutral-100/80 backdrop-blur-sm" id="ods-wheel-placeholder">
-            <div class="text-center p-6">
-              <span class="text-4xl">🌍</span>
-              <p class="mt-2 text-sm text-neutral-500">Espacio para imagen/gráfico</p>
-              <p class="text-xs text-neutral-400">Rueda ODS o infografía</p>
-            </div>
-          </div>
-        </div>
-        <figcaption class="mt-3 text-center text-sm text-neutral-500">
-          Los 17 Objetivos de Desarrollo Sostenible de la ONU
-        </figcaption>
-      </figure>
     </div>
-  </Section>
+  </section>
 
-  <!-- Cada ODS en detalle -->
+  <!-- Each ODS in split-screen alternating -->
   {odsData.map((ods, index) => (
-    <Section
-      id={`ods-${ods.number}`}
-      background={index % 2 === 0 ? 'white' : 'gray'}
-      spacing="xl"
-    >
-      <div class:list={[
-        'grid items-center gap-12 lg:grid-cols-2',
-        index % 2 !== 0 && 'lg:grid-flow-dense'
-      ]}>
-        <!-- Contenido -->
-        <div class:list={[index % 2 !== 0 && 'lg:col-start-2']}>
-          <div class="flex items-center gap-4">
-            <span
-              class="flex h-16 w-16 items-center justify-center rounded-xl text-3xl font-bold text-white"
-              style={`background-color: ${ods.color};`}
-            >
-              {ods.number}
-            </span>
-            <div>
-              <Badge
-                size="sm"
-                class="text-white"
-                style={`background-color: ${ods.color}; border-color: ${ods.color};`}
-              >
-                ODS {ods.number}
-              </Badge>
-              <h2 class="mt-1 font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
-                {ods.title}
-              </h2>
-            </div>
+    <section id={`ods-${ods.number}`} class:list={['min-h-screen', index % 2 === 0 ? 'bg-white' : 'bg-neutral-50']}>
+      <div class:list={['split-section min-h-screen', index % 2 !== 0 && 'direction-rtl']}>
+        <!-- Color side -->
+        <div
+          class:list={[
+            'flex flex-col justify-center px-8 py-16 md:px-16',
+            index % 2 !== 0 && 'order-2 md:order-none',
+          ]}
+          style={`background-color: ${ods.color};`}
+        >
+          <span class="font-display text-8xl font-bold text-white/20">{ods.number}</span>
+          <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">{ods.title}</h2>
+          <p class="mt-4 text-lg text-white/80">{ods.descripcion}</p>
+          <div class="mt-8 rounded-xl bg-white/10 p-4 backdrop-blur">
+            <p class="text-sm font-medium text-white/90">{ods.meta}</p>
           </div>
-
-          <p class="mt-6 text-lg text-neutral-600 leading-relaxed">
-            {ods.descripcion}
-          </p>
-
-          <div class="mt-6 rounded-xl p-4" style={`background-color: ${ods.color}15;`}>
-            <p class="text-sm font-medium" style={`color: ${ods.color};`}>
-              {ods.meta}
-            </p>
-          </div>
-
-          <div class="mt-6">
-            <h3 class="font-display text-lg font-semibold text-neutral-900">
-              ¿Cómo contribuimos desde YIA?
-            </h3>
-            <ul class="mt-4 space-y-3">
-              {ods.comoContribuimos.map((item) => (
-                <li class="flex items-start gap-3">
-                  <span
-                    class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-white text-xs"
-                    style={`background-color: ${ods.color};`}
-                  >
-                    ✓
-                  </span>
-                  <span class="text-neutral-600">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <!-- Stat de impacto -->
-          <div class="mt-8 inline-flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-neutral-200">
-            <div
-              class="flex h-14 w-14 items-center justify-center rounded-xl text-white"
-              style={`background-color: ${ods.color};`}
-            >
-              <span class="font-display text-xl font-bold">{ods.impacto.valor}</span>
-            </div>
-            <div>
-              <p class="text-sm text-neutral-500">Nuestro impacto</p>
-              <p class="font-medium text-neutral-900">{ods.impacto.descripcion}</p>
-            </div>
+          <div class="mt-6 flex items-center gap-4">
+            <span class="font-display text-4xl font-bold text-white">{ods.impacto.valor}</span>
+            <span class="text-sm text-white/80">{ods.impacto.descripcion}</span>
           </div>
         </div>
 
-        <!-- Imagen/Gráfico placeholder -->
-        <figure class:list={[
-          'relative',
-          index % 2 !== 0 && 'lg:col-start-1'
-        ]}>
-          <div class="aspect-[4/3] overflow-hidden rounded-2xl ring-1 ring-neutral-200" style={`background: linear-gradient(135deg, ${ods.color}20, ${ods.color}05);`}>
-            <!-- PLACEHOLDER: Imagen específica del ODS -->
-            <img
-              src={ods.imagePlaceholder}
-              alt={`Youngers in Action trabajando en ODS ${ods.number}: ${ods.title}`}
-              class="h-full w-full object-cover"
-              loading="lazy"
-            />
-            <!-- Placeholder visual si no hay imagen -->
-            <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm">
-              <div
-                class="flex h-24 w-24 items-center justify-center rounded-2xl text-5xl font-bold text-white"
-                style={`background-color: ${ods.color};`}
-              >
-                {ods.number}
-              </div>
-              <p class="mt-4 text-lg font-semibold text-neutral-700">{ods.title}</p>
-              <p class="mt-2 text-sm text-neutral-400">Espacio para imagen o gráfico</p>
-              <p class="text-xs text-neutral-400">Dimensiones sugeridas: 800x600px</p>
-            </div>
-          </div>
-          <figcaption class="mt-3 text-center text-sm text-neutral-500">
-            Actividades relacionadas con ODS {ods.number}
-          </figcaption>
-        </figure>
+        <!-- Content side -->
+        <div
+          class:list={[
+            'flex flex-col justify-center px-8 py-16 md:px-16',
+            index % 2 !== 0 && 'order-1 md:order-none',
+          ]}
+        >
+          <h3 class="font-display text-xl font-semibold text-neutral-900" data-reveal>
+            ¿Cómo contribuimos desde YIA?
+          </h3>
+          <ul class="mt-6 space-y-4" data-reveal-stagger>
+            {ods.comoContribuimos.map((item) => (
+              <li class="flex items-start gap-3">
+                <span
+                  class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs text-white"
+                  style={`background-color: ${ods.color};`}
+                >
+                  ✓
+                </span>
+                <span class="text-neutral-600">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
-    </Section>
+    </section>
   ))}
 
-  <!-- Sección de Gráfico de Impacto General -->
-  <Section background="secondary" spacing="xl">
-    <div class="text-center text-white">
-      <Badge variant="primary" size="sm">Medición de impacto</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-        Nuestro impacto en números
+  <!-- Impact Numbers -->
+  <section class="bg-neutral-900 py-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Medición de impacto</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">Nuestro impacto en números</h2>
+      </div>
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur">
+          <p class="font-display text-4xl font-bold text-[#FFB800]">35</p>
+          <p class="mt-1 text-sm text-white/80">Escolares impactados</p>
+        </div>
+        <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur">
+          <p class="font-display text-4xl font-bold text-[#FFB800]">85%</p>
+          <p class="mt-1 text-sm text-white/80">Participación activa</p>
+        </div>
+        <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur">
+          <p class="font-display text-4xl font-bold text-[#FFB800]">12</p>
+          <p class="mt-1 text-sm text-white/80">Iniciativas generadas</p>
+        </div>
+        <div class="rounded-xl bg-white/10 p-6 text-center backdrop-blur">
+          <p class="font-display text-4xl font-bold text-[#FFB800]">67.7%</p>
+          <p class="mt-1 text-sm text-white/80">Propuestas personales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-[#FFB800] py-20">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>
+        Sé parte del cambio que el mundo necesita
       </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-secondary-100">
-        Medimos y reportamos el progreso de nuestras intervenciones alineadas con los ODS.
-      </p>
-    </div>
-
-    <!-- Placeholder para gráficos de impacto -->
-    <div class="mt-12 grid gap-8 md:grid-cols-2">
-      <!-- Gráfico 1: Distribución por ODS -->
-      <div class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-        <h3 class="font-display text-lg font-semibold text-white">Distribución de impacto por ODS</h3>
-        <div class="mt-6 aspect-square rounded-xl bg-white/5 flex items-center justify-center">
-          <!-- PLACEHOLDER: Gráfico de pastel o radar -->
-          <div class="text-center p-6">
-            <span class="text-5xl">📊</span>
-            <p class="mt-4 text-white/80">Espacio para gráfico</p>
-            <p class="text-sm text-white/60">Gráfico circular o de radar</p>
-            <p class="text-xs text-white/40 mt-2">Mostrar % de actividades por ODS</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Gráfico 2: Progreso temporal -->
-      <div class="rounded-2xl bg-white/10 p-6 backdrop-blur">
-        <h3 class="font-display text-lg font-semibold text-white">Evolución del impacto 2024</h3>
-        <div class="mt-6 aspect-square rounded-xl bg-white/5 flex items-center justify-center">
-          <!-- PLACEHOLDER: Gráfico de líneas o barras -->
-          <div class="text-center p-6">
-            <span class="text-5xl">📈</span>
-            <p class="mt-4 text-white/80">Espacio para gráfico</p>
-            <p class="text-sm text-white/60">Gráfico de líneas o barras</p>
-            <p class="text-xs text-white/40 mt-2">Mostrar progreso mensual/trimestral</p>
-          </div>
-        </div>
+      <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 200ms">
+        <a href="/voluntariado" class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-8 py-3.5 font-semibold text-white transition-all hover:bg-neutral-800">
+          Quiero ser voluntario
+        </a>
+        <a href="/proyectos/empoderarlas" class="inline-flex items-center justify-center rounded-full border-2 border-neutral-900/30 px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:border-neutral-900">
+          Conoce EmpoderArLAS
+        </a>
       </div>
     </div>
-
-    <!-- Datos clave -->
-    <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="rounded-xl bg-white/10 p-5 text-center backdrop-blur">
-        <p class="font-display text-4xl font-bold text-primary-400">35</p>
-        <p class="mt-1 text-sm text-white/80">Escolares impactados</p>
-      </div>
-      <div class="rounded-xl bg-white/10 p-5 text-center backdrop-blur">
-        <p class="font-display text-4xl font-bold text-primary-400">85%</p>
-        <p class="mt-1 text-sm text-white/80">Participación activa</p>
-      </div>
-      <div class="rounded-xl bg-white/10 p-5 text-center backdrop-blur">
-        <p class="font-display text-4xl font-bold text-primary-400">12</p>
-        <p class="mt-1 text-sm text-white/80">Iniciativas generadas</p>
-      </div>
-      <div class="rounded-xl bg-white/10 p-5 text-center backdrop-blur">
-        <p class="font-display text-4xl font-bold text-primary-400">67.7%</p>
-        <p class="mt-1 text-sm text-white/80">Propuestas personales</p>
-      </div>
-    </div>
-  </Section>
-
-  <!-- Alianza con SENAJU -->
-  <Section background="white" spacing="lg">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div>
-        <Badge variant="accent" size="sm">Alianza estratégica</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          Alineados con SENAJU
-        </h2>
-        <p class="mt-4 text-lg text-neutral-600 leading-relaxed">
-          Trabajamos en coordinación con la Secretaría Nacional de la Juventud (SENAJU) del Perú, alineando nuestros programas con las prioridades nacionales para el desarrollo juvenil.
-        </p>
-        <p class="mt-4 text-neutral-600">
-          Esta alianza nos permite articular esfuerzos, acceder a espacios de participación y contribuir a las políticas públicas de juventud en el país.
-        </p>
-
-        <ul class="mt-6 space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-100 text-accent-600">✓</span>
-            <span class="text-neutral-600">Reconocidos como organización de voluntariado juvenil</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-100 text-accent-600">✓</span>
-            <span class="text-neutral-600">Participación en mesas de trabajo sobre juventud</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-100 text-accent-600">✓</span>
-            <span class="text-neutral-600">Alineación con el Plan Nacional de Acción por la Juventud</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Placeholder para logo SENAJU o imagen de alianza -->
-      <figure class="relative">
-        <div class="aspect-video overflow-hidden rounded-2xl bg-gradient-to-br from-accent-50 to-white ring-1 ring-accent-100">
-          <img
-            src="/images/alianzas/senaju-alianza.jpg"
-            alt="Alianza Youngers in Action y SENAJU"
-            class="h-full w-full object-cover"
-            loading="lazy"
-          />
-          <!-- Placeholder -->
-          <div class="absolute inset-0 flex items-center justify-center bg-accent-50/90">
-            <div class="text-center p-6">
-              <div class="flex justify-center gap-4">
-                <div class="h-20 w-20 rounded-xl bg-white shadow-sm flex items-center justify-center">
-                  <span class="text-3xl">🇵🇪</span>
-                </div>
-                <div class="h-20 w-20 rounded-xl bg-primary-400 flex items-center justify-center">
-                  <span class="font-display text-xl font-bold text-neutral-900">YIA</span>
-                </div>
-              </div>
-              <p class="mt-4 text-sm text-neutral-500">Espacio para imagen de alianza</p>
-              <p class="text-xs text-neutral-400">Logo SENAJU + YIA</p>
-            </div>
-          </div>
-        </div>
-      </figure>
-    </div>
-  </Section>
-
-  <!-- CTA Final -->
-  <CtaBanner
-    title="Sé parte del cambio que el mundo necesita"
-    description="Únete a Youngers in Action y contribuye directamente a los Objetivos de Desarrollo Sostenible desde tu comunidad."
-    primaryCTA={{ label: 'Quiero ser voluntario', href: '/voluntariado' }}
-    secondaryCTA={{ label: 'Conoce EmpoderArLAS', href: '/proyectos/empoderarlas' }}
-    background="primary"
-  />
-</PageLayout>
+  </section>
+</MinimalLayout>
 
 <style>
-  /* Ocultar placeholders si las imágenes cargan correctamente */
-  img:not([src=""]):not([src="undefined"]) + div[id$="-placeholder"] {
-    display: none;
+  .direction-rtl {
+    direction: ltr;
+  }
+  @media (min-width: 769px) {
+    .direction-rtl {
+      grid-template-columns: 1fr 1fr;
+    }
+    .direction-rtl > :first-child {
+      order: 2;
+    }
+    .direction-rtl > :last-child {
+      order: 1;
+    }
   }
 </style>

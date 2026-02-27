@@ -1,608 +1,154 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/ui/Section.astro';
-import Badge from '../components/ui/Badge.astro';
-import Button from '../components/ui/Button.astro';
+import MinimalLayout from '../layouts/MinimalLayout.astro';
 
-// Número de contacto provisional
 const numeroContacto = '+51 999 888 777';
 const numeroYape = '999 888 777';
 
-// Tipos de donaciones
 const tiposDonaciones = [
-  {
-    icono: '💻',
-    titulo: 'Equipos tecnológicos',
-    descripcion: 'Computadoras, laptops, tablets de institutos, universidades o empresas.',
-    ejemplos: ['Laptops', 'Computadoras de escritorio', 'Tablets', 'Proyectores', 'Impresoras'],
-  },
-  {
-    icono: '📚',
-    titulo: 'Material educativo',
-    descripcion: 'Libros, útiles escolares, material didáctico para talleres.',
-    ejemplos: ['Libros de texto', 'Cuadernos', 'Material de oficina', 'Pizarras', 'Juegos educativos'],
-  },
-  {
-    icono: '💰',
-    titulo: 'Donaciones monetarias',
-    descripcion: 'Aportes vía Yape para materiales, logística y capacitaciones.',
-    ejemplos: ['Cualquier monto suma', 'Yape directo', 'Transferencia bancaria'],
-  },
-  {
-    icono: '🎨',
-    titulo: 'Materiales creativos',
-    descripcion: 'Insumos para talleres de arte, manualidades y expresión.',
-    ejemplos: ['Pinturas', 'Cartulinas', 'Materiales de arte', 'Instrumentos musicales'],
-  },
+  { icono: '💻', titulo: 'Equipos tecnológicos', descripcion: 'Computadoras, laptops, tablets de institutos, universidades o empresas.' },
+  { icono: '📚', titulo: 'Material educativo', descripcion: 'Libros, útiles escolares, material didáctico para talleres.' },
+  { icono: '💰', titulo: 'Donaciones monetarias', descripcion: 'Aportes vía Yape para materiales, logística y capacitaciones.' },
+  { icono: '🎨', titulo: 'Materiales creativos', descripcion: 'Insumos para talleres de arte, manualidades y expresión.' },
 ];
 
-// Pasos para donar
 const pasosDonar = [
-  {
-    numero: '01',
-    titulo: 'Contáctanos',
-    descripcion: 'Escríbenos por WhatsApp o llámanos para coordinar tu donación.',
-  },
-  {
-    numero: '02',
-    titulo: 'Coordinamos',
-    descripcion: 'Acordamos el tipo de donación, lugar y fecha de entrega o recojo.',
-  },
-  {
-    numero: '03',
-    titulo: 'Recibimos',
-    descripcion: 'Recogemos tu donación o la recibes en nuestro punto de acopio.',
-  },
-  {
-    numero: '04',
-    titulo: 'Impactamos',
-    descripcion: 'Tu donación llega directamente a los jóvenes que la necesitan.',
-  },
+  { numero: '01', titulo: 'Contáctanos', descripcion: 'Escríbenos por WhatsApp o llámanos para coordinar tu donación.' },
+  { numero: '02', titulo: 'Coordinamos', descripcion: 'Acordamos el tipo de donación, lugar y fecha de entrega o recojo.' },
+  { numero: '03', titulo: 'Recibimos', descripcion: 'Recogemos tu donación o la recibes en nuestro punto de acopio.' },
+  { numero: '04', titulo: 'Impactamos', descripcion: 'Tu donación llega directamente a los jóvenes que la necesitan.' },
 ];
 ---
 
-<PageLayout
-  title="Dona - Youngers in Action"
-  description="Apoya a Youngers in Action con donaciones de equipos, materiales educativos o aportes económicos vía Yape. Tu apoyo transforma vidas."
+<MinimalLayout
+  title="Dona"
+  description="Apoya a Youngers in Action con donaciones de equipos, materiales educativos o aportes económicos vía Yape."
+  headerVariant="dark"
 >
-  <!-- Hero Inmersivo con Video/Imagen de Fondo -->
-  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-    <!-- Video/Imagen de fondo -->
-    <div class="absolute inset-0 z-0">
-      <!-- PLACEHOLDER: Video de fondo de jóvenes en acción -->
-      <video
-        autoplay
-        muted
-        loop
-        playsinline
-        class="absolute inset-0 h-full w-full object-cover"
-        poster="/images/dona/hero-jovenes-capacitacion.jpg"
-      >
-        <source src="/videos/dona/jovenes-en-accion.mp4" type="video/mp4" />
-      </video>
-      <!-- Fallback imagen -->
-      <div class="absolute inset-0 bg-gradient-to-b from-neutral-900/70 via-neutral-900/50 to-neutral-900/90"></div>
+  <!-- Hero -->
+  <section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-neutral-900 via-[#6B2D83]/80 to-neutral-900"></div>
+    <div class="absolute inset-0 opacity-30" aria-hidden="true">
+      <div class="absolute top-20 left-10 h-96 w-96 rounded-full bg-[#FFB800] blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-20 right-10 h-80 w-80 rounded-full bg-[#6B2D83] blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
     </div>
 
-    <!-- Placeholder visual si no hay video -->
-    <div class="absolute inset-0 z-0 bg-gradient-to-br from-secondary-900 via-neutral-900 to-primary-900" id="hero-placeholder">
-      <div class="absolute inset-0 opacity-30">
-        <div class="absolute top-20 left-10 h-96 w-96 rounded-full bg-primary-500 blur-3xl animate-pulse"></div>
-        <div class="absolute bottom-20 right-10 h-80 w-80 rounded-full bg-secondary-500 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
-        <div class="absolute top-1/2 left-1/2 h-64 w-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent-500 blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
-      </div>
-    </div>
-
-    <!-- Contenido Hero -->
-    <div class="relative z-10 mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
-      <Badge variant="primary" size="lg" rounded class="animate-fade-in">
-        Haz posible el cambio
-      </Badge>
-
-      <h1 class="mt-8 font-display text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl animate-fade-in-up">
-        Tu apoyo <span class="text-primary-400">transforma</span> vidas
+    <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <span class="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Haz posible el cambio</span>
+      <h1 class="font-display text-4xl font-bold text-white sm:text-5xl md:text-6xl lg:text-7xl" data-reveal>
+        Tu apoyo transforma vidas
       </h1>
-
-      <p class="mx-auto mt-6 max-w-2xl text-xl text-neutral-200 sm:text-2xl animate-fade-in-up" style="animation-delay: 0.2s;">
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-neutral-200 sm:text-xl" data-reveal style="--delay: 200ms">
         Cada donación, grande o pequeña, ayuda a empoderar a jóvenes que sueñan con un futuro mejor.
       </p>
-
-      <!-- CTA principal -->
-      <div class="mt-10 flex flex-col items-center gap-4 sm:flex-row sm:justify-center animate-fade-in-up" style="animation-delay: 0.4s;">
-        <a
-          href="#yape"
-          class="group inline-flex items-center gap-3 rounded-full bg-primary-400 px-8 py-4 text-lg font-bold text-neutral-900 transition-all hover:bg-primary-300 hover:scale-105 press-effect"
-        >
-          <span>Donar con Yape</span>
-          <svg class="h-5 w-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
+      <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 400ms">
+        <a href="#yape" class="inline-flex items-center justify-center rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600] hover:shadow-lg">
+          Donar con Yape
         </a>
-        <a
-          href="#tipos-donacion"
-          class="inline-flex items-center gap-2 rounded-full border-2 border-white/30 px-8 py-4 text-lg font-semibold text-white backdrop-blur transition-all hover:bg-white/10 hover:border-white/50"
-        >
+        <a href="#tipos-donacion" class="inline-flex items-center justify-center rounded-full border-2 border-white/30 px-8 py-3.5 font-semibold text-white transition-all hover:border-white hover:bg-white/10">
           Ver formas de donar
         </a>
       </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg class="h-8 w-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-        </svg>
-      </div>
     </div>
   </section>
 
-  <!-- Sección Yape - Número Grande -->
-  <section id="yape" class="relative overflow-hidden bg-gradient-to-br from-[#6B2D83] via-[#8B3FA3] to-[#6B2D83] py-20 md:py-28">
-    <!-- Patrón decorativo -->
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute inset-0" style="background-image: url('/images/pattern-dots.svg'); background-size: 30px;"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="grid items-center gap-12 lg:grid-cols-2">
-        <!-- Info Yape -->
+  <!-- Yape Section -->
+  <section id="yape" class="bg-gradient-to-br from-[#6B2D83] via-[#8B3FA3] to-[#6B2D83] py-24">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+      <div class="split-section items-center gap-12">
         <div class="text-center lg:text-left">
-          <div class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-white backdrop-blur">
-            <span class="text-2xl">💜</span>
-            <span class="font-semibold">Yape sin comisiones</span>
-          </div>
-
-          <h2 class="mt-6 font-display text-4xl font-bold text-white sm:text-5xl">
-            Dona fácil y rápido con Yape
-          </h2>
-
-          <p class="mt-4 text-xl text-white/80">
+          <h2 class="font-display text-3xl font-bold text-white sm:text-4xl" data-reveal>Dona con Yape</h2>
+          <p class="mt-4 text-lg text-white/80" data-reveal style="--delay: 100ms">
             El 100% de tu aporte va directo a materiales, capacitaciones y logística para los jóvenes de EmpoderArLAS.
           </p>
 
-          <!-- Número grande de Yape -->
-          <div class="mt-8 rounded-2xl bg-white p-8 shadow-2xl">
+          <div class="mt-8 rounded-2xl bg-white p-8 shadow-2xl" data-reveal style="--delay: 200ms">
             <p class="text-sm font-medium uppercase tracking-wide text-neutral-500">Número Yape</p>
-            <p class="mt-2 font-display text-5xl font-bold tracking-wider text-[#6B2D83] sm:text-6xl lg:text-7xl">
-              {numeroYape}
-            </p>
-            <p class="mt-4 text-neutral-600">
-              A nombre de: <strong>Youngers in Action</strong>
-            </p>
-
-            <!-- Botón copiar -->
-            <button
-              id="copy-yape"
-              class="mt-4 inline-flex items-center gap-2 rounded-full bg-[#6B2D83]/10 px-6 py-3 font-medium text-[#6B2D83] transition-all hover:bg-[#6B2D83]/20"
-              data-numero={numeroYape.replace(/\s/g, '')}
-            >
-              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
+            <p class="mt-2 font-display text-4xl font-bold tracking-wider text-[#6B2D83] sm:text-5xl">{numeroYape}</p>
+            <p class="mt-4 text-neutral-600">A nombre de: <strong>Youngers in Action</strong></p>
+            <button id="copy-yape" class="mt-4 inline-flex items-center gap-2 rounded-full bg-[#6B2D83]/10 px-6 py-3 font-medium text-[#6B2D83] transition-all hover:bg-[#6B2D83]/20" data-numero={numeroYape.replace(/\s/g, '')}>
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
               <span id="copy-text">Copiar número</span>
             </button>
           </div>
-
-          <p class="mt-6 text-sm text-white/60">
-            ¿Prefieres transferencia bancaria? <a href="#contacto" class="underline hover:text-white">Contáctanos</a>
-          </p>
         </div>
 
-        <!-- Imagen QR o de jóvenes -->
-        <figure class="relative">
-          <div class="aspect-square overflow-hidden rounded-3xl bg-white/10 backdrop-blur ring-1 ring-white/20">
-            <!-- PLACEHOLDER: Imagen de jóvenes beneficiarios o QR Yape -->
-            <img
-              src="/images/dona/jovenes-beneficiarios-capacitacion.jpg"
-              alt="Jóvenes de Youngers in Action en capacitación"
-              class="h-full w-full object-cover"
-              loading="lazy"
-            />
-            <!-- Placeholder visual -->
-            <div class="absolute inset-0 flex flex-col items-center justify-center bg-white/95 p-8">
-              <div class="text-center">
-                <span class="text-6xl">👥</span>
-                <p class="mt-4 font-display text-xl font-semibold text-neutral-700">Jóvenes beneficiarios</p>
-                <p class="mt-2 text-neutral-500">Imagen: Grupo de jóvenes en capacitación</p>
-                <p class="mt-1 text-sm text-neutral-400">Quienes recibirán tu donación</p>
-              </div>
-            </div>
+        <div class="flex items-center justify-center" data-reveal="right">
+          <div class="rounded-2xl bg-white/10 p-8 text-center backdrop-blur ring-1 ring-white/20">
+            <span class="text-6xl">💜</span>
+            <p class="mt-4 font-display text-xl font-semibold text-white">Tu aporte impacta a</p>
+            <p class="font-display text-5xl font-bold text-[#FFB800]">35+</p>
+            <p class="text-white/80">jóvenes</p>
           </div>
-
-          <!-- Badge flotante -->
-          <div class="absolute -bottom-4 -right-4 rounded-2xl bg-primary-400 p-4 shadow-xl">
-            <p class="font-display text-sm font-medium text-neutral-800">Tu aporte impacta a</p>
-            <p class="font-display text-3xl font-bold text-neutral-900">35+ jóvenes</p>
-          </div>
-        </figure>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Galería inmersiva de impacto -->
-  <section class="relative py-20 bg-neutral-900 overflow-hidden">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
-        <h2 class="font-display text-3xl font-bold text-white sm:text-4xl">
-          Conoce a quienes ayudas
-        </h2>
-        <p class="mt-4 text-lg text-neutral-400">
-          Cada rostro representa un sueño que tú puedes ayudar a cumplir
-        </p>
+  <!-- Donation Types -->
+  <section id="tipos-donacion" class="bg-white py-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Formas de apoyar</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">¿Qué puedes donar?</h2>
       </div>
 
-      <!-- Grid de imágenes inmersivo -->
-      <div class="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
-        <!-- Imagen 1: Grande -->
-        <figure class="group relative md:col-span-2 md:row-span-2 overflow-hidden rounded-2xl">
-          <div class="aspect-square md:aspect-auto md:h-full bg-neutral-800">
-            <img
-              src="/images/dona/grupo-voluntarios-reunion.jpg"
-              alt="Grupo de voluntarios de Youngers in Action"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary-800 to-neutral-800">
-              <div class="text-center p-6">
-                <span class="text-5xl">👥</span>
-                <p class="mt-4 font-semibold text-white">Grupo de voluntarios</p>
-                <p class="text-sm text-neutral-400">Imagen grupal del equipo YIA</p>
-              </div>
-            </div>
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-transparent to-transparent"></div>
-          <figcaption class="absolute bottom-0 left-0 right-0 p-6">
-            <p class="font-display text-xl font-semibold text-white">Nuestro equipo de voluntarios</p>
-            <p class="text-neutral-300">Jóvenes comprometidos con el cambio</p>
-          </figcaption>
-        </figure>
-
-        <!-- Imagen 2 -->
-        <figure class="group relative overflow-hidden rounded-2xl">
-          <div class="aspect-square bg-neutral-800">
-            <img
-              src="/images/dona/directora-ong-retrato.jpg"
-              alt="Directora de Youngers in Action"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-800 to-neutral-800">
-              <div class="text-center p-4">
-                <span class="text-4xl">👩‍💼</span>
-                <p class="mt-2 font-semibold text-white text-sm">Directora de la ONG</p>
-              </div>
-            </div>
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
-          <figcaption class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition-transform group-hover:translate-y-0">
-            <p class="font-semibold text-white">Directora YIA</p>
-          </figcaption>
-        </figure>
-
-        <!-- Imagen 3 -->
-        <figure class="group relative overflow-hidden rounded-2xl">
-          <div class="aspect-square bg-neutral-800">
-            <img
-              src="/images/dona/reunion-plaza-comunidad.jpg"
-              alt="Reunión comunitaria en plaza"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-accent-800 to-neutral-800">
-              <div class="text-center p-4">
-                <span class="text-4xl">🏛️</span>
-                <p class="mt-2 font-semibold text-white text-sm">Reunión en la plaza</p>
-              </div>
-            </div>
-          </div>
-          <div class="absolute inset-0 bg-gradient-to-t from-neutral-900/80 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"></div>
-          <figcaption class="absolute bottom-0 left-0 right-0 p-4 translate-y-full transition-transform group-hover:translate-y-0">
-            <p class="font-semibold text-white">Actividad comunitaria</p>
-          </figcaption>
-        </figure>
-
-        <!-- Imagen 4 -->
-        <figure class="group relative overflow-hidden rounded-2xl">
-          <div class="aspect-square bg-neutral-800">
-            <img
-              src="/images/dona/taller-educativo-jovenes.jpg"
-              alt="Taller educativo con jóvenes"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-secondary-700 to-neutral-800">
-              <div class="text-center p-4">
-                <span class="text-4xl">📖</span>
-                <p class="mt-2 font-semibold text-white text-sm">Taller educativo</p>
-              </div>
-            </div>
-          </div>
-        </figure>
-
-        <!-- Imagen 5 -->
-        <figure class="group relative overflow-hidden rounded-2xl">
-          <div class="aspect-square bg-neutral-800">
-            <img
-              src="/images/dona/entrega-materiales-escolares.jpg"
-              alt="Entrega de materiales a escolares"
-              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-            <!-- Placeholder -->
-            <div class="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-primary-700 to-neutral-800">
-              <div class="text-center p-4">
-                <span class="text-4xl">🎁</span>
-                <p class="mt-2 font-semibold text-white text-sm">Entrega de materiales</p>
-              </div>
-            </div>
-          </div>
-        </figure>
-      </div>
-    </div>
-  </section>
-
-  <!-- Tipos de donación -->
-  <section id="tipos-donacion" class="relative py-20 md:py-28 bg-white overflow-hidden">
-    <!-- Imagen de fondo sutil -->
-    <div class="absolute inset-0 opacity-5">
-      <img
-        src="/images/dona/fondo-pattern-educacion.jpg"
-        alt=""
-        class="h-full w-full object-cover"
-        aria-hidden="true"
-      />
-    </div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <Badge variant="secondary" size="sm">Formas de apoyar</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl lg:text-5xl">
-          ¿Qué puedes donar?
-        </h2>
-        <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-          Aceptamos diversos tipos de donaciones que van directamente a la capacitación y empoderamiento de jóvenes.
-        </p>
-      </div>
-
-      <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-        {tiposDonaciones.map((tipo, index) => (
-          <article
-            class="group relative rounded-2xl bg-gradient-to-br from-neutral-50 to-white p-8 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-xl hover:ring-primary-200 hover:-translate-y-1"
-            style={`animation-delay: ${index * 0.1}s;`}
-          >
-            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-100 to-secondary-100 text-4xl transition-transform group-hover:scale-110">
-              {tipo.icono}
-            </span>
-
-            <h3 class="mt-6 font-display text-xl font-bold text-neutral-900">
-              {tipo.titulo}
-            </h3>
-
-            <p class="mt-3 text-neutral-600">
-              {tipo.descripcion}
-            </p>
-
-            <ul class="mt-4 space-y-2">
-              {tipo.ejemplos.map((ejemplo) => (
-                <li class="flex items-center gap-2 text-sm text-neutral-500">
-                  <span class="h-1.5 w-1.5 rounded-full bg-primary-400"></span>
-                  {ejemplo}
-                </li>
-              ))}
-            </ul>
+      <div class="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {tiposDonaciones.map((tipo) => (
+          <article class="group rounded-2xl bg-neutral-50 p-8 ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-[#FFB800]/20 hover:-translate-y-1">
+            <span class="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#FFB800]/10 text-4xl transition-transform group-hover:scale-110">{tipo.icono}</span>
+            <h3 class="mt-6 font-display text-xl font-bold text-neutral-900">{tipo.titulo}</h3>
+            <p class="mt-3 text-neutral-600">{tipo.descripcion}</p>
           </article>
         ))}
       </div>
-
-      <!-- Nota especial -->
-      <div class="mt-12 rounded-2xl bg-gradient-to-r from-secondary-50 via-primary-50 to-accent-50 p-8 text-center ring-1 ring-primary-100">
-        <p class="text-lg text-neutral-700">
-          <strong class="text-neutral-900">¿Tienes equipos de tu instituto o universidad?</strong><br />
-          Computadoras, proyectores o material educativo en desuso pueden tener una segunda vida ayudando a jóvenes a capacitarse.
-        </p>
-        <a
-          href="#contacto"
-          class="mt-4 inline-flex items-center gap-2 font-semibold text-primary-600 hover:text-primary-700"
-        >
-          Coordina una donación institucional
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
     </div>
   </section>
 
-  <!-- Cómo donar - Pasos -->
-  <section class="relative py-20 bg-neutral-900 overflow-hidden">
-    <!-- Fondo con imagen -->
-    <div class="absolute inset-0 opacity-20">
-      <img
-        src="/images/dona/fondo-jovenes-actividad.jpg"
-        alt=""
-        class="h-full w-full object-cover"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/80 to-neutral-900"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <Badge variant="primary" size="sm">Proceso simple</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">
-          ¿Cómo funciona?
-        </h2>
+  <!-- Steps -->
+  <section class="bg-neutral-900 py-24">
+    <div class="mx-auto max-w-6xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Proceso simple</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">¿Cómo funciona?</h2>
       </div>
 
-      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {pasosDonar.map((paso, index) => (
-          <div class="relative text-center">
-            {/* Línea conectora */}
-            {index < pasosDonar.length - 1 && (
-              <div class="absolute top-8 left-1/2 hidden h-0.5 w-full bg-gradient-to-r from-primary-400 to-transparent lg:block" aria-hidden="true"></div>
-            )}
-
-            <div class="relative inline-flex h-16 w-16 items-center justify-center rounded-full bg-primary-400 font-display text-2xl font-bold text-neutral-900">
-              {paso.numero}
-            </div>
-
-            <h3 class="mt-6 font-display text-xl font-semibold text-white">
-              {paso.titulo}
-            </h3>
-
-            <p class="mt-3 text-neutral-400">
-              {paso.descripcion}
-            </p>
+      <div class="mt-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
+        {pasosDonar.map((paso) => (
+          <div class="text-center">
+            <div class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFB800] font-display text-2xl font-bold text-neutral-900">{paso.numero}</div>
+            <h3 class="mt-6 font-display text-xl font-semibold text-white">{paso.titulo}</h3>
+            <p class="mt-3 text-neutral-400">{paso.descripcion}</p>
           </div>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Sección de Contacto -->
-  <section id="contacto" class="relative py-20 md:py-28 overflow-hidden">
-    <!-- Fondo inmersivo -->
-    <div class="absolute inset-0">
-      <img
-        src="/images/dona/fondo-equipo-sonriendo.jpg"
-        alt=""
-        class="h-full w-full object-cover"
-        aria-hidden="true"
-      />
-      <div class="absolute inset-0 bg-gradient-to-br from-secondary-900/95 via-neutral-900/90 to-primary-900/95"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-      <Badge variant="primary" size="lg" rounded>
-        Estamos para ayudarte
-      </Badge>
-
-      <h2 class="mt-6 font-display text-4xl font-bold text-white sm:text-5xl">
-        ¿Listo para donar?
-      </h2>
-
-      <p class="mx-auto mt-6 max-w-2xl text-xl text-neutral-300">
-        Contáctanos por WhatsApp para coordinar tu donación. Respondemos en menos de 24 horas.
+  <!-- WhatsApp Contact -->
+  <section class="bg-[#FFB800] py-20">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>¿Listo para donar?</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-neutral-800/80" data-reveal style="--delay: 150ms">
+        Contáctanos por WhatsApp para coordinar tu donación.
       </p>
-
-      <!-- Número de contacto GRANDE -->
-      <div class="mt-10">
-        <a
-          href={`https://wa.me/51${numeroYape.replace(/\s/g, '')}?text=Hola,%20quiero%20hacer%20una%20donación%20a%20Youngers%20in%20Action`}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group inline-flex flex-col items-center rounded-3xl bg-white/10 p-8 backdrop-blur transition-all hover:bg-white/20 hover:scale-105 ring-1 ring-white/20"
-        >
-          <div class="flex items-center gap-3 text-[#25D366]">
-            <svg class="h-10 w-10" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-            </svg>
-            <span class="font-semibold text-lg">WhatsApp</span>
-          </div>
-
-          <p class="mt-4 font-display text-4xl font-bold text-white sm:text-5xl lg:text-6xl tracking-wide">
-            {numeroContacto}
-          </p>
-
-          <p class="mt-4 text-neutral-300 group-hover:text-white transition-colors">
-            Toca para escribirnos directamente
-          </p>
-        </a>
-      </div>
-
-      <!-- Info adicional -->
-      <div class="mt-12 grid gap-6 sm:grid-cols-3">
-        <div class="rounded-xl bg-white/5 p-6 backdrop-blur ring-1 ring-white/10">
-          <span class="text-3xl">📍</span>
-          <p class="mt-3 font-semibold text-white">Punto de acopio</p>
-          <p class="mt-1 text-sm text-neutral-400">Lima, Perú<br />(Coordinar ubicación exacta)</p>
-        </div>
-        <div class="rounded-xl bg-white/5 p-6 backdrop-blur ring-1 ring-white/10">
-          <span class="text-3xl">🚚</span>
-          <p class="mt-3 font-semibold text-white">Recojo a domicilio</p>
-          <p class="mt-1 text-sm text-neutral-400">Para donaciones grandes coordinamos recojo</p>
-        </div>
-        <div class="rounded-xl bg-white/5 p-6 backdrop-blur ring-1 ring-white/10">
-          <span class="text-3xl">📧</span>
-          <p class="mt-3 font-semibold text-white">Email</p>
-          <p class="mt-1 text-sm text-neutral-400">youngers.global@gmail.com</p>
-        </div>
-      </div>
+      <a
+        href={`https://wa.me/51${numeroYape.replace(/\s/g, '')}?text=Hola,%20quiero%20hacer%20una%20donación%20a%20Youngers%20in%20Action`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="mt-8 inline-flex items-center gap-3 rounded-full bg-neutral-900 px-8 py-4 font-bold text-white transition-all hover:bg-neutral-800 hover:scale-105"
+        data-reveal
+        style="--delay: 300ms"
+      >
+        <svg class="h-6 w-6 text-[#25D366]" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribir por WhatsApp
+      </a>
     </div>
   </section>
-
-  <!-- CTA Final inmersivo -->
-  <section class="relative py-20 overflow-hidden bg-gradient-to-br from-primary-500 via-primary-400 to-accent-400">
-    <div class="absolute inset-0 opacity-20">
-      <div class="absolute inset-0" style="background-image: url('/images/pattern-grid.svg'); background-size: 40px;"></div>
-    </div>
-
-    <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl lg:text-5xl">
-        Cada aporte cuenta
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-800">
-        No importa si es grande o pequeño. Tu donación se convierte en oportunidades reales para jóvenes que quieren transformar su futuro.
-      </p>
-
-      <div class="mt-8 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
-        <a
-          href="#yape"
-          class="inline-flex items-center gap-2 rounded-full bg-neutral-900 px-8 py-4 font-bold text-white transition-all hover:bg-neutral-800 hover:scale-105"
-        >
-          Donar ahora
-        </a>
-        <a
-          href="/proyectos/empoderarlas"
-          class="inline-flex items-center gap-2 rounded-full bg-white/80 px-8 py-4 font-semibold text-neutral-900 backdrop-blur transition-all hover:bg-white"
-        >
-          Conocer EmpoderArLAS
-        </a>
-      </div>
-    </div>
-  </section>
-</PageLayout>
-
-<style>
-  /* Animaciones */
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out forwards;
-  }
-
-  .animate-fade-in-up {
-    animation: fade-in-up 0.8s ease-out forwards;
-  }
-
-  /* Efecto press */
-  .press-effect:active {
-    transform: scale(0.98);
-  }
-</style>
+</MinimalLayout>
 
 <script>
-  // Copiar número de Yape
   const copyButton = document.getElementById('copy-yape');
   const copyText = document.getElementById('copy-text');
-
   copyButton?.addEventListener('click', async () => {
     const numero = copyButton.getAttribute('data-numero');
     if (numero) {
@@ -610,13 +156,9 @@ const pasosDonar = [
         await navigator.clipboard.writeText(numero);
         if (copyText) {
           copyText.textContent = '¡Copiado!';
-          setTimeout(() => {
-            copyText.textContent = 'Copiar número';
-          }, 2000);
+          setTimeout(() => { copyText.textContent = 'Copiar número'; }, 2000);
         }
-      } catch (err) {
-        console.error('Error al copiar:', err);
-      }
+      } catch (err) { console.error('Error al copiar:', err); }
     }
   });
 </script>

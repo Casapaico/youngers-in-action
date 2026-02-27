@@ -32,6 +32,83 @@
 }
 
 /* ===========================================
+   FULLPAGE SCROLL SYSTEM
+   =========================================== */
+
+.fullpage-container {
+  height: 100vh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.fullpage-section {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ===========================================
+   MINIMAL HEADER
+   =========================================== */
+
+.minimal-header[data-scrolled] {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+/* ===========================================
+   FULLSCREEN MENU OVERLAY
+   =========================================== */
+
+.menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: #171717;
+  transform: translateY(-100%);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.menu-overlay.is-open {
+  transform: translateY(0);
+}
+
+/* ===========================================
+   SPLIT SECTION LAYOUT
+   =========================================== */
+
+.split-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .split-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================================
+   SCROLL INDICATOR
+   =========================================== */
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+/* ===========================================
    SCROLL REVEAL ANIMATIONS
    =========================================== */
 

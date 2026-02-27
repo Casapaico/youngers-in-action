@@ -1,357 +1,163 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/ui/Section.astro';
-import Badge from '../components/ui/Badge.astro';
-import Button from '../components/ui/Button.astro';
+import MinimalLayout from '../layouts/MinimalLayout.astro';
 import OdsCard from '../components/ui/OdsCard.astro';
-import CtaBanner from '../components/sections/CtaBanner.astro';
-import StatsBar from '../components/sections/StatsBar.astro';
 
-// Timeline de la organización
 const timeline = [
-  {
-    año: '2023',
-    titulo: 'Nace Youngers in Action',
-    descripcion: 'Un grupo de jóvenes comprometidos decide organizarse para generar impacto real en sus comunidades.',
-  },
-  {
-    año: '2024',
-    titulo: 'Lanzamiento de EmpoderArLAS',
-    descripcion: 'Creamos nuestro programa insignia de empoderamiento juvenil para escolares de 10-12 años.',
-  },
-  {
-    año: '2024',
-    titulo: 'Alianza con SENAJU',
-    descripcion: 'Formalizamos nuestra colaboración con la Secretaría Nacional de la Juventud.',
-  },
-  {
-    año: '2024',
-    titulo: 'Presencia internacional',
-    descripcion: 'Participamos en el Foro de Países de ALC sobre Desarrollo Sostenible en CEPAL ONU.',
-  },
-  {
-    año: '2025',
-    titulo: 'Expansión del impacto',
-    descripcion: 'Seguimos creciendo con más alianzas, más voluntarios y más escolares impactados.',
-  },
+  { año: '2023', titulo: 'Nace Youngers in Action', descripcion: 'Un grupo de jóvenes comprometidos decide organizarse para generar impacto real en sus comunidades.' },
+  { año: '2024', titulo: 'Lanzamiento de EmpoderArLAS', descripcion: 'Creamos nuestro programa insignia de empoderamiento juvenil para escolares de 10-12 años.' },
+  { año: '2024', titulo: 'Alianza con SENAJU', descripcion: 'Formalizamos nuestra colaboración con la Secretaría Nacional de la Juventud.' },
+  { año: '2024', titulo: 'Presencia internacional', descripcion: 'Participamos en el Foro de Países de ALC sobre Desarrollo Sostenible en CEPAL ONU.' },
+  { año: '2025', titulo: 'Expansión del impacto', descripcion: 'Seguimos creciendo con más alianzas, más voluntarios y más escolares impactados.' },
 ];
 
-// Valores
 const valores = [
-  {
-    titulo: 'Compromiso',
-    descripcion: 'Asumimos responsabilidad con las juventudes y las comunidades donde trabajamos.',
-    icono: '💪',
-  },
-  {
-    titulo: 'Empatía',
-    descripcion: 'Escuchamos y entendemos las necesidades reales de cada participante.',
-    icono: '💛',
-  },
-  {
-    titulo: 'Acción',
-    descripcion: 'No solo hablamos de cambio, lo generamos con proyectos concretos.',
-    icono: '🚀',
-  },
-  {
-    titulo: 'Colaboración',
-    descripcion: 'Creemos en el poder del trabajo colectivo y las alianzas estratégicas.',
-    icono: '🤝',
-  },
-  {
-    titulo: 'Innovación',
-    descripcion: 'Buscamos formas creativas de abordar las problemáticas juveniles.',
-    icono: '💡',
-  },
-  {
-    titulo: 'Transparencia',
-    descripcion: 'Actuamos con honestidad y rendimos cuentas de nuestro impacto.',
-    icono: '✨',
-  },
+  { titulo: 'Compromiso', descripcion: 'Asumimos responsabilidad con las juventudes y las comunidades donde trabajamos.', icono: '💪' },
+  { titulo: 'Empatía', descripcion: 'Escuchamos y entendemos las necesidades reales de cada participante.', icono: '💛' },
+  { titulo: 'Acción', descripcion: 'No solo hablamos de cambio, lo generamos con proyectos concretos.', icono: '🚀' },
+  { titulo: 'Colaboración', descripcion: 'Creemos en el poder del trabajo colectivo y las alianzas estratégicas.', icono: '🤝' },
+  { titulo: 'Innovación', descripcion: 'Buscamos formas creativas de abordar las problemáticas juveniles.', icono: '💡' },
+  { titulo: 'Transparencia', descripcion: 'Actuamos con honestidad y rendimos cuentas de nuestro impacto.', icono: '✨' },
 ];
 
-// Stats
-const stats = [
-  { value: '249', label: 'Seguidores en redes', icon: '📱' },
-  { value: '31', label: 'Publicaciones', icon: '📝' },
-  { value: '35', label: 'Escolares impactados', icon: '👥' },
-  { value: '10', label: 'Alianzas activas', icon: '🤝' },
-];
-
-// ODS priorizados
 const odsPriorizados = [4, 5, 8, 9, 10, 16, 17];
 ---
 
-<PageLayout
-  title="Nosotros - Youngers in Action"
+<MinimalLayout
+  title="Nosotros"
   description="Conoce la historia, misión y valores de Youngers in Action. ONG juvenil en Lima, Perú comprometida con el empoderamiento de las juventudes."
+  headerVariant="dark"
 >
-  <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-secondary-900 via-secondary-800 to-neutral-900 py-20 md:py-32">
-    <div class="absolute inset-0 opacity-10" aria-hidden="true">
-      <div class="absolute top-0 left-1/4 h-96 w-96 rounded-full bg-primary-400 blur-3xl"></div>
-      <div class="absolute bottom-0 right-1/4 h-96 w-96 rounded-full bg-secondary-400 blur-3xl"></div>
+  <!-- Hero Fullscreen -->
+  <section class="relative flex min-h-screen items-center justify-center overflow-hidden">
+    <div class="absolute inset-0">
+      <img src="/images/fondo_de_inicio_2.png" alt="" class="h-full w-full object-cover" aria-hidden="true" />
+      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
     </div>
+    <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <span class="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Sobre nosotros</span>
+      <h1 class="font-display text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl" data-reveal>
+        Jóvenes que creen en el poder de la acción
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-white/80 sm:text-xl" data-reveal style="--delay: 200ms">
+        Somos una organización juvenil nacida en Lima, Perú, con la convicción de que las juventudes no son el futuro, son el presente.
+      </p>
+    </div>
+  </section>
 
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="grid items-center gap-12 lg:grid-cols-2">
-        <div data-reveal>
-          <Badge variant="primary" size="lg" rounded>
-            Sobre nosotros
-          </Badge>
+  <!-- Misión / Visión - Split Screen -->
+  <section class="split-section min-h-screen">
+    <div class="flex flex-col justify-center bg-neutral-900 px-8 py-16 md:px-16">
+      <span class="mb-4 text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Misión</span>
+      <h2 class="font-display text-3xl font-bold text-white sm:text-4xl" data-reveal>¿Qué hacemos?</h2>
+      <p class="mt-6 text-lg leading-relaxed text-neutral-300" data-reveal style="--delay: 150ms">
+        Empoderamos a las juventudes de hoy para que nadie se quede atrás mañana. A través de programas educativos, mentorías y alianzas estratégicas, desarrollamos habilidades de liderazgo, autoestima y participación ciudadana en escolares de 10-12 años.
+      </p>
+    </div>
+    <div class="flex flex-col justify-center bg-white px-8 py-16 md:px-16">
+      <span class="mb-4 text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Visión</span>
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>¿Hacia dónde vamos?</h2>
+      <p class="mt-6 text-lg leading-relaxed text-neutral-600" data-reveal style="--delay: 150ms">
+        Ser la organización referente en empoderamiento juvenil en Latinoamérica, donde cada joven tenga las herramientas y oportunidades para transformar su realidad y la de su comunidad.
+      </p>
+      <blockquote class="mt-8 border-l-4 border-[#FFB800] pl-4 text-lg font-medium italic text-neutral-700" data-reveal style="--delay: 300ms">
+        "Las juventudes no son el futuro, son el presente"
+      </blockquote>
+    </div>
+  </section>
 
-          <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-white sm:text-5xl">
-            Jóvenes que creen en el poder de la <span class="text-primary-400">acción</span>
-          </h1>
+  <!-- Timeline -->
+  <section class="bg-neutral-50 py-24">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Nuestra historia</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Un camino de acción</h2>
+      </div>
 
-          <p class="mt-6 text-lg text-secondary-100 sm:text-xl">
-            Somos una organización juvenil nacida en Lima, Perú, con la convicción de que las juventudes no son el futuro, son el presente. Empoderamos a escolares para que nadie se quede atrás.
-          </p>
+      <div class="relative mt-16">
+        <div class="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-[#FFB800] to-neutral-200 md:left-1/2 md:-translate-x-1/2" aria-hidden="true"></div>
 
-          <div class="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Button href="/voluntariado" variant="primary" size="lg">
-              Únete al equipo
-            </Button>
-            <Button href="#historia" variant="outline" size="lg" class="border-white text-white hover:bg-white/10">
-              Conoce nuestra historia
-            </Button>
-          </div>
+        <div class="space-y-12">
+          {timeline.map((item, index) => (
+            <div
+              class:list={['relative flex gap-8', index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse']}
+              data-reveal={index % 2 === 0 ? 'left' : 'right'}
+            >
+              <div class="absolute left-4 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full bg-[#FFB800] ring-4 ring-white md:left-1/2">
+                <span class="text-xs font-bold text-neutral-900">{index + 1}</span>
+              </div>
+              <div class:list={['ml-12 flex-1 md:ml-0', index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12']}>
+                <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+                  <span class="inline-block rounded-full bg-[#FFB800]/10 px-3 py-1 text-sm font-semibold text-[#FFB800]">{item.año}</span>
+                  <h3 class="mt-3 font-display text-xl font-semibold text-neutral-900">{item.titulo}</h3>
+                  <p class="mt-2 text-neutral-600">{item.descripcion}</p>
+                </div>
+              </div>
+              <div class="hidden flex-1 md:block"></div>
+            </div>
+          ))}
         </div>
-
-        <figure class="relative" data-reveal="right">
-          <div class="aspect-square overflow-hidden rounded-2xl bg-secondary-700">
-            <img
-              src="/images/equipo-yia.jpg"
-              alt="Equipo de Youngers in Action"
-              class="h-full w-full object-cover"
-              loading="eager"
-            />
-          </div>
-          <div class="absolute -bottom-6 -left-6 rounded-xl bg-primary-400 p-5 shadow-lg">
-            <p class="font-display text-sm font-medium text-neutral-800">Desde</p>
-            <p class="font-display text-3xl font-bold text-neutral-900">2023</p>
-          </div>
-        </figure>
       </div>
     </div>
   </section>
 
-  <!-- Stats -->
-  <StatsBar stats={stats} background="primary" />
+  <!-- Valores - Grid -->
+  <section class="bg-white py-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Valores</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Lo que nos define</h2>
+      </div>
 
-  <!-- Misión y Visión -->
-  <Section background="white" spacing="xl">
-    <div class="grid gap-12 lg:grid-cols-2">
-      <article class="rounded-2xl bg-gradient-to-br from-secondary-50 to-white p-8 ring-1 ring-secondary-100 md:p-10" data-reveal>
-        <Badge variant="secondary" size="sm">Misión</Badge>
-        <h2 class="mt-4 font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
-          ¿Qué hacemos?
-        </h2>
-        <p class="mt-4 text-lg text-neutral-600 leading-relaxed">
-          Empoderamos a las juventudes de hoy para que nadie se quede atrás mañana. A través de programas educativos, mentorías y alianzas estratégicas, desarrollamos habilidades de liderazgo, autoestima y participación ciudadana en escolares de 10-12 años.
-        </p>
-        <ul class="mt-6 space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary-100 text-secondary-600">✓</span>
-            <span class="text-neutral-600">Programas de empoderamiento juvenil</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary-100 text-secondary-600">✓</span>
-            <span class="text-neutral-600">Mentorías personalizadas</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary-100 text-secondary-600">✓</span>
-            <span class="text-neutral-600">Incidencia en políticas públicas</span>
-          </li>
-        </ul>
-      </article>
-
-      <article class="rounded-2xl bg-gradient-to-br from-primary-50 to-white p-8 ring-1 ring-primary-100 md:p-10" data-reveal>
-        <Badge variant="primary" size="sm">Visión</Badge>
-        <h2 class="mt-4 font-display text-2xl font-bold text-neutral-900 sm:text-3xl">
-          ¿Hacia dónde vamos?
-        </h2>
-        <p class="mt-4 text-lg text-neutral-600 leading-relaxed">
-          Ser la organización referente en empoderamiento juvenil en Latinoamérica, donde cada joven tenga las herramientas y oportunidades para transformar su realidad y la de su comunidad.
-        </p>
-        <div class="mt-6 rounded-xl bg-primary-100/50 p-4">
-          <p class="font-display text-lg font-semibold text-neutral-900">
-            "Las juventudes no son el futuro, son el presente"
-          </p>
-          <p class="mt-1 text-sm text-neutral-600">— Filosofía YIA</p>
-        </div>
-      </article>
-    </div>
-  </Section>
-
-  <!-- Historia / Timeline -->
-  <Section id="historia" background="gray" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="secondary" size="sm">Nuestra historia</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        Un camino de acción y compromiso
-      </h2>
-    </div>
-
-    <div class="relative mt-16">
-      <!-- Línea central -->
-      <div class="absolute left-4 top-0 h-full w-0.5 bg-gradient-to-b from-primary-400 via-secondary-400 to-accent-400 md:left-1/2 md:-translate-x-1/2" aria-hidden="true"></div>
-
-      <div class="space-y-12">
-        {timeline.map((item, index) => (
-          <div
-            class:list={[
-              'relative flex gap-8',
-              index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse',
-            ]}
-            data-reveal={index % 2 === 0 ? 'left' : 'right'}
-          >
-            <!-- Punto en la línea -->
-            <div class="absolute left-4 flex h-8 w-8 -translate-x-1/2 items-center justify-center rounded-full bg-primary-400 ring-4 ring-white md:left-1/2">
-              <span class="text-xs font-bold text-neutral-900">{index + 1}</span>
-            </div>
-
-            <!-- Contenido -->
-            <div class:list={[
-              'ml-12 flex-1 md:ml-0',
-              index % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12',
-            ]}>
-              <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200">
-                <span class="inline-block rounded-full bg-primary-100 px-3 py-1 text-sm font-semibold text-primary-700">
-                  {item.año}
-                </span>
-                <h3 class="mt-3 font-display text-xl font-semibold text-neutral-900">
-                  {item.titulo}
-                </h3>
-                <p class="mt-2 text-neutral-600">
-                  {item.descripcion}
-                </p>
-              </div>
-            </div>
-
-            <!-- Espacio para el otro lado en desktop -->
-            <div class="hidden flex-1 md:block"></div>
-          </div>
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+        {valores.map((valor) => (
+          <article class="group rounded-2xl bg-neutral-50 p-6 transition-all hover:bg-white hover:shadow-lg hover:ring-1 hover:ring-[#FFB800]/20">
+            <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-3xl shadow-sm ring-1 ring-neutral-200 transition-transform group-hover:scale-110">
+              {valor.icono}
+            </span>
+            <h3 class="mt-4 font-display text-xl font-semibold text-neutral-900">{valor.titulo}</h3>
+            <p class="mt-2 text-neutral-600">{valor.descripcion}</p>
+          </article>
         ))}
       </div>
     </div>
-  </Section>
+  </section>
 
-  <!-- Valores -->
-  <Section background="white" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="accent" size="sm">Valores</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        Lo que nos define
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Principios que guían cada acción, proyecto y decisión de Youngers in Action.
-      </p>
-    </div>
-
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-      {valores.map((valor) => (
-        <article class="group rounded-2xl bg-neutral-50 p-6 transition-all hover:bg-white hover:shadow-lg hover:ring-1 hover:ring-primary-200">
-          <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-white text-3xl shadow-sm ring-1 ring-neutral-200 transition-transform group-hover:scale-110 group-hover:ring-primary-200">
-            {valor.icono}
-          </span>
-          <h3 class="mt-4 font-display text-xl font-semibold text-neutral-900">
-            {valor.titulo}
-          </h3>
-          <p class="mt-2 text-neutral-600">
-            {valor.descripcion}
-          </p>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <!-- Metodología -->
-  <Section background="secondary" spacing="xl">
-    <div class="grid items-center gap-12 lg:grid-cols-2">
-      <div data-reveal>
-        <Badge variant="primary" size="sm">Metodología</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Los 4 pilares de YIA
-        </h2>
-        <p class="mt-4 text-lg text-secondary-100">
-          Nuestra metodología está diseñada para garantizar impacto real y medible en cada intervención.
-        </p>
-
-        <div class="mt-8 grid gap-4 sm:grid-cols-2">
-          <div class="rounded-xl bg-white/10 p-5 backdrop-blur transition-all hover:bg-white/20">
-            <span class="text-2xl">📚</span>
-            <h3 class="mt-2 font-semibold text-white">Aprendizaje</h3>
-            <p class="mt-1 text-sm text-secondary-200">Formación en habilidades blandas y técnicas</p>
-          </div>
-          <div class="rounded-xl bg-white/10 p-5 backdrop-blur transition-all hover:bg-white/20">
-            <span class="text-2xl">🌊</span>
-            <h3 class="mt-2 font-semibold text-white">Inmersión</h3>
-            <p class="mt-1 text-sm text-secondary-200">Experiencias prácticas y contextualizadas</p>
-          </div>
-          <div class="rounded-xl bg-white/10 p-5 backdrop-blur transition-all hover:bg-white/20">
-            <span class="text-2xl">🤝</span>
-            <h3 class="mt-2 font-semibold text-white">Involucramiento</h3>
-            <p class="mt-1 text-sm text-secondary-200">Participación de toda la comunidad</p>
-          </div>
-          <div class="rounded-xl bg-white/10 p-5 backdrop-blur transition-all hover:bg-white/20">
-            <span class="text-2xl">🎯</span>
-            <h3 class="mt-2 font-semibold text-white">Resultados</h3>
-            <p class="mt-1 text-sm text-secondary-200">Medición de impacto y propuestas concretas</p>
-          </div>
-        </div>
-
-        <Button href="/proyectos/empoderarlas" variant="primary" size="lg" class="mt-8">
-          Conoce EmpoderArLAS
-        </Button>
+  <!-- ODS Strip -->
+  <section class="bg-neutral-900 py-16">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <h2 class="font-display text-2xl font-semibold text-white sm:text-3xl">Comprometidos con los ODS</h2>
       </div>
-
-      <figure class="relative" data-reveal="right">
-        <div class="aspect-[4/3] overflow-hidden rounded-2xl bg-secondary-700">
-          <img
-            src="/images/metodologia-yia.jpg"
-            alt="Metodología de trabajo de Youngers in Action"
-            class="h-full w-full object-cover opacity-90"
-            loading="lazy"
-          />
-        </div>
-      </figure>
+      <ul class="mt-10 flex flex-wrap justify-center gap-4" role="list" data-reveal-stagger>
+        {odsPriorizados.map((num) => (
+          <li><OdsCard number={num} size="sm" /></li>
+        ))}
+      </ul>
+      <div class="mt-8 text-center">
+        <a href="/ods" class="text-sm font-medium text-[#FFB800] transition-colors hover:text-white">
+          Explora nuestro enfoque ODS →
+        </a>
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <!-- ODS -->
-  <Section background="gray" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="secondary" size="sm">Alineación global</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        Comprometidos con los ODS
+  <!-- CTA -->
+  <section class="bg-[#FFB800] py-20">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>
+        ¿Listo para ser parte del cambio?
       </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Trabajamos alineados con la Agenda 2030 y las prioridades de SENAJU para las juventudes peruanas.
+      <p class="mx-auto mt-4 max-w-2xl text-neutral-800/80" data-reveal style="--delay: 150ms">
+        Únete a Youngers in Action como voluntario, mentor o aliado.
       </p>
+      <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 300ms">
+        <a href="/voluntariado" class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-8 py-3.5 font-semibold text-white transition-all hover:bg-neutral-800">
+          Quiero ser voluntario
+        </a>
+        <a href="/contacto" class="inline-flex items-center justify-center rounded-full border-2 border-neutral-900/30 px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:border-neutral-900 hover:bg-neutral-900/5">
+          Contáctanos
+        </a>
+      </div>
     </div>
-
-    <ul class="mt-12 flex flex-wrap justify-center gap-4" role="list" data-reveal-stagger>
-      {odsPriorizados.map((num) => (
-        <li>
-          <OdsCard number={num} size="md" />
-        </li>
-      ))}
-    </ul>
-
-    <div class="mt-12 text-center" data-reveal>
-      <Button href="/ods" variant="outline">
-        Explora nuestro enfoque ODS
-      </Button>
-    </div>
-  </Section>
-
-  <!-- CTA Final -->
-  <CtaBanner
-    title="¿Listo para ser parte del cambio?"
-    description="Únete a Youngers in Action como voluntario, mentor o aliado. Juntos empoderamos a las juventudes de hoy."
-    primaryCTA={{ label: 'Quiero ser voluntario', href: '/voluntariado' }}
-    secondaryCTA={{ label: 'Contáctanos', href: '/contacto' }}
-    background="primary"
-  />
-</PageLayout>
+  </section>
+</MinimalLayout>

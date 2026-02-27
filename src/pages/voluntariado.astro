@@ -1,473 +1,161 @@
 ---
-import PageLayout from '../layouts/PageLayout.astro';
-import Section from '../components/ui/Section.astro';
-import Badge from '../components/ui/Badge.astro';
-import Button from '../components/ui/Button.astro';
-import Card from '../components/ui/Card.astro';
+import MinimalLayout from '../layouts/MinimalLayout.astro';
 import OdsCard from '../components/ui/OdsCard.astro';
-import CtaBanner from '../components/sections/CtaBanner.astro';
 
-// Tipos de voluntariado
+const beneficios = [
+  { titulo: 'Impacto real', descripcion: 'Tu tiempo transforma vidas. Acompaña a escolares en su proceso de empoderamiento.', icono: '💡' },
+  { titulo: 'Desarrollo personal', descripcion: 'Fortalece habilidades de liderazgo, comunicación y trabajo en equipo.', icono: '🚀' },
+  { titulo: 'Red de contactos', descripcion: 'Conecta con SENAJU, PNUD, FAO y más de 10 aliados estratégicos.', icono: '🤝' },
+  { titulo: 'Certificación', descripcion: 'Recibe constancia de voluntariado avalada por nuestras alianzas institucionales.', icono: '📜' },
+  { titulo: 'Eventos exclusivos', descripcion: 'Accede a foros, capacitaciones y espacios de incidencia juvenil.', icono: '🎪' },
+  { titulo: 'Comunidad', descripcion: 'Sé parte de una red de jóvenes comprometidos con el cambio social.', icono: '💛' },
+];
+
 const tiposVoluntariado = [
   {
-    titulo: 'Mentor/a Juvenil',
-    descripcion: 'Acompaña a escolares de 10-12 años en su proceso de empoderamiento. Guía sus ideas hacia proyectos de impacto comunitario.',
-    compromiso: '4-6 horas semanales',
-    icono: '🎯',
+    titulo: 'Mentor/a Juvenil', descripcion: 'Acompaña a escolares de 10-12 años en su proceso de empoderamiento.', compromiso: '4-6 horas semanales', icono: '🎯',
     requisitos: ['Mayor de 18 años', 'Compromiso mínimo de 3 meses', 'Pasión por la educación'],
   },
   {
-    titulo: 'Facilitador/a de Talleres',
-    descripcion: 'Diseña y ejecuta sesiones formativas en habilidades blandas, liderazgo y educación financiera.',
-    compromiso: '2-4 horas por sesión',
-    icono: '📚',
+    titulo: 'Facilitador/a de Talleres', descripcion: 'Diseña y ejecuta sesiones formativas en habilidades blandas y liderazgo.', compromiso: '2-4 horas por sesión', icono: '📚',
     requisitos: ['Experiencia en facilitación', 'Habilidades de comunicación', 'Creatividad'],
   },
   {
-    titulo: 'Voluntario/a de Eventos',
-    descripcion: 'Apoya en la logística y ejecución de eventos, foros juveniles y actividades de networking.',
-    compromiso: 'Por evento',
-    icono: '🎪',
+    titulo: 'Voluntario/a de Eventos', descripcion: 'Apoya en la logística y ejecución de eventos, foros juveniles y actividades de networking.', compromiso: 'Por evento', icono: '🎪',
     requisitos: ['Disponibilidad flexible', 'Trabajo en equipo', 'Proactividad'],
   },
   {
-    titulo: 'Embajador/a Digital',
-    descripcion: 'Amplifica nuestro mensaje en redes sociales y ayuda a construir nuestra comunidad digital.',
-    compromiso: '2-3 horas semanales',
-    icono: '📱',
+    titulo: 'Embajador/a Digital', descripcion: 'Amplifica nuestro mensaje en redes sociales y ayuda a construir nuestra comunidad digital.', compromiso: '2-3 horas semanales', icono: '📱',
     requisitos: ['Manejo de redes sociales', 'Creatividad', 'Alineación con nuestra misión'],
-  },
-];
-
-// Eventos y participaciones
-const eventos = [
-  {
-    titulo: 'Foro de Países de ALC sobre Desarrollo Sostenible',
-    lugar: 'CEPAL ONU',
-    fecha: '2024',
-    descripcion: 'Nuestra directora fundadora representó a las juventudes en la 8va Reunión, participando en el Foro de NNAyJ de ALC y presentando una Declaración colectiva.',
-    destacado: true,
-  },
-  {
-    titulo: 'Día del Voluntariado Global',
-    lugar: 'Lima, Perú',
-    fecha: 'Diciembre 2024',
-    descripcion: 'Evento con YMCA Perú, ESCAPATE, Red Soy Voluntario y SENAJU. Actividades lúdicas en 4 grupos de 18 personas. Recibimos reconocimiento por nuestra labor voluntaria.',
-    destacado: true,
-  },
-  {
-    titulo: 'Lanzamiento Capítulo Nacional WFF',
-    lugar: 'Lima, Perú',
-    fecha: 'Abril 2024',
-    descripcion: 'Participamos en el lanzamiento del Foro Mundial de la Alimentación impulsado por FAO y SENAJU, trabajando por seguridad alimentaria y desarrollo rural inclusivo.',
-    destacado: false,
-  },
-  {
-    titulo: 'Tejiendo Ciudadanía',
-    lugar: 'Lima, Perú',
-    fecha: '2024',
-    descripcion: 'Espacio de debate y cocreación con Red Pública, PNUD Perú y MCLCP Nacional para proponer soluciones colectivas frente a problemáticas actuales.',
-    destacado: false,
-  },
-];
-
-// Alianzas
-const alianzas = [
-  { nombre: 'SENAJU', tipo: 'Gubernamental' },
-  { nombre: 'América Solidaria Perú', tipo: 'ONG' },
-  { nombre: 'Proa', tipo: 'ONG' },
-  { nombre: 'YMCA Perú', tipo: 'ONG' },
-  { nombre: 'Red Soy Voluntario', tipo: 'Red' },
-  { nombre: 'PNUD Perú', tipo: 'Internacional' },
-  { nombre: 'FAO', tipo: 'Internacional' },
-  { nombre: 'Municipalidad de Lima', tipo: 'Gubernamental' },
-  { nombre: 'Proyecto Bicentenario', tipo: 'Gubernamental' },
-  { nombre: 'Programa ESCAPATE', tipo: 'Programa' },
-];
-
-// ODS vinculados al voluntariado
-const odsVoluntariado = [5, 10, 13, 16, 17];
-
-// Beneficios
-const beneficios = [
-  {
-    titulo: 'Impacto real',
-    descripcion: 'Tu tiempo transforma vidas. Acompaña a escolares en su proceso de empoderamiento.',
-    icono: '💡',
-  },
-  {
-    titulo: 'Desarrollo personal',
-    descripcion: 'Fortalece habilidades de liderazgo, comunicación y trabajo en equipo.',
-    icono: '🚀',
-  },
-  {
-    titulo: 'Red de contactos',
-    descripcion: 'Conecta con organizaciones como SENAJU, PNUD, FAO y más de 10 aliados estratégicos.',
-    icono: '🤝',
-  },
-  {
-    titulo: 'Certificación',
-    descripcion: 'Recibe constancia de voluntariado avalada por nuestras alianzas institucionales.',
-    icono: '📜',
-  },
-  {
-    titulo: 'Eventos exclusivos',
-    descripcion: 'Accede a foros, capacitaciones y espacios de incidencia juvenil.',
-    icono: '🎪',
-  },
-  {
-    titulo: 'Comunidad',
-    descripcion: 'Sé parte de una red de jóvenes comprometidos con el cambio social.',
-    icono: '💛',
   },
 ];
 ---
 
-<PageLayout
-  title="Voluntariado - Youngers in Action"
+<MinimalLayout
+  title="Voluntariado"
   description="Únete como voluntario/a a Youngers in Action. Mentorías, eventos y oportunidades de impacto social para jóvenes en Lima, Perú."
+  headerVariant="dark"
 >
   <!-- Hero -->
-  <section class="relative overflow-hidden bg-gradient-to-br from-primary-500 via-primary-400 to-primary-300 py-20 md:py-28">
+  <section class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FFB800]">
     <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <div class="absolute inset-0 bg-[url('/images/pattern-dots.svg')] bg-center"></div>
     </div>
-
-    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="text-center" data-reveal>
-        <Badge variant="secondary" size="lg" rounded>
-          ¡Por y para las juventudes!
-        </Badge>
-
-        <h1 class="mt-6 font-display text-4xl font-bold tracking-tight text-neutral-900 sm:text-5xl md:text-6xl">
-          Sé parte del <span class="gradient-text-animate">cambio</span>
-        </h1>
-
-        <p class="mx-auto mt-6 max-w-2xl text-lg text-neutral-800 sm:text-xl">
-          Únete a nuestra comunidad de voluntarios y acompaña a escolares en su proceso de empoderamiento. Tu tiempo transforma vidas.
-        </p>
-
-        <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button href="#aplicar" variant="secondary" size="lg" class="press-effect">
-            Quiero ser voluntario/a
-          </Button>
-          <Button href="#tipos" variant="outline" size="lg" class="border-neutral-900 text-neutral-900 hover:bg-neutral-900/10">
-            Ver oportunidades
-          </Button>
-        </div>
-
-        <p class="mt-8 text-sm font-medium text-neutral-700">
-          +20 horas de servicio comunitario • 6 mentores activos • Alianzas con +10 organizaciones
-        </p>
+    <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
+      <span class="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-neutral-800" data-reveal>¡Por y para las juventudes!</span>
+      <h1 class="font-display text-4xl font-bold text-neutral-900 sm:text-5xl md:text-6xl lg:text-7xl" data-reveal>
+        Sé parte del cambio
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg text-neutral-800 sm:text-xl" data-reveal style="--delay: 200ms">
+        Únete a nuestra comunidad de voluntarios y acompaña a escolares en su proceso de empoderamiento. Tu tiempo transforma vidas.
+      </p>
+      <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 400ms">
+        <a href="#aplicar" class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-8 py-3.5 font-semibold text-white transition-all hover:bg-neutral-800">
+          Quiero ser voluntario/a
+        </a>
+        <a href="#tipos" class="inline-flex items-center justify-center rounded-full border-2 border-neutral-900/30 px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:border-neutral-900">
+          Ver oportunidades
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Declaración de propósito -->
-  <Section background="white" spacing="lg">
-    <div class="mx-auto max-w-4xl text-center" data-reveal>
-      <blockquote class="font-display text-2xl font-medium text-neutral-900 sm:text-3xl md:text-4xl">
+  <!-- Quote -->
+  <section class="bg-white py-20">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-8" data-reveal>
+      <blockquote class="font-display text-2xl font-medium text-neutral-900 sm:text-3xl">
         "Seguir involucrándonos y apostar por el talento de las juventudes es parte de nuestro compromiso; más si sabemos que nuestras acciones están sumando al logro de cambios para el futuro de ell@s y de TOD@S."
       </blockquote>
-      <p class="mt-6 text-lg text-neutral-600">
-        — Youngers in Action
-      </p>
+      <p class="mt-6 text-lg text-neutral-500">— Youngers in Action</p>
     </div>
-  </Section>
+  </section>
 
   <!-- Beneficios -->
-  <Section id="beneficios" background="gray" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="accent" size="sm">Beneficios</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        ¿Por qué ser voluntario/a?
-      </h2>
-    </div>
+  <section class="bg-neutral-50 py-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Beneficios</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">¿Por qué ser voluntario/a?</h2>
+      </div>
 
-    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
-      {beneficios.map((beneficio) => (
-        <article class="group rounded-2xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-md hover:ring-primary-200">
-          <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-2xl transition-transform group-hover:scale-110">
-            {beneficio.icono}
-          </span>
-          <h3 class="mt-4 font-display text-lg font-semibold text-neutral-900">
-            {beneficio.titulo}
-          </h3>
-          <p class="mt-2 text-neutral-600">
-            {beneficio.descripcion}
-          </p>
-        </article>
-      ))}
+      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
+        {beneficios.map((b) => (
+          <article class="group rounded-2xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-md hover:ring-[#FFB800]/20">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFB800]/10 text-2xl transition-transform group-hover:scale-110">
+              {b.icono}
+            </span>
+            <h3 class="mt-4 font-display text-lg font-semibold text-neutral-900">{b.titulo}</h3>
+            <p class="mt-2 text-neutral-600">{b.descripcion}</p>
+          </article>
+        ))}
+      </div>
     </div>
-  </Section>
+  </section>
 
   <!-- Tipos de voluntariado -->
-  <Section id="tipos" background="white" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="primary" size="sm">Oportunidades</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        Encuentra tu forma de aportar
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Diferentes roles para diferentes talentos. Elige el que mejor se adapte a ti.
-      </p>
-    </div>
-
-    <div class="mt-12 grid gap-8 md:grid-cols-2" data-reveal-stagger>
-      {tiposVoluntariado.map((tipo) => (
-        <article class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-50 to-white p-8 ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-primary-300">
-          <div class="flex items-start justify-between">
-            <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-primary-100 text-3xl">
-              {tipo.icono}
-            </span>
-            <Badge variant="neutral" size="sm">
-              {tipo.compromiso}
-            </Badge>
-          </div>
-
-          <h3 class="mt-6 font-display text-xl font-semibold text-neutral-900">
-            {tipo.titulo}
-          </h3>
-
-          <p class="mt-3 text-neutral-600">
-            {tipo.descripcion}
-          </p>
-
-          <div class="mt-6">
-            <p class="text-sm font-medium text-neutral-500">Requisitos:</p>
-            <ul class="mt-2 space-y-1">
-              {tipo.requisitos.map((req) => (
-                <li class="flex items-center gap-2 text-sm text-neutral-600">
-                  <svg class="h-4 w-4 text-accent-500" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                  </svg>
-                  {req}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </article>
-      ))}
-    </div>
-  </Section>
-
-  <!-- Mentorías EmpoderArLAS -->
-  <Section background="secondary" spacing="xl">
-    <div class="grid items-center gap-12 lg:grid-cols-2" data-reveal>
-      <div>
-        <Badge variant="primary" size="sm">Programa insignia</Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          Mentorías in Action 🚀
-        </h2>
-        <p class="mt-4 text-lg text-secondary-100">
-          Como parte del programa EmpoderArLAS, nuestras sesiones de mentoring fortalecen las ideas de escolares para convertirlas en proyectos de impacto comunitario.
-        </p>
-        <p class="mt-4 text-secondary-200">
-          Sabemos que dar el primer paso "cuesta", por eso el equipo de YoungerS está para acompañarlos. Por el talento juvenil, <strong class="text-primary-400">¿te sumas?</strong>
-        </p>
-
-        <div class="mt-8 grid grid-cols-2 gap-6">
-          <div class="rounded-xl bg-white/10 p-4 backdrop-blur">
-            <p class="font-display text-3xl font-bold text-white">35</p>
-            <p class="text-sm text-secondary-200">Escolares acompañados</p>
-          </div>
-          <div class="rounded-xl bg-white/10 p-4 backdrop-blur">
-            <p class="font-display text-3xl font-bold text-white">5</p>
-            <p class="text-sm text-secondary-200">Sesiones por grado</p>
-          </div>
-        </div>
-
-        <Button href="#aplicar" variant="primary" size="lg" class="mt-8">
-          Quiero ser mentor/a
-        </Button>
+  <section id="tipos" class="bg-white py-24">
+    <div class="mx-auto max-w-5xl px-6 lg:px-8">
+      <div class="text-center" data-reveal>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Oportunidades</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Encuentra tu forma de aportar</h2>
       </div>
 
-      <figure class="relative">
-        <div class="aspect-[4/3] overflow-hidden rounded-2xl bg-secondary-700">
-          <img
-            src="/images/mentorias-action.jpg"
-            alt="Sesión de mentoría con escolares"
-            class="h-full w-full object-cover opacity-90"
-            loading="lazy"
-          />
-        </div>
-        <div class="absolute -bottom-6 -right-6 rounded-xl bg-primary-400 p-4 shadow-lg">
-          <p class="font-display text-lg font-bold text-neutral-900">+85%</p>
-          <p class="text-sm text-neutral-800">participación</p>
-        </div>
-      </figure>
-    </div>
-  </Section>
-
-  <!-- Eventos y participaciones -->
-  <Section id="eventos" background="white" spacing="xl">
-    <div class="text-center" data-reveal>
-      <Badge variant="secondary" size="sm">Trayectoria</Badge>
-      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-        Dónde hemos estado presentes
-      </h2>
-      <p class="mx-auto mt-4 max-w-2xl text-lg text-neutral-600">
-        Participamos activamente en espacios de incidencia juvenil a nivel nacional e internacional.
-      </p>
-    </div>
-
-    <div class="mt-12 space-y-6" data-reveal-stagger>
-      {eventos.map((evento) => (
-        <article class:list={[
-          'group relative rounded-2xl p-6 transition-all hover:shadow-md md:p-8',
-          evento.destacado
-            ? 'bg-gradient-to-r from-primary-50 to-primary-100/50 ring-2 ring-primary-200'
-            : 'bg-neutral-50 ring-1 ring-neutral-200',
-        ]}>
-          {evento.destacado && (
-            <Badge variant="primary" size="sm" class="absolute right-6 top-6">
-              Destacado
-            </Badge>
-          )}
-
-          <div class="flex flex-col gap-4 md:flex-row md:items-start md:gap-8">
-            <div class="shrink-0">
-              <p class="font-display text-sm font-semibold text-primary-600">{evento.fecha}</p>
-              <p class="text-sm text-neutral-500">{evento.lugar}</p>
+      <div class="mt-12 grid gap-8 md:grid-cols-2" data-reveal-stagger>
+        {tiposVoluntariado.map((tipo) => (
+          <article class="group rounded-2xl bg-neutral-50 p-8 ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-[#FFB800]/30">
+            <div class="flex items-start justify-between">
+              <span class="flex h-14 w-14 items-center justify-center rounded-xl bg-[#FFB800]/10 text-3xl">{tipo.icono}</span>
+              <span class="rounded-full bg-neutral-200 px-3 py-1 text-xs font-medium text-neutral-600">{tipo.compromiso}</span>
             </div>
-
-            <div class="flex-1">
-              <h3 class="font-display text-xl font-semibold text-neutral-900">
-                {evento.titulo}
-              </h3>
-              <p class="mt-2 text-neutral-600">
-                {evento.descripcion}
-              </p>
+            <h3 class="mt-6 font-display text-xl font-semibold text-neutral-900">{tipo.titulo}</h3>
+            <p class="mt-3 text-neutral-600">{tipo.descripcion}</p>
+            <div class="mt-6">
+              <p class="text-sm font-medium text-neutral-500">Requisitos:</p>
+              <ul class="mt-2 space-y-1">
+                {tipo.requisitos.map((req) => (
+                  <li class="flex items-center gap-2 text-sm text-neutral-600">
+                    <svg class="h-4 w-4 text-[#FFB800]" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                    </svg>
+                    {req}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </div>
-        </article>
-      ))}
+          </article>
+        ))}
+      </div>
     </div>
-  </Section>
+  </section>
 
-  <!-- Alianzas -->
-  <Section background="gray" spacing="lg">
-    <div class="text-center" data-reveal>
-      <Badge variant="accent" size="sm">Alianzas</Badge>
-      <h2 class="mt-4 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
-        Organizaciones con las que trabajamos
-      </h2>
-    </div>
-
-    <div class="mt-10 flex flex-wrap justify-center gap-3" data-reveal-stagger>
-      {alianzas.map((alianza) => (
-        <span class:list={[
-          'rounded-full px-4 py-2 text-sm font-medium transition-all hover:scale-105',
-          alianza.tipo === 'Internacional' && 'bg-secondary-100 text-secondary-700',
-          alianza.tipo === 'Gubernamental' && 'bg-accent-100 text-accent-700',
-          alianza.tipo === 'ONG' && 'bg-primary-100 text-primary-700',
-          alianza.tipo === 'Red' && 'bg-purple-100 text-purple-700',
-          alianza.tipo === 'Programa' && 'bg-neutral-200 text-neutral-700',
-        ]}>
-          {alianza.nombre}
-        </span>
-      ))}
-    </div>
-  </Section>
-
-  <!-- ODS vinculados -->
-  <Section background="white" spacing="lg">
-    <div class="text-center" data-reveal>
-      <Badge variant="secondary" size="sm">Impacto</Badge>
-      <h2 class="mt-4 font-display text-2xl font-bold tracking-tight text-neutral-900 sm:text-3xl">
-        ODS que impulsamos con el voluntariado
-      </h2>
-    </div>
-
-    <ul class="mt-10 flex flex-wrap justify-center gap-4" role="list" data-reveal-stagger>
-      {odsVoluntariado.map((num) => (
-        <li>
-          <OdsCard number={num} size="sm" href={`/ods#ods-${num}`} />
-        </li>
-      ))}
-    </ul>
-  </Section>
-
-  <!-- Formulario de aplicación -->
-  <Section id="aplicar" background="gray" spacing="xl">
-    <div class="mx-auto max-w-2xl" data-reveal>
+  <!-- Application Form -->
+  <section id="aplicar" class="bg-neutral-50 py-24">
+    <div class="mx-auto max-w-2xl px-6 lg:px-8" data-reveal>
       <div class="text-center">
-        <Badge variant="primary" size="lg" rounded>
-          ¡Únete!
-        </Badge>
-        <h2 class="mt-4 font-display text-3xl font-bold tracking-tight text-neutral-900 sm:text-4xl">
-          Aplica como voluntario/a
-        </h2>
-        <p class="mt-4 text-lg text-neutral-600">
-          Completa el formulario y nos pondremos en contacto contigo.
-        </p>
+        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">¡Únete!</span>
+        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Aplica como voluntario/a</h2>
+        <p class="mt-4 text-lg text-neutral-600">Completa el formulario y nos pondremos en contacto contigo.</p>
       </div>
 
-      <form
-        id="volunteer-form"
-        class="mt-10 space-y-6 rounded-2xl bg-white p-8 shadow-sm ring-1 ring-neutral-200"
-        action="https://formspree.io/f/placeholder"
-        method="POST"
-      >
+      <form id="volunteer-form" class="mt-10 space-y-6 rounded-2xl bg-white p-8 shadow-sm ring-1 ring-neutral-200" action="https://formspree.io/f/placeholder" method="POST">
         <div class="grid gap-6 sm:grid-cols-2">
           <div>
-            <label for="vol-nombre" class="mb-2 block text-sm font-medium text-neutral-700">
-              Nombre completo *
-            </label>
-            <input
-              type="text"
-              id="vol-nombre"
-              name="nombre"
-              required
-              autocomplete="name"
-              placeholder="Tu nombre"
-              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-            />
+            <label for="vol-nombre" class="mb-2 block text-sm font-medium text-neutral-700">Nombre completo *</label>
+            <input type="text" id="vol-nombre" name="nombre" required autocomplete="name" placeholder="Tu nombre" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
           </div>
-
           <div>
-            <label for="vol-email" class="mb-2 block text-sm font-medium text-neutral-700">
-              Correo electrónico *
-            </label>
-            <input
-              type="email"
-              id="vol-email"
-              name="email"
-              required
-              autocomplete="email"
-              placeholder="tu@email.com"
-              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-            />
+            <label for="vol-email" class="mb-2 block text-sm font-medium text-neutral-700">Correo electrónico *</label>
+            <input type="email" id="vol-email" name="email" required autocomplete="email" placeholder="tu@email.com" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
           </div>
         </div>
-
         <div class="grid gap-6 sm:grid-cols-2">
           <div>
-            <label for="vol-edad" class="mb-2 block text-sm font-medium text-neutral-700">
-              Edad *
-            </label>
-            <input
-              type="number"
-              id="vol-edad"
-              name="edad"
-              required
-              min="18"
-              max="99"
-              placeholder="Ej: 22"
-              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-            />
+            <label for="vol-edad" class="mb-2 block text-sm font-medium text-neutral-700">Edad *</label>
+            <input type="number" id="vol-edad" name="edad" required min="18" max="99" placeholder="Ej: 22" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
           </div>
-
           <div>
-            <label for="vol-tipo" class="mb-2 block text-sm font-medium text-neutral-700">
-              Tipo de voluntariado *
-            </label>
-            <select
-              id="vol-tipo"
-              name="tipo_voluntariado"
-              required
-              class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-            >
+            <label for="vol-tipo" class="mb-2 block text-sm font-medium text-neutral-700">Tipo de voluntariado *</label>
+            <select id="vol-tipo" name="tipo_voluntariado" required class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20">
               <option value="">Selecciona una opción</option>
               <option value="mentor">Mentor/a Juvenil</option>
               <option value="facilitador">Facilitador/a de Talleres</option>
@@ -477,88 +165,66 @@ const beneficios = [
             </select>
           </div>
         </div>
-
         <div>
-          <label for="vol-motivacion" class="mb-2 block text-sm font-medium text-neutral-700">
-            ¿Por qué quieres ser voluntario/a? *
-          </label>
-          <textarea
-            id="vol-motivacion"
-            name="motivacion"
-            required
-            rows="4"
-            placeholder="Cuéntanos qué te motiva y qué esperas aportar..."
-            class="w-full resize-none rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-          ></textarea>
+          <label for="vol-motivacion" class="mb-2 block text-sm font-medium text-neutral-700">¿Por qué quieres ser voluntario/a? *</label>
+          <textarea id="vol-motivacion" name="motivacion" required rows="4" placeholder="Cuéntanos qué te motiva y qué esperas aportar..." class="w-full resize-none rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20"></textarea>
         </div>
-
         <div>
-          <label for="vol-disponibilidad" class="mb-2 block text-sm font-medium text-neutral-700">
-            Disponibilidad horaria
-          </label>
-          <input
-            type="text"
-            id="vol-disponibilidad"
-            name="disponibilidad"
-            placeholder="Ej: Fines de semana, tardes entre semana"
-            class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-400/20"
-          />
+          <label for="vol-disponibilidad" class="mb-2 block text-sm font-medium text-neutral-700">Disponibilidad horaria</label>
+          <input type="text" id="vol-disponibilidad" name="disponibilidad" placeholder="Ej: Fines de semana, tardes entre semana" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
         </div>
-
         <div class="flex items-start gap-3">
-          <input
-            type="checkbox"
-            id="vol-terminos"
-            name="terminos"
-            required
-            class="mt-1 h-4 w-4 rounded border-neutral-300 text-primary-500 focus:ring-primary-400"
-          />
+          <input type="checkbox" id="vol-terminos" name="terminos" required class="mt-1 h-4 w-4 rounded border-neutral-300 text-[#FFB800] focus:ring-[#FFB800]" />
           <label for="vol-terminos" class="text-sm text-neutral-600">
-            Confirmo que tengo 18 años o más y acepto la <a href="/privacidad" class="text-primary-600 underline hover:text-primary-700">política de privacidad</a>.
+            Confirmo que tengo 18 años o más y acepto la <a href="/privacidad" class="text-[#FFB800] underline hover:text-neutral-900">política de privacidad</a>.
           </label>
         </div>
-
-        <Button type="submit" variant="primary" size="lg" class="w-full">
+        <button type="submit" class="w-full rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600] hover:shadow-lg">
           Enviar solicitud
-        </Button>
+        </button>
       </form>
     </div>
-  </Section>
+  </section>
 
-  <!-- CTA Final -->
-  <CtaBanner
-    title="Las juventudes no son el futuro, son el presente"
-    description="Cada acción suma. Cada mentor transforma. Cada voluntario hace la diferencia."
-    primaryCTA={{ label: 'Contáctanos', href: '/contacto' }}
-    secondaryCTA={{ label: 'Conoce EmpoderArLAS', href: '/proyectos/empoderarlas' }}
-    background="gradient"
-  />
-</PageLayout>
+  <!-- CTA -->
+  <section class="bg-neutral-900 py-20">
+    <div class="mx-auto max-w-4xl px-6 text-center lg:px-8">
+      <h2 class="font-display text-3xl font-bold text-white sm:text-4xl" data-reveal>
+        Las juventudes no son el futuro, son el presente
+      </h2>
+      <p class="mx-auto mt-4 max-w-2xl text-neutral-400" data-reveal style="--delay: 150ms">
+        Cada acción suma. Cada mentor transforma. Cada voluntario hace la diferencia.
+      </p>
+      <div class="mt-8 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 300ms">
+        <a href="/contacto" class="inline-flex items-center justify-center rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600]">
+          Contáctanos
+        </a>
+        <a href="/proyectos/empoderarlas" class="inline-flex items-center justify-center rounded-full border-2 border-white/30 px-8 py-3.5 font-semibold text-white transition-all hover:border-white hover:bg-white/10">
+          Conoce EmpoderArLAS
+        </a>
+      </div>
+    </div>
+  </section>
+</MinimalLayout>
 
 <script>
-  // Form submission feedback
   const form = document.getElementById('volunteer-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
     const originalText = button.textContent;
-
     button.textContent = 'Enviando...';
     button.disabled = true;
-
-    // Simular envío (reemplazar con Formspree real)
     await new Promise((resolve) => setTimeout(resolve, 1500));
-
     button.textContent = '¡Solicitud enviada!';
-    button.classList.remove('bg-primary-400');
-    button.classList.add('bg-accent-500');
-
+    button.classList.remove('bg-[#FFB800]');
+    button.classList.add('bg-green-500', 'text-white');
     setTimeout(() => {
       form.reset();
       button.textContent = originalText;
       button.disabled = false;
-      button.classList.remove('bg-accent-500');
-      button.classList.add('bg-primary-400');
+      button.classList.remove('bg-green-500', 'text-white');
+      button.classList.add('bg-[#FFB800]');
     }, 3000);
   });
 </script>
