@@ -38,22 +38,30 @@ const tiposVoluntariado = [
 >
   <!-- Hero -->
   <section class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FFB800]">
+    <!-- Fondo de puntitos -->
     <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <div class="absolute inset-0 bg-[url('/images/pattern-dots.svg')] bg-center"></div>
     </div>
+    <!-- Imagen esquina inferior derecha -->
+    <img
+      src="/images/voluntarios-hero.png"
+      alt="Voluntarios de Youngers in Action"
+      class="absolute bottom-0 right-0 h-[65%] w-auto object-contain object-bottom"
+      aria-hidden="true"
+    />
     <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
       <span class="mb-4 inline-block text-sm font-medium uppercase tracking-widest text-neutral-800" data-reveal>¡Por y para las juventudes!</span>
       <h1 class="font-display text-4xl font-bold text-neutral-900 sm:text-5xl md:text-6xl lg:text-7xl" data-reveal>
-        Sé parte del cambio
+        Sé parte del <span class="cambio-text">cambio</span>
       </h1>
-      <p class="mx-auto mt-6 max-w-2xl text-lg text-neutral-800 sm:text-xl" data-reveal style="--delay: 200ms">
+      <p class="mx-auto mt-6 max-w-2xl text-lg sm:text-xl font-medium" data-reveal style="--delay: 200ms; color: white; text-shadow: 0 1px 8px rgba(0,0,0,0.35);">
         Únete a nuestra comunidad de voluntarios y acompaña a escolares en su proceso de empoderamiento. Tu tiempo transforma vidas.
       </p>
       <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row" data-reveal style="--delay: 400ms">
         <a href="#aplicar" class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-8 py-3.5 font-semibold text-white transition-all hover:bg-neutral-800">
           Quiero ser voluntario/a
         </a>
-        <a href="#tipos" class="inline-flex items-center justify-center rounded-full border-2 border-neutral-900/30 px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:border-neutral-900">
+        <a href="#tipos" id="btn-oportunidades" class="btn-multicolor inline-flex items-center justify-center rounded-full px-8 py-3.5 font-semibold text-white transition-all">
           Ver oportunidades
         </a>
       </div>
@@ -151,7 +159,7 @@ const tiposVoluntariado = [
         <div class="grid gap-6 sm:grid-cols-2">
           <div>
             <label for="vol-edad" class="mb-2 block text-sm font-medium text-neutral-700">Edad *</label>
-            <input type="number" id="vol-edad" name="edad" required min="18" max="99" placeholder="Ej: 22" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
+            <input type="number" id="vol-edad" name="edad" required min="14" max="99" placeholder="Ej: 22" class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20" />
           </div>
           <div>
             <label for="vol-tipo" class="mb-2 block text-sm font-medium text-neutral-700">Tipo de voluntariado *</label>
@@ -164,6 +172,16 @@ const tiposVoluntariado = [
               <option value="otro">Otro</option>
             </select>
           </div>
+        </div>
+        <div>
+          <label for="vol-contribucion" class="mb-2 block text-sm font-medium text-neutral-700">¿Cómo quieres contribuir? *</label>
+          <select id="vol-contribucion" name="contribucion" required class="w-full rounded-lg border border-neutral-300 px-4 py-3 text-sm transition-all focus:border-[#FFB800] focus:outline-none focus:ring-2 focus:ring-[#FFB800]/20 appearance-none bg-white">
+            <option value="" disabled selected>Selecciona una opción...</option>
+            <option value="profesional_contenido">Soy profesional y puedo aportar contenido</option>
+            <option value="colegio">Pertenezco a un colegio y quiero socializar</option>
+            <option value="padre_madre">Soy madre/padre y deseo que mi hija/o tenga una cuenta</option>
+            <option value="menor_programa">Soy menor de edad y quiero participar del Programa</option>
+          </select>
         </div>
         <div>
           <label for="vol-motivacion" class="mb-2 block text-sm font-medium text-neutral-700">¿Por qué quieres ser voluntario/a? *</label>
@@ -207,7 +225,106 @@ const tiposVoluntariado = [
   </section>
 </MinimalLayout>
 
+<style>
+  .btn-multicolor {
+    background: linear-gradient(90deg, #ff0000, #FFB800, #ff2200, #FFB800, #ff0000);
+    background-size: 300% auto;
+    animation: rainbow-shift 6s linear infinite;
+    box-shadow: 0 0 12px rgba(255, 50, 0, 0.4);
+  }
+  .btn-multicolor:hover {
+    box-shadow: 0 0 24px rgba(255, 50, 0, 0.7);
+    transform: scale(1.05);
+  }
+
+  @keyframes rainbow-shift {
+    0%   { background-position: 0% center; }
+    100% { background-position: 300% center; }
+  }
+
+  .serpentina {
+    position: fixed;
+    width: 8px;
+    height: 22px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 1;
+    animation: serpentina-fly var(--dur) ease-out forwards;
+  }
+
+  @keyframes serpentina-fly {
+    0%   { transform: translate(0, 0) rotate(0deg) scaleX(1);   opacity: 1; }
+    50%  { transform: translate(var(--tx), var(--ty50)) rotate(var(--rot50)) scaleX(0.5); opacity: 0.9; }
+    100% { transform: translate(var(--tx), var(--ty))  rotate(var(--rot))   scaleX(1);   opacity: 0; }
+  }
+
+  .cambio-text {
+    background: linear-gradient(
+      90deg,
+      #6b7280 0%,
+      #d1d5db 20%,
+      #f9fafb 35%,
+      #ffffff 50%,
+      #e5e7eb 65%,
+      #9ca3af 80%,
+      #6b7280 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: silver-shine 3s linear infinite;
+  }
+
+  @keyframes silver-shine {
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+</style>
+
 <script>
+  // Serpentinas en "Ver oportunidades"
+  const btnOportunidades = document.getElementById('btn-oportunidades');
+  const COLORS = ['#ff0000','#FFB800','#ff3300','#ffcc00','#cc0000','#ffe100','#ff6600','#ffdd00'];
+
+  btnOportunidades?.addEventListener('click', (e) => {
+    const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2;
+
+    for (let i = 0; i < 40; i++) {
+      const el = document.createElement('div');
+      el.classList.add('serpentina');
+
+      const angle = (Math.PI * 2 * i) / 40 + (Math.random() - 0.5) * 0.5;
+      const dist = 120 + Math.random() * 180;
+      const tx = Math.cos(angle) * dist;
+      const ty = Math.sin(angle) * dist - 60;
+      const ty50 = ty * 0.5 - 40;
+      const rot = (Math.random() - 0.5) * 720;
+      const rot50 = rot * 0.5;
+      const dur = (0.7 + Math.random() * 0.8).toFixed(2) + 's';
+
+      el.style.cssText = `
+        left: ${originX}px;
+        top: ${originY}px;
+        background: ${COLORS[Math.floor(Math.random() * COLORS.length)]};
+        --tx: ${tx}px;
+        --ty: ${ty}px;
+        --ty50: ${ty50}px;
+        --rot: ${rot}deg;
+        --rot50: ${rot50}deg;
+        --dur: ${dur};
+        width: ${6 + Math.random() * 6}px;
+        height: ${16 + Math.random() * 18}px;
+      `;
+
+      document.body.appendChild(el);
+      el.addEventListener('animationend', () => el.remove());
+    }
+  });
+
   const form = document.getElementById('volunteer-form') as HTMLFormElement;
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
