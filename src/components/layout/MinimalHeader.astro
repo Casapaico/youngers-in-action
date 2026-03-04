@@ -10,41 +10,41 @@ const { variant = 'light' } = Astro.props;
   class="minimal-header fixed top-0 left-0 right-0 z-50 transition-all duration-300"
   data-variant={variant}
 >
-  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-6 lg:px-8">
     <!-- Logo -->
     <a href="/" class="relative z-10" aria-label="Youngers in Action - Inicio">
       <img
         src="/images/logoyia.png"
         alt="Youngers in Action"
-        class="h-10 w-auto rounded-lg transition-all duration-300 sm:h-12"
+        class="h-[72px] w-auto rounded-lg transition-all duration-300 sm:h-[86px]"
         data-logo
       />
     </a>
 
     <!-- Hamburger Button -->
     <button
-      class="menu-toggle relative z-10 flex h-10 w-10 flex-col items-center justify-center gap-1.5"
+      class="menu-toggle relative z-10 flex h-[72px] w-[72px] flex-col items-center justify-center gap-[11px]"
       aria-label="Abrir menú"
       aria-expanded="false"
       data-menu-toggle
     >
       <span
         class:list={[
-          'menu-line block h-0.5 w-6 rounded-full transition-all duration-300',
+          'menu-line block h-[3.6px] w-[43px] rounded-full transition-all duration-300',
           variant === 'dark' ? 'bg-white' : 'bg-neutral-900',
         ]}
         data-line="1"
       />
       <span
         class:list={[
-          'menu-line block h-0.5 w-6 rounded-full transition-all duration-300',
+          'menu-line block h-[3.6px] w-[43px] rounded-full transition-all duration-300',
           variant === 'dark' ? 'bg-white' : 'bg-neutral-900',
         ]}
         data-line="2"
       />
       <span
         class:list={[
-          'menu-line block h-0.5 w-6 rounded-full transition-all duration-300',
+          'menu-line block h-[3.6px] w-[43px] rounded-full transition-all duration-300',
           variant === 'dark' ? 'bg-white' : 'bg-neutral-900',
         ]}
         data-line="3"
