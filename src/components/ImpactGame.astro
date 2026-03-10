@@ -665,7 +665,7 @@
 
 </section>
 
-<style>
+<style is:global>
   /* ═══════════════════════════════════════════════════════════
      BASE
   ═══════════════════════════════════════════════════════════ */
@@ -697,6 +697,13 @@
     padding: 16px;
     box-sizing: border-box;
   }
+
+  /* Fondo opaco por pantalla — evita que el fondo amarillo de S1 se filtre
+     alrededor de los cards durante las transiciones */
+  #gs2           { background: #0d0d1a; }
+  #gs3, #gs4     { background: #0d0d1a; }
+  #gs5           { background: #0d0d1a; }
+  #gs6           { background: #0f0f16; }
 
   .gs--active {
     opacity: 1;
@@ -1437,11 +1444,21 @@
   .reveal-stage {
     text-align: center;
     min-height: 60px;
+    max-height: 200px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
     margin-bottom: 4px;
+    transition: opacity 0.5s ease, max-height 0.6s ease, min-height 0.4s ease, margin-bottom 0.4s ease;
+  }
+  .reveal-stage--done {
+    opacity: 0;
+    max-height: 0;
+    min-height: 0;
+    margin-bottom: 0;
+    pointer-events: none;
   }
 
   .reveal-line {
@@ -2032,8 +2049,7 @@
   .mute-btn {
     position: absolute;
     top: 15px;
-    left: 50%;
-    transform: translateX(-50%);
+    right: 16px;
     z-index: 20;
     display: flex;
     align-items: center;
@@ -2775,7 +2791,7 @@
 
       // Mute button adapts to screen background
       const muteBtn = document.getElementById('btn-mute');
-      if (muteBtn) muteBtn.classList.toggle('mute-btn--light', n === 7);
+      if (muteBtn) muteBtn.classList.toggle('mute-btn--light', n === 1 || n === 7);
 
       // Barra de progreso global
       const PROGRESS: Record<number, number> = { 1: 5, 2: 20, 3: 40, 4: 60, 5: 78, 6: 92, 7: 100 };
@@ -3001,6 +3017,10 @@
 
     // Sonido + badge al revelar identidad
     setTimeout(sndReveal, 1800);
+    // Fade out reveal text justo antes de mostrar el badge (libera espacio)
+    setTimeout(() => {
+      if (stage) stage.classList.add('reveal-stage--done');
+    }, 2600);
     setTimeout(() => {
       if (badgeGroup) badgeGroup.classList.add('show');
       animateImpactBar();
@@ -3513,7 +3533,7 @@
     if (powerText)    powerText.innerHTML = '';
     if (powerBtn)   { powerBtn.classList.remove('show'); powerBtn.setAttribute('aria-hidden', 'true'); }
     if (doubtLines)   doubtLines.innerHTML = '';
-    if (revealStage)  revealStage.innerHTML = '';
+    if (revealStage)  { revealStage.innerHTML = ''; revealStage.classList.remove('reveal-stage--done'); }
     if (badgeGroup)   badgeGroup.classList.remove('show');
 
     // Reset area breakdown
@@ -3569,8 +3589,8 @@
     state.currentScreen = 1;
     const gs1 = document.getElementById('gs1');
     if (gs1) { gs1.classList.add('gs--active'); gs1.setAttribute('aria-hidden', 'false'); }
-    // Reset mute button to dark style
-    document.getElementById('btn-mute')?.classList.remove('mute-btn--light');
+    // Reset mute button to light style (S1 is yellow background)
+    document.getElementById('btn-mute')?.classList.add('mute-btn--light');
     // Reset barra de progreso
     const fill = document.getElementById('game-progress-fill');
     if (fill) { fill.style.width = '5%'; fill.style.background = '#ffb800'; }
@@ -3709,8 +3729,39 @@
     const initialFill = document.getElementById('game-progress-fill');
     if (initialFill) initialFill.style.width = '5%';
 
-    // S1: Arrancar script conversacional
-    runHookScript();
+    // Mute button: S1 tiene fondo amarillo → estilo oscuro para contraste
+    document.getElementById('btn-mute')?.classList.add('mute-btn--light');
+
+    // ── Header: ocultar cuando el juego está activo, mostrar al salir ──
+    const gameSection = document.getElementById('game');
+    const header = document.querySelector<HTMLElement>('.minimal-header');
+    let hookStarted = false;
+
+    if (gameSection && header) {
+      // Ocultar inmediatamente (antes de que el observer dispare)
+      header.style.opacity = '0';
+      header.style.pointerEvents = 'none';
+      header.style.transition = 'opacity 0.35s ease';
+      // Arrancar script de hook al cargar (juego es la primera sección)
+      hookStarted = true;
+      runHookScript();
+      const fpContainer = document.querySelector('.fullpage-container');
+      const gameObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              header.style.opacity = '0';
+              header.style.pointerEvents = 'none';
+            } else {
+              header.style.opacity = '1';
+              header.style.pointerEvents = '';
+            }
+          });
+        },
+        { root: fpContainer, threshold: 0.4 }
+      );
+      gameObserver.observe(gameSection);
+    }
 
     // S1: Comenzar → S2
     document.getElementById('btn-start')?.addEventListener('click', () => { sndClick(); goToScreen(2); });

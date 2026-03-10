@@ -27,7 +27,7 @@ const { sections } = Astro.props;
       </span>
       <!-- Dot -->
       <span
-        class="dot block h-2.5 w-2.5 rounded-full bg-white/40 transition-all duration-300"
+        class="dot block h-2.5 w-2.5 rounded-full bg-white/60 shadow-sm transition-all duration-300"
         aria-hidden="true"
       />
     </button>
@@ -65,10 +65,10 @@ const { sections } = Astro.props;
               const dotEl = dot as HTMLElement;
               const dotCircle = dotEl.querySelector('.dot') as HTMLElement;
               if (dotEl.dataset.section === id) {
-                dotCircle.classList.remove('bg-white/40', 'h-2.5', 'w-2.5');
+                dotCircle.classList.remove('bg-white/60', 'h-2.5', 'w-2.5');
                 dotCircle.classList.add('bg-[#FFB800]', 'h-3.5', 'w-3.5');
               } else {
-                dotCircle.classList.add('bg-white/40', 'h-2.5', 'w-2.5');
+                dotCircle.classList.add('bg-white/60', 'h-2.5', 'w-2.5');
                 dotCircle.classList.remove('bg-[#FFB800]', 'h-3.5', 'w-3.5');
               }
             });

@@ -3,46 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import MinimalHeader from '../components/layout/MinimalHeader.astro';
 import FullscreenMenu from '../components/layout/FullscreenMenu.astro';
 import DotNavigation from '../components/layout/DotNavigation.astro';
-import OdsCard from '../components/ui/OdsCard.astro';
 import ImpactGame from '../components/ImpactGame.astro';
 
 const sections = [
   { id: 'game', label: 'Juego' },
   { id: 'hero', label: 'Inicio' },
-  { id: 'ods', label: 'ODS' },
+  { id: 'programa', label: 'EmpoderArLAS' },
   { id: 'impacto', label: 'Impacto' },
   { id: 'sumate', label: 'Súmate' },
   { id: 'aliados', label: 'Aliados' },
-];
-
-const odsData = [
-  { number: 4, title: 'Educación de calidad', description: 'Formación integral para escolares de 10-12 años en habilidades blandas y liderazgo.' },
-  { number: 8, title: 'Trabajo decente', description: 'Desarrollo de capacidades productivas y emprendedoras en juventudes.' },
-  { number: 9, title: 'Innovación', description: 'Metodologías innovadoras adaptadas a la realidad de cada comunidad.' },
-  { number: 10, title: 'Reducción de desigualdades', description: 'Enfoque de equidad de género y acceso igualitario a oportunidades.' },
-  { number: 16, title: 'Paz y justicia', description: 'Construcción de ciudadanía activa y participación juvenil.' },
-];
-
-const sumateCards = [
-  {
-    icon: '🤝',
-    title: 'Voluntariado',
-    description: 'Acompaña a escolares como mentor y transforma vidas con tu tiempo.',
-    href: '/voluntariado',
-  },
-  {
-    icon: '✉️',
-    title: 'Contacto',
-    description: 'Alianzas, propuestas o consultas. Queremos escucharte.',
-    href: '/contacto',
-  },
-];
-
-const logos = [
-  { src: '/logos/senaju.svg', alt: 'SENAJU' },
-  { src: '/logos/ugel.svg', alt: 'UGEL 05' },
-  { src: '/logos/aliado3.svg', alt: 'Aliado educativo' },
-  { src: '/logos/aliado4.svg', alt: 'Aliado institucional' },
 ];
 
 const socialLinks = [
@@ -57,312 +26,276 @@ const socialLinks = [
   description="ONG juvenil en Lima, Perú. Empoderamos a escolares de 10-12 años a través de EmpoderArLAS, programa alineado con los ODS y SENAJU."
 >
   <FullscreenMenu />
-  <MinimalHeader variant="dark" />
+  <MinimalHeader variant="light" />
   <DotNavigation sections={sections} />
 
   <div class="fullpage-container">
 
-    <!-- ============================================
-         SECTION 0: MINI-JUEGO (gancho emocional)
-         ============================================ -->
+    <!-- ==============================
+         0. MINI-JUEGO
+         ============================== -->
     <ImpactGame />
 
-    <!-- ============================================
-         SECTION 1: HERO
-         ============================================ -->
-    <section id="hero" class="fullpage-section relative overflow-hidden">
-      <!-- Background Image -->
-      <div class="absolute inset-0">
-        <img
-          src="/images/fondo_de_inicio.png"
-          alt=""
-          class="h-full w-full object-cover"
-          aria-hidden="true"
-        />
-        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70"></div>
-      </div>
-
-      <!-- Content -->
-      <div class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 text-center">
-        <h1
-          class="mx-auto max-w-4xl font-display text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl"
-          data-reveal
-        >
-          Empoderamos a las juventudes de hoy para que nadie se quede atrás mañana
-        </h1>
-        <p
-          class="mx-auto mt-6 max-w-2xl text-lg text-white/80 sm:text-xl"
-          data-reveal
-          style="--delay: 200ms"
-        >
-          ONG juvenil que transforma realidades a través de programas de empoderamiento para escolares en Lima, Perú.
-        </p>
-
-        <!-- CTAs -->
-        <div
-          class="mt-10 flex flex-col gap-4 sm:flex-row"
-          data-reveal
-          style="--delay: 400ms"
-        >
-          <a
-            href="/proyectos/empoderarlas"
-            class="inline-flex items-center justify-center rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600] hover:shadow-lg hover:shadow-[#FFB800]/25"
-          >
-            Conoce EmpoderArLAS
-          </a>
-          <a
-            href="/voluntariado"
-            class="inline-flex items-center justify-center rounded-full border-2 border-white/30 px-8 py-3.5 font-semibold text-white transition-all hover:border-white hover:bg-white/10"
-          >
-            Sé voluntario
-          </a>
-        </div>
-      </div>
-
-      <!-- Scroll indicator -->
-      <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-        <div class="scroll-indicator flex flex-col items-center gap-2 text-white/60">
-          <span class="text-xs uppercase tracking-widest">Scroll</span>
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================
-         SECTION 2: ODS
-         ============================================ -->
-    <section id="ods" class="fullpage-section bg-neutral-900">
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-center px-6 py-16 lg:px-8">
-        <span
-          class="mb-4 text-sm font-medium uppercase tracking-widest text-[#FFB800]"
-          data-reveal
-        >
-          Agenda 2030
-        </span>
-        <h2
-          class="mb-4 text-center font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl"
-          data-reveal
-        >
-          Comprometidos con los ODS
-        </h2>
-        <p
-          class="mb-12 max-w-2xl text-center text-neutral-400"
-          data-reveal
-          style="--delay: 150ms"
-        >
-          Alineados con SENAJU y la Agenda 2030, priorizamos los objetivos donde las juventudes generan mayor impacto.
-        </p>
-
-        <!-- ODS Cards -->
-        <div
-          class="grid w-full max-w-5xl grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5"
-          data-reveal-stagger
-        >
-          {odsData.map((ods) => (
-            <OdsCard
-              number={ods.number}
-              title={ods.title}
-              size="sm"
-            />
-          ))}
-        </div>
-
-        <a
-          href="/ods"
-          class="mt-10 inline-flex items-center gap-2 text-sm font-medium text-[#FFB800] transition-colors hover:text-white"
-          data-reveal
-          style="--delay: 300ms"
-        >
-          Explora nuestro enfoque ODS
-          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </a>
-      </div>
-    </section>
-
-    <!-- ============================================
-         SECTION 3: NUESTRO IMPACTO
-         ============================================ -->
-    <section id="impacto" class="fullpage-section">
-      <div class="split-section h-full">
-        <!-- Left: Image -->
-        <div class="relative hidden overflow-hidden md:block">
-          <img
-            src="/images/fondo_de_inicio_2.png"
-            alt="Voluntarios de Youngers in Action en acción"
-            class="h-full w-full object-cover"
-          />
-          <div class="absolute inset-0 bg-black/20"></div>
-        </div>
-
-        <!-- Right: Stats -->
-        <div class="flex flex-col items-center justify-center bg-white px-8 py-16 md:items-start md:px-16">
-          <span
-            class="mb-4 text-sm font-medium uppercase tracking-widest text-[#FFB800]"
+    <!-- ==============================
+         1. HERO
+         ============================== -->
+    <section id="hero" class="fullpage-section">
+      <div class="split-section">
+        <!-- Left panel -->
+        <div class="flex flex-col justify-center bg-white px-8 py-24 md:px-12 lg:px-16">
+          <span class="mb-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-400" data-reveal>
+            ONG juvenil · Lima, Perú
+          </span>
+          <h1
+            class="font-display text-4xl font-bold leading-[1.1] text-neutral-900 sm:text-5xl lg:text-[3.5rem]"
             data-reveal
+            style="--delay:100ms"
           >
-            EmpoderArLAS 2024
+            Empoderamos<br />
+            juventudes<br />
+            para que nadie<br />
+            quede atrás
+          </h1>
+          <div class="mt-10 flex flex-col gap-3 sm:flex-row" data-reveal style="--delay:250ms">
+            <a
+              href="/proyectos/empoderarlas"
+              class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#FFB800] hover:text-neutral-900"
+            >
+              Conoce EmpoderArLAS
+            </a>
+            <a
+              href="/voluntariado"
+              class="inline-flex items-center justify-center rounded-full border border-neutral-200 px-7 py-3 text-sm font-semibold text-neutral-700 transition-colors hover:border-neutral-900 hover:text-neutral-900"
+            >
+              Sé voluntario
+            </a>
+          </div>
+        </div>
+        <!-- Right panel: photo -->
+        <div class="hidden overflow-hidden md:block">
+          <img
+            src="/images/fondo_de_inicio.png"
+            alt="Jóvenes de Youngers in Action"
+            class="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ==============================
+         2. PROGRAMA
+         ============================== -->
+    <section id="programa" class="fullpage-section">
+      <div class="split-section">
+        <!-- Left panel -->
+        <div class="flex flex-col justify-center bg-[#FFB800] px-8 py-24 md:px-12 lg:px-16">
+          <span class="mb-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-700/50" data-reveal>
+            Nuestro programa
           </span>
           <h2
-            class="mb-12 font-display text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl"
+            class="font-display text-4xl font-bold leading-[1.1] text-neutral-900 sm:text-5xl lg:text-[3.5rem]"
             data-reveal
+            style="--delay:100ms"
           >
-            Nuestro impacto
+            EmpoderArLAS
           </h2>
-
-          <div class="grid w-full max-w-md grid-cols-2 gap-8" data-reveal-stagger>
-            <div class="stat-item">
-              <span class="stat-number font-display text-5xl font-bold text-neutral-900" data-target="35" data-animated="false">0</span>
-              <p class="mt-1 text-sm font-medium text-neutral-500">Escolares impactados</p>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number font-display text-5xl font-bold text-neutral-900" data-target="85" data-animated="false">0</span>
-              <span class="font-display text-5xl font-bold text-neutral-900">%</span>
-              <p class="mt-1 text-sm font-medium text-neutral-500">Participación activa</p>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number font-display text-5xl font-bold text-neutral-900" data-target="12" data-animated="false">0</span>
-              <p class="mt-1 text-sm font-medium text-neutral-500">Iniciativas generadas</p>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number font-display text-5xl font-bold text-neutral-900" data-target="20" data-animated="false">0</span>
-              <span class="font-display text-5xl font-bold text-neutral-900">h</span>
-              <p class="mt-1 text-sm font-medium text-neutral-500">Horas de servicio</p>
-            </div>
-          </div>
-
+          <p class="mt-5 max-w-xs text-base leading-relaxed text-neutral-800/70" data-reveal style="--delay:200ms">
+            Formamos escolares de 10 a 12 años en habilidades blandas, liderazgo y ciudadanía activa.
+          </p>
           <a
             href="/proyectos/empoderarlas"
-            class="mt-12 inline-flex items-center gap-2 font-medium text-[#FFB800] transition-colors hover:text-neutral-900"
+            class="mt-10 inline-flex w-fit items-center gap-2 rounded-full bg-neutral-900 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-neutral-900"
             data-reveal
-            style="--delay: 400ms"
+            style="--delay:300ms"
           >
-            Ver resultados completos
+            Ver el programa
             <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </a>
         </div>
-      </div>
-    </section>
-
-    <!-- ============================================
-         SECTION 4: SUMATE
-         ============================================ -->
-    <section id="sumate" class="fullpage-section bg-[#FFB800]">
-      <div class="mx-auto flex max-w-7xl flex-col items-center justify-center px-6 py-16 lg:px-8">
-        <h2
-          class="mb-4 text-center font-display text-3xl font-bold text-neutral-900 sm:text-4xl md:text-5xl"
-          data-reveal
-        >
-          Súmate al cambio
-        </h2>
-        <p
-          class="mb-12 max-w-xl text-center text-neutral-800/80"
-          data-reveal
-          style="--delay: 150ms"
-        >
-          Hay muchas formas de ser parte de esta transformación. Elige la tuya.
-        </p>
-
-        <div
-          class="grid w-full max-w-4xl gap-6 sm:grid-cols-3"
-          data-reveal-stagger
-        >
-          {sumateCards.map((card) => (
-            <a
-              href={card.href}
-              class="group flex flex-col items-center rounded-2xl bg-white/90 p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:bg-white hover:shadow-lg"
-            >
-              <span class="mb-4 text-4xl">{card.icon}</span>
-              <h3 class="mb-2 font-display text-xl font-bold text-neutral-900">
-                {card.title}
-              </h3>
-              <p class="text-sm text-neutral-600">
-                {card.description}
-              </p>
-              <span class="mt-4 text-sm font-medium text-[#FFB800] transition-colors group-hover:text-neutral-900">
-                Explorar →
-              </span>
-            </a>
-          ))}
+        <!-- Right panel: photo -->
+        <div class="hidden overflow-hidden md:block">
+          <img
+            src="/images/fondo_de_inicio_2.png"
+            alt="Escolares en EmpoderArLAS"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
 
-    <!-- ============================================
-         SECTION 5: ALIADOS + FOOTER
-         ============================================ -->
-    <section id="aliados" class="fullpage-section bg-neutral-950 text-white">
-      <div class="flex flex-1 flex-col justify-between">
-        <!-- Aliados -->
-        <div class="flex flex-1 flex-col items-center justify-center px-6 py-16">
-          <h2
-            class="mb-12 text-center font-display text-2xl font-semibold text-white sm:text-3xl"
-            data-reveal
-          >
-            Nos respaldan
-          </h2>
-          <div
-            class="grid max-w-3xl grid-cols-2 items-center justify-items-center gap-8 sm:grid-cols-4 md:gap-12"
-            data-reveal-stagger
-          >
-            {logos.map((logo) => (
-              <div class="flex items-center justify-center">
-                <img
-                  src={logo.src}
-                  alt={logo.alt}
-                  class="h-10 w-auto max-w-[120px] object-contain opacity-50 grayscale transition-all hover:opacity-100 hover:grayscale-0"
-                  loading="lazy"
-                />
+    <!-- ==============================
+         3. IMPACTO
+         ============================== -->
+    <section id="impacto" class="fullpage-section">
+      <div class="split-section">
+        <!-- Left panel -->
+        <div class="flex flex-col justify-center bg-neutral-900 px-8 py-24 md:px-12 lg:px-16">
+          <span class="mb-10 text-xs font-medium uppercase tracking-[0.2em] text-neutral-500" data-reveal>
+            EmpoderArLAS 2024
+          </span>
+
+          <div class="space-y-8" data-reveal-stagger>
+            <div>
+              <div class="flex items-baseline gap-0.5">
+                <span class="stat-number font-display text-6xl font-bold text-white" data-target="35" data-animated="false">0</span>
               </div>
-            ))}
+              <p class="mt-1 text-sm text-neutral-500">Escolares impactados</p>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-0.5">
+                <span class="stat-number font-display text-6xl font-bold text-white" data-target="85" data-animated="false">0</span>
+                <span class="font-display text-3xl font-bold text-[#FFB800]">%</span>
+              </div>
+              <p class="mt-1 text-sm text-neutral-500">Participación activa</p>
+            </div>
+            <div>
+              <div class="flex items-baseline gap-0.5">
+                <span class="stat-number font-display text-6xl font-bold text-white" data-target="12" data-animated="false">0</span>
+              </div>
+              <p class="mt-1 text-sm text-neutral-500">Iniciativas generadas</p>
+            </div>
           </div>
         </div>
+        <!-- Right panel: photo -->
+        <div class="relative hidden overflow-hidden md:block">
+          <img
+            src="/images/fondo_de_inicio.png"
+            alt="Impacto de Youngers in Action"
+            class="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-neutral-900/20"></div>
+        </div>
+      </div>
+    </section>
 
-        <!-- Minimal Footer -->
-        <div class="border-t border-white/10 px-6 py-8">
-          <div class="mx-auto flex max-w-7xl flex-col items-center gap-5">
-            <a href="/" aria-label="Inicio">
-              <img
-                src="/images/logoyia.png"
-                alt="Youngers in Action"
-                class="h-8 rounded-lg"
-              />
+    <!-- ==============================
+         4. SÚMATE
+         ============================== -->
+    <section id="sumate" class="fullpage-section">
+      <div class="split-section">
+        <!-- Left panel -->
+        <div class="flex flex-col justify-center bg-white px-8 py-24 md:px-12 lg:px-16">
+          <span class="mb-8 text-xs font-medium uppercase tracking-[0.2em] text-neutral-400" data-reveal>
+            Únete
+          </span>
+          <h2
+            class="font-display text-4xl font-bold leading-[1.1] text-neutral-900 sm:text-5xl"
+            data-reveal
+            style="--delay:100ms"
+          >
+            Sé parte<br />del cambio
+          </h2>
+
+          <div class="mt-10 flex flex-col gap-3" data-reveal style="--delay:250ms">
+            <a
+              href="/voluntariado"
+              class="group flex items-center justify-between rounded-xl border border-neutral-100 bg-neutral-50 px-5 py-4 transition-all hover:border-[#FFB800] hover:bg-[#FFB800]/5"
+            >
+              <span class="text-sm font-semibold text-neutral-900">Voluntariado</span>
+              <svg class="h-4 w-4 text-neutral-300 transition-all group-hover:translate-x-0.5 group-hover:text-[#FFB800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </a>
+            <a
+              href="/contacto"
+              class="group flex items-center justify-between rounded-xl border border-neutral-100 bg-neutral-50 px-5 py-4 transition-all hover:border-[#FFB800] hover:bg-[#FFB800]/5"
+            >
+              <span class="text-sm font-semibold text-neutral-900">Alianza institucional</span>
+              <svg class="h-4 w-4 text-neutral-300 transition-all group-hover:translate-x-0.5 group-hover:text-[#FFB800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+            <a
+              href="/contacto"
+              class="group flex items-center justify-between rounded-xl border border-neutral-100 bg-neutral-50 px-5 py-4 transition-all hover:border-[#FFB800] hover:bg-[#FFB800]/5"
+            >
+              <span class="text-sm font-semibold text-neutral-900">Contacto</span>
+              <svg class="h-4 w-4 text-neutral-300 transition-all group-hover:translate-x-0.5 group-hover:text-[#FFB800]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+        <!-- Right panel: accent -->
+        <div class="hidden items-center justify-center overflow-hidden bg-[#FFB800] md:flex">
+          <span class="select-none font-display text-[22vw] font-bold leading-none text-neutral-900/[0.07]">
+            YIA
+          </span>
+        </div>
+      </div>
+    </section>
 
-            <div class="flex gap-5">
-              {socialLinks.map((social) => (
-                <a
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-neutral-500 transition-colors hover:text-[#FFB800]"
-                  aria-label={social.label}
-                >
-                  {social.icon === 'instagram' && (
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-                  )}
-                  {social.icon === 'linkedin' && (
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                  )}
-                  {social.icon === 'facebook' && (
-                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                  )}
-                </a>
-              ))}
-            </div>
+    <!-- ==============================
+         5. ALIADOS + FOOTER
+         ============================== -->
+    <section id="aliados" class="fullpage-section bg-neutral-950 text-white">
+      <div class="mx-auto flex h-full min-h-screen max-w-4xl flex-col items-center justify-center px-8 py-16">
+        <span class="mb-3 text-xs font-medium uppercase tracking-[0.2em] text-neutral-600" data-reveal>
+          Instituciones que confían en nosotros
+        </span>
+        <h2
+          class="mb-16 font-display text-2xl font-bold text-white"
+          data-reveal
+          style="--delay:100ms"
+        >
+          Nos respaldan
+        </h2>
 
-            <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-600">
-              <a href="/privacidad" class="transition-colors hover:text-neutral-400">Privacidad</a>
-              <span>·</span>
-              <a href="/terminos" class="transition-colors hover:text-neutral-400">Términos</a>
-              <span>·</span>
-              <span>&copy; {new Date().getFullYear()} Youngers in Action</span>
-            </div>
+        <div
+          class="grid grid-cols-2 items-center justify-items-center gap-10 sm:grid-cols-4 md:gap-16"
+          data-reveal-stagger
+        >
+          {[
+            { src: '/logos/senaju.svg', alt: 'SENAJU' },
+            { src: '/logos/ugel.svg', alt: 'UGEL 05' },
+            { src: '/logos/aliado3.svg', alt: 'Aliado educativo' },
+            { src: '/logos/aliado4.svg', alt: 'Aliado institucional' },
+          ].map((logo) => (
+            <img
+              src={logo.src}
+              alt={logo.alt}
+              class="h-12 w-auto max-w-[140px] object-contain opacity-40 transition-opacity hover:opacity-100"
+              loading="lazy"
+            />
+          ))}
+        </div>
+
+        <div class="mt-20 flex flex-col items-center gap-6">
+          <a href="/" aria-label="Inicio">
+            <img src="/images/logoyia.png" alt="Youngers in Action" class="h-8 rounded-lg" />
+          </a>
+          <div class="flex gap-5">
+            {socialLinks.map((social) => (
+              <a
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-neutral-600 transition-colors hover:text-[#FFB800]"
+                aria-label={social.label}
+              >
+                {social.icon === 'instagram' && (
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+                )}
+                {social.icon === 'linkedin' && (
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                )}
+                {social.icon === 'facebook' && (
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                )}
+              </a>
+            ))}
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-4 text-xs text-neutral-600">
+            <a href="/privacidad" class="transition-colors hover:text-neutral-400">Privacidad</a>
+            <span>·</span>
+            <a href="/terminos" class="transition-colors hover:text-neutral-400">Términos</a>
+            <span>·</span>
+            <span>&copy; {new Date().getFullYear()} Youngers in Action</span>
           </div>
         </div>
       </div>
@@ -372,7 +305,6 @@ const socialLinks = [
 </BaseLayout>
 
 <script>
-  // Counter animation for impact section
   class HomeCounterAnimation {
     private observer: IntersectionObserver;
     private duration = 2000;
@@ -387,7 +319,10 @@ const socialLinks = [
             }
           });
         },
-        { threshold: 0.3 }
+        {
+          root: document.querySelector('.fullpage-container'),
+          threshold: 0.4,
+        }
       );
 
       const impacto = document.getElementById('impacto');

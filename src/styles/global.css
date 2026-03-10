@@ -85,13 +85,14 @@
 
 .split-section {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 42% 58%;
   min-height: 100vh;
 }
 
 @media (max-width: 768px) {
   .split-section {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 }
 

@@ -74,11 +74,12 @@ const ogImage = new URL(image, siteUrl).toString();
         private observer: IntersectionObserver;
 
         constructor() {
+          const container = document.querySelector('.fullpage-container') as HTMLElement | null;
           this.observer = new IntersectionObserver(
             (entries) => this.handleIntersection(entries),
             {
-              root: null,
-              rootMargin: '0px 0px -80px 0px',
+              root: container,
+              rootMargin: '0px 0px -60px 0px',
               threshold: 0.1,
             }
           );
@@ -87,7 +88,6 @@ const ogImage = new URL(image, siteUrl).toString();
         }
 
         private init(): void {
-          // Observe all elements with data-reveal or data-reveal-stagger
           const elements = document.querySelectorAll('[data-reveal], [data-reveal-stagger]');
           elements.forEach((el) => this.observer.observe(el));
 
