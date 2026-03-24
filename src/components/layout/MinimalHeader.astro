@@ -1,13 +1,16 @@
 ---
 interface Props {
-  variant?: 'light' | 'dark';
+  variant?: 'light' | 'dark' | 'yellow';
 }
 
 const { variant = 'light' } = Astro.props;
 ---
 
 <header
-  class="minimal-header fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  class:list={[
+    'minimal-header fixed top-0 left-0 right-0 z-50 transition-all duration-300 [transition:opacity_0.3s,background-color_0.3s]',
+    variant === 'yellow' ? 'bg-[#FFB800]' : '',
+  ]}
   data-variant={variant}
 >
   <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">

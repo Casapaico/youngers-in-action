@@ -6,7 +6,7 @@ import FullscreenMenu from '../components/layout/FullscreenMenu.astro';
 interface Props {
   title: string;
   description?: string;
-  headerVariant?: 'light' | 'dark';
+  headerVariant?: 'light' | 'dark' | 'yellow';
   showFooter?: boolean;
   image?: string;
 }
@@ -14,7 +14,7 @@ interface Props {
 const {
   title,
   description,
-  headerVariant = 'dark',
+  headerVariant = 'yellow',
   showFooter = true,
   image,
 } = Astro.props;

@@ -34,7 +34,7 @@ const tiposVoluntariado = [
 <MinimalLayout
   title="Voluntariado"
   description="Únete como voluntario/a a Youngers in Action. Mentorías, eventos y oportunidades de impacto social para jóvenes en Lima, Perú."
-  headerVariant="dark"
+  headerVariant="yellow"
 >
   <!-- Hero -->
   <section class="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#FFB800]">
@@ -79,21 +79,32 @@ const tiposVoluntariado = [
   </section>
 
   <!-- Beneficios -->
-  <section class="bg-neutral-50 py-24">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <section class="relative py-24 overflow-hidden">
+    <!-- Imagen de fondo -->
+    <img
+      src="/images/yiaction9.webp"
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      loading="lazy"
+    />
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-neutral-900/70" aria-hidden="true"></div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
       <div class="text-center" data-reveal>
         <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Beneficios</span>
-        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">¿Por qué ser voluntario/a?</h2>
+        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">¿Por qué ser voluntario/a?</h2>
       </div>
 
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" data-reveal-stagger>
         {beneficios.map((b) => (
-          <article class="group rounded-2xl bg-white p-6 shadow-sm ring-1 ring-neutral-200 transition-all hover:shadow-md hover:ring-[#FFB800]/20">
-            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFB800]/10 text-2xl transition-transform group-hover:scale-110">
+          <article class="group rounded-2xl bg-white/10 backdrop-blur-sm p-6 ring-1 ring-white/10 transition-all hover:bg-white/15 hover:ring-[#FFB800]/30">
+            <span class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#FFB800]/20 text-2xl transition-transform group-hover:scale-110">
               {b.icono}
             </span>
-            <h3 class="mt-4 font-display text-lg font-semibold text-neutral-900">{b.titulo}</h3>
-            <p class="mt-2 text-neutral-600">{b.descripcion}</p>
+            <h3 class="mt-4 font-display text-lg font-semibold text-white">{b.titulo}</h3>
+            <p class="mt-2 text-neutral-300">{b.descripcion}</p>
           </article>
         ))}
       </div>

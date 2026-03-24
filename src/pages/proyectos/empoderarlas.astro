@@ -58,13 +58,20 @@ const impactoPropuestas = [
 <MinimalLayout
   title="EmpoderArLAS - Proyecto"
   description="Programa de empoderamiento para escolares de 10-12 años enfocado en habilidades de vida, liderazgo y desarrollo integral alineado con los ODS."
-  headerVariant="dark"
+  headerVariant="yellow"
 >
   <!-- 1. HERO -->
   <section class="relative flex min-h-screen items-center justify-center overflow-hidden bg-neutral-900">
-    <div class="absolute inset-0 opacity-15" aria-hidden="true">
-      <div class="absolute inset-0 bg-[url('/images/pattern-grid.svg')] bg-center"></div>
-    </div>
+    <!-- Imagen de fondo -->
+    <img
+      src="/images/empoderarlas5.png"
+      alt="Jóvenes de EmpoderArLAS en taller"
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      loading="eager"
+    />
+    <!-- Overlay oscuro para legibilidad -->
+    <div class="absolute inset-0 bg-neutral-900/65" aria-hidden="true"></div>
+
     <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
       <span class="mb-4 inline-flex items-center gap-1.5 rounded-full bg-green-500/20 px-4 py-1.5 text-sm font-semibold text-green-400" data-reveal>
         <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-green-400"></span>
@@ -96,10 +103,17 @@ const impactoPropuestas = [
 
   <!-- 2. ¿POR QUÉ NACE? - Split Screen -->
   <section class="split-section min-h-screen">
-    <div class="flex flex-col justify-center bg-white px-8 py-16 md:px-16">
-      <span class="mb-2 text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Contexto</span>
-      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>¿Por qué nace EmpoderArLAS?</h2>
-      <div class="mt-6 space-y-4 text-lg text-neutral-600" data-reveal style="--delay: 150ms">
+    <div class="relative flex flex-col justify-center bg-white px-8 py-16 md:px-16 overflow-hidden">
+      <!-- Logo W de fondo -->
+      <img
+        src="/images/logo-w.png"
+        alt=""
+        aria-hidden="true"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4/5 opacity-30 pointer-events-none select-none"
+      />
+      <span class="relative mb-2 text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Contexto</span>
+      <h2 class="relative font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>¿Por qué nace EmpoderArLAS?</h2>
+      <div class="relative mt-6 space-y-4 text-lg text-neutral-600" data-reveal style="--delay: 150ms">
         <p>
           En el Perú, miles de niñas y adolescentes enfrentan barreras que limitan su desarrollo integral. La falta de acceso a educación de calidad, estereotipos de género y escasas oportunidades de liderazgo afectan su potencial.
         </p>
@@ -110,9 +124,10 @@ const impactoPropuestas = [
     </div>
     <div class="relative overflow-hidden">
       <img
-        src="/images/fondo_de_inicio_2.png"
-        alt="Estudiantes participando en taller de EmpoderArLAS"
-        class="h-full w-full object-cover"
+        src="/images/yiaction12.png"
+        alt="Jóvenes de Youngers in Action presentando proyectos"
+        class=""
+        style="position: absolute; top: 0; right: 0; height: 133.33%; width: auto; max-width: none;"
         loading="lazy"
       />
       <div class="absolute bottom-8 left-8 rounded-xl bg-[#FFB800] p-4 shadow-lg">
@@ -123,8 +138,20 @@ const impactoPropuestas = [
   </section>
 
   <!-- 3. ÁREAS AFECTADAS -->
-  <section class="bg-neutral-50 py-24">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+  <section class="relative overflow-hidden" style="background-color: #FEF3E2;">
+    <!-- Imagen de fondo completa de izquierda a derecha -->
+    <img
+      src="/images/roomguys.png"
+      alt="Escolares en taller de EmpoderArLAS"
+      class="absolute inset-0 w-full h-full object-cover"
+      style="object-position: center 80%;"
+      loading="lazy"
+    />
+    <!-- Overlay suave para legibilidad -->
+    <div class="absolute inset-0" style="background: rgba(254, 243, 226, 0.65);" aria-hidden="true"></div>
+
+    <!-- Contenido -->
+    <div class="relative z-10 mx-auto max-w-7xl px-6 py-20 lg:px-8">
       <div class="text-center" data-reveal>
         <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Diagnóstico</span>
         <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Áreas del desarrollo afectadas</h2>
@@ -135,12 +162,12 @@ const impactoPropuestas = [
 
       <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {areasAfectadas.map((item) => (
-          <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-neutral-200">
+          <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-orange-100">
             <div class="flex items-center justify-between">
               <h3 class="font-semibold text-neutral-900">{item.area}</h3>
               <span class="font-display text-2xl font-bold text-neutral-900">{item.porcentaje}%</span>
             </div>
-            <div class="mt-3 h-2 overflow-hidden rounded-full bg-neutral-100">
+            <div class="mt-3 h-2 overflow-hidden rounded-full bg-orange-50">
               <div
                 class={`h-full rounded-full ${item.color} transition-all duration-1000`}
                 style={`width: ${item.porcentaje}%`}
@@ -154,193 +181,40 @@ const impactoPropuestas = [
   </section>
 
   <!-- 4. METODOLOGÍA - 4 Pilares -->
-  <section id="metodologia" class="bg-white py-24">
-    <div class="mx-auto max-w-6xl px-6 lg:px-8">
+  <section id="metodologia" class="relative bg-neutral-900 py-24 overflow-hidden">
+    <!-- Logo W de fondo -->
+    <img
+      src="/images/logo-w-dark.png"
+      alt=""
+      aria-hidden="true"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 opacity-10 pointer-events-none select-none"
+    />
+    <div class="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
       <div class="text-center" data-reveal>
         <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Metodología</span>
-        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Nuestros 4 pilares</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-neutral-600">
+        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">Nuestros 4 pilares</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-neutral-400">
           Un enfoque integral que combina teoría y práctica para generar transformación real.
         </p>
       </div>
 
       <div class="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
         {pilares.map((pilar) => (
-          <article class="group rounded-2xl bg-neutral-50 p-6 ring-1 ring-neutral-200 transition-all hover:shadow-lg hover:ring-[#FFB800]/20">
-            <span class="font-display text-5xl font-bold text-neutral-200 transition-colors group-hover:text-[#FFB800]/30">
+          <article class="group rounded-2xl bg-white/10 p-6 ring-1 ring-white/10 transition-all hover:shadow-lg hover:ring-[#FFB800]/30">
+            <span class="font-display text-5xl font-bold text-white/20 transition-colors group-hover:text-[#FFB800]/40">
               {pilar.numero}
             </span>
             <span class="mt-2 block text-3xl" aria-hidden="true">{pilar.icono}</span>
-            <h3 class="mt-2 font-display text-xl font-semibold text-neutral-900">{pilar.titulo}</h3>
-            <p class="mt-2 text-neutral-600">{pilar.descripcion}</p>
+            <h3 class="mt-2 font-display text-xl font-semibold text-white">{pilar.titulo}</h3>
+            <p class="mt-2 text-neutral-400">{pilar.descripcion}</p>
           </article>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- 5. EQUIPO -->
-  <section class="bg-neutral-900 py-24">
-    <div class="mx-auto max-w-6xl px-6 lg:px-8">
-      <div class="text-center" data-reveal>
-        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Equipo</span>
-        <h2 class="mt-4 font-display text-3xl font-bold text-white sm:text-4xl">Quiénes hacen posible EmpoderArLAS</h2>
-      </div>
 
-      <div class="mt-12 space-y-12">
-        <!-- Mentores -->
-        <div data-reveal>
-          <h3 class="mb-6 text-center font-display text-xl font-semibold text-white">
-            Mentores <span class="ml-2 rounded-full bg-[#FFB800]/20 px-3 py-0.5 text-sm text-[#FFB800]">{equipo.mentores.length}</span>
-          </h3>
-          <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list" data-reveal-stagger>
-            {equipo.mentores.map((mentor) => (
-              <li class="flex items-center gap-4 rounded-xl bg-white/10 p-4 backdrop-blur">
-                <span class="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFB800]/20 text-lg font-semibold text-[#FFB800]">
-                  {mentor.nombre.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </span>
-                <div>
-                  <p class="font-semibold text-white">{mentor.nombre}</p>
-                  <p class="text-sm text-neutral-400">{mentor.rol}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
 
-        <!-- Autoridades -->
-        <div data-reveal>
-          <h3 class="mb-6 text-center font-display text-xl font-semibold text-white">Autoridades Educativas</h3>
-          <ul class="grid gap-4 sm:grid-cols-3" role="list" data-reveal-stagger>
-            {equipo.autoridades.map((autoridad) => (
-              <li class="rounded-xl bg-white/10 p-5 text-center backdrop-blur">
-                <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-xl font-semibold text-white">
-                  {autoridad.nombre.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                </span>
-                <p class="mt-3 font-semibold text-white">{autoridad.nombre}</p>
-                <p class="text-sm text-neutral-400">{autoridad.rol}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- Respaldos -->
-        <div class="text-center" data-reveal>
-          <h3 class="mb-6 font-display text-xl font-semibold text-white">Respaldo Institucional</h3>
-          <div class="flex flex-wrap justify-center gap-6" data-reveal-stagger>
-            {equipo.respaldos.map((respaldo) => (
-              <div class="rounded-xl bg-white/10 px-8 py-4 backdrop-blur">
-                <p class="font-display text-lg font-semibold text-white">{respaldo.nombre}</p>
-                <p class="text-sm text-neutral-400">{respaldo.tipo}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6. PARTICIPANTES - Split Screen -->
-  <section class="split-section min-h-screen">
-    <div class="flex flex-col justify-center bg-neutral-50 px-8 py-16 md:px-16">
-      <span class="mb-2 text-sm font-medium uppercase tracking-widest text-[#FFB800]" data-reveal>Participantes</span>
-      <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl" data-reveal>Escolares protagonistas del cambio</h2>
-
-      <dl class="mt-8 grid grid-cols-2 gap-6" data-reveal style="--delay: 200ms">
-        <div class="rounded-xl bg-white p-5 ring-1 ring-neutral-200">
-          <dt class="text-sm font-medium text-neutral-600">Total participantes</dt>
-          <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">35</dd>
-        </div>
-        <div class="rounded-xl bg-white p-5 ring-1 ring-neutral-200">
-          <dt class="text-sm font-medium text-neutral-600">Rango de edad</dt>
-          <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">10-12</dd>
-          <dd class="text-sm text-neutral-500">años</dd>
-        </div>
-        <div class="rounded-xl bg-white p-5 ring-1 ring-neutral-200">
-          <dt class="text-sm font-medium text-neutral-600">Sesiones por grado</dt>
-          <dd class="mt-1 font-display text-3xl font-bold text-neutral-900">5</dd>
-        </div>
-        <div class="rounded-xl bg-white p-5 ring-1 ring-neutral-200">
-          <dt class="text-sm font-medium text-neutral-600">Enfoque</dt>
-          <dd class="mt-1 font-display text-xl font-bold text-neutral-900">Equidad de género</dd>
-        </div>
-      </dl>
-    </div>
-    <div class="flex flex-col justify-center bg-white px-8 py-16 md:px-16">
-      <div class="space-y-4" data-reveal>
-        <div class="rounded-2xl bg-[#FFB800] p-6 text-neutral-900">
-          <p class="text-lg font-medium">
-            "Aprendí que puedo lograr mis metas si me esfuerzo y pido ayuda cuando la necesito."
-          </p>
-          <p class="mt-3 font-semibold">— Participante, 11 años</p>
-        </div>
-        <div class="rounded-2xl bg-neutral-900 p-6 text-white">
-          <p class="text-lg font-medium">
-            "Antes tenía miedo de hablar en público, ahora soy la que lidera las exposiciones en mi salón."
-          </p>
-          <p class="mt-3 font-semibold">— Participante, 12 años</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 7. RESULTADOS -->
-  <section class="bg-[#FFB800] py-24">
-    <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="text-center" data-reveal>
-        <h2 class="font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Resultados logrados</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-neutral-800/80">
-          Métricas que reflejan el impacto real de EmpoderArLAS en la vida de nuestros participantes.
-        </p>
-      </div>
-
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4" data-reveal-stagger>
-        {resultados.map((resultado) => (
-          <div class="rounded-xl bg-white/90 p-6 text-center shadow-sm backdrop-blur">
-            <p class="font-display text-4xl font-bold text-neutral-900 sm:text-5xl">{resultado.metrica}</p>
-            <p class="mt-2 text-neutral-700">{resultado.descripcion}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. IMPACTO: DISTRIBUCIÓN -->
-  <section class="bg-white py-24">
-    <div class="mx-auto max-w-3xl px-6 lg:px-8">
-      <div class="text-center" data-reveal>
-        <span class="text-sm font-medium uppercase tracking-widest text-[#FFB800]">Impacto</span>
-        <h2 class="mt-4 font-display text-3xl font-bold text-neutral-900 sm:text-4xl">Distribución de propuestas generadas</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-neutral-600">
-          Las iniciativas creadas por los participantes se distribuyen en tres ámbitos de impacto.
-        </p>
-      </div>
-
-      <div class="mt-12 space-y-6" data-reveal>
-        {impactoPropuestas.map((item) => (
-          <div class="rounded-xl bg-neutral-50 p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <h3 class="font-display text-xl font-semibold text-neutral-900">{item.categoria}</h3>
-                <p class="mt-1 text-sm text-neutral-600">{item.descripcion}</p>
-              </div>
-              <span class="font-display text-3xl font-bold text-[#FFB800]">{item.porcentaje}%</span>
-            </div>
-            <div class="mt-4 h-3 overflow-hidden rounded-full bg-neutral-200">
-              <div
-                class="h-full rounded-full bg-gradient-to-r from-[#FFB800] to-[#E5A600] transition-all duration-1000"
-                style={`width: ${item.porcentaje}%`}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <p class="mt-8 text-center text-neutral-600" data-reveal>
-        Estas propuestas conforman el <strong class="text-neutral-900">Banco de Iniciativas Juveniles</strong>, un recurso disponible para futuras intervenciones y réplicas del programa.
-      </p>
-    </div>
-  </section>
 
   <!-- 9. CTA -->
   <section class="bg-neutral-900 py-20">
