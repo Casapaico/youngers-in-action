@@ -42,11 +42,11 @@ const tiposVoluntariado = [
     <div class="absolute inset-0 opacity-20" aria-hidden="true">
       <div class="absolute inset-0 bg-[url('/images/pattern-dots.svg')] bg-center"></div>
     </div>
-    <!-- Imagen esquina inferior derecha -->
+    <!-- Imagen esquina inferior derecha (móvil: fondo completo con opacidad) -->
     <img
       src="/images/voluntarios-hero.png"
       alt="Voluntarios de Youngers in Action"
-      class="absolute bottom-0 right-0 h-[65%] w-auto object-contain object-bottom"
+      class="absolute bottom-0 right-0 h-[55%] w-auto object-contain object-bottom opacity-20 sm:opacity-100 sm:h-[65%]"
       aria-hidden="true"
     />
     <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
@@ -336,23 +336,42 @@ const tiposVoluntariado = [
     }
   });
 
+  // Form submission → WhatsApp
   const form = document.getElementById('volunteer-form') as HTMLFormElement;
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    const nombre        = (form.querySelector('#vol-nombre')       as HTMLInputElement).value.trim();
+    const email         = (form.querySelector('#vol-email')        as HTMLInputElement).value.trim();
+    const edad          = (form.querySelector('#vol-edad')         as HTMLInputElement).value.trim();
+    const tipoEl        = form.querySelector('#vol-tipo')          as HTMLSelectElement;
+    const tipo          = tipoEl.options[tipoEl.selectedIndex].text;
+    const contribEl     = form.querySelector('#vol-contribucion')  as HTMLSelectElement;
+    const contribucion  = contribEl.options[contribEl.selectedIndex].text;
+    const motivacion    = (form.querySelector('#vol-motivacion')   as HTMLTextAreaElement).value.trim();
+    const disponibilidad = (form.querySelector('#vol-disponibilidad') as HTMLInputElement).value.trim();
+
+    const texto =
+      `*Nueva solicitud de voluntariado — Youngers in Action*\n\n` +
+      `👤 *Nombre:* ${nombre}\n` +
+      `📧 *Email:* ${email}\n` +
+      `🎂 *Edad:* ${edad} años\n` +
+      `🎯 *Tipo de voluntariado:* ${tipo}\n` +
+      `🤝 *Forma de contribuir:* ${contribucion}\n` +
+      `💬 *Motivación:*\n${motivacion}\n` +
+      `⏰ *Disponibilidad:* ${disponibilidad || 'No especificada'}`;
+
+    window.open(`https://wa.me/51989942045?text=${encodeURIComponent(texto)}`, '_blank');
+
+    // Feedback visual
     const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const originalText = button.textContent;
-    button.textContent = 'Enviando...';
+    const original = button.textContent;
+    button.textContent = '¡Redirigiendo a WhatsApp!';
     button.disabled = true;
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    button.textContent = '¡Solicitud enviada!';
-    button.classList.remove('bg-[#FFB800]');
-    button.classList.add('bg-green-500', 'text-white');
     setTimeout(() => {
       form.reset();
-      button.textContent = originalText;
+      button.textContent = original;
       button.disabled = false;
-      button.classList.remove('bg-green-500', 'text-white');
-      button.classList.add('bg-[#FFB800]');
     }, 3000);
   });
 </script>

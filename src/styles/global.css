@@ -37,14 +37,18 @@
 
 .fullpage-container {
   height: 100vh;
+  height: 100dvh; /* iOS Safari: excluye browser chrome */
   overflow-y: auto;
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: none; /* Evita el bounce de iOS */
 }
 
 .fullpage-section {
   min-height: 100vh;
+  min-height: 100dvh;
   scroll-snap-align: start;
+  scroll-snap-stop: always; /* Evita saltar secciones en iOS con swipe rápido */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -229,6 +233,41 @@
     transform: none;
     transition: none;
   }
+}
+
+/* ===========================================
+   BOUNCE — Attention seeker (Animate.css)
+   =========================================== */
+
+@keyframes bounce {
+  from, 20%, 53%, to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0);
+  }
+  40%, 43% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -30px, 0) scaleY(1.1);
+  }
+  70% {
+    animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+    transform: translate3d(0, -15px, 0) scaleY(1.05);
+  }
+  80% {
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translate3d(0, 0, 0) scaleY(0.95);
+  }
+  90% {
+    transform: translate3d(0, -4px, 0) scaleY(1.02);
+  }
+}
+
+.hero-bounce {
+  animation: bounce 1s ease;
+  transform-origin: center bottom;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-bounce { animation: none; }
 }
 
 /* ===========================================

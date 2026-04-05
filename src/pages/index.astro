@@ -41,8 +41,8 @@ const socialLinks = [
          ============================== -->
     <section id="hero" class="fullpage-section relative overflow-hidden bg-white">
 
-      <!-- IMAGEN DE FONDO: cubre todo desde debajo del header, z-index mínimo -->
-      <div class="absolute right-0 left-0 z-[0]"
+      <!-- IMAGEN DESKTOP: cubre todo desde debajo del header -->
+      <div class="absolute right-0 left-0 z-[0] hidden md:block"
            style="top: var(--header-h, 80px); height: calc(100% - var(--header-h, 80px));">
         <img
           src="/images/hero-main.jpg"
@@ -53,14 +53,30 @@ const socialLinks = [
         />
       </div>
 
+      <!-- IMAGEN MÓVIL: aparece en la mitad inferior con fundido hacia arriba -->
+      <div class="absolute inset-x-0 bottom-0 z-[0] h-[50%] md:hidden">
+        <img
+          src="/images/hero-main.jpg"
+          alt=""
+          aria-hidden="true"
+          class="h-full w-full object-cover"
+          style="object-position: 65% top"
+          loading="eager"
+        />
+        <!-- Gradiente blanco→transparente que fusiona la imagen con el fondo -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white via-white/30 to-transparent pointer-events-none"></div>
+      </div>
+
       <!-- CONTENIDO: texto y botones encima de todo -->
-      <div class="relative z-10 flex flex-col justify-center px-8 py-28 md:px-12 lg:px-16"
-           style="height:100vh; max-width: 52%;">
+      <!-- Móvil: alineado arriba (texto claro sobre blanco, imagen abajo)  -->
+      <!-- Desktop: centrado verticalmente dentro del panel izquierdo        -->
+      <div class="relative z-10 flex flex-col justify-start px-8 pb-8 md:justify-center md:py-28 md:px-12 lg:px-16 w-full md:max-w-[52%]"
+           style="height:100vh; height:100dvh; padding-top: calc(var(--header-h, 80px) + 2rem);">
         <span class="relative mb-6 text-xs font-medium uppercase tracking-[0.2em] text-neutral-400" data-reveal>
           ONG Juvenil · Lima, Perú
         </span>
         <h1
-          class="relative font-display text-5xl font-extrabold leading-[1.05] text-neutral-900 sm:text-6xl lg:text-[4rem]"
+          class="hero-title relative font-display text-[2.25rem] font-extrabold leading-[1.05] text-neutral-900 sm:text-5xl lg:text-[4rem]"
           data-reveal
           style="--delay:100ms"
         >
@@ -69,7 +85,7 @@ const socialLinks = [
           para que nadie<br />
           quede atrás
         </h1>
-        <div class="relative mt-10 flex flex-wrap gap-3" data-reveal style="--delay:250ms">
+        <div class="relative mt-8 flex flex-wrap gap-3" data-reveal style="--delay:250ms">
           <a
             href="/proyectos/empoderarlas"
             class="inline-flex items-center justify-center rounded-full bg-neutral-900 px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-[#FFB800] hover:text-neutral-900"
@@ -92,11 +108,38 @@ const socialLinks = [
          ============================== -->
     <section id="programa" class="fullpage-section relative overflow-hidden bg-[#FFB800]">
 
+      <!-- Desktop: gráfico SVG original -->
       <img
         src="/images/programa-bg.svg"
         alt="EmpoderArLAS"
-        class="absolute inset-0 h-full w-full object-cover object-center"
+        class="absolute inset-0 h-full w-full object-cover object-center hidden md:block"
       />
+
+      <!-- Móvil: imagen de participación juvenil -->
+      <img
+        src="/images/yiaction4.png"
+        alt="Participación juvenil EmpoderArLAS"
+        class="absolute inset-0 h-full w-full object-cover object-center block md:hidden"
+        loading="eager"
+      />
+      <!-- Gradiente + texto inferior: solo en móvil -->
+      <div class="absolute inset-x-0 bottom-0 z-10 flex flex-col justify-end pb-10 px-6 md:hidden"
+           style="height: 55%;">
+        <!-- Gradiente oscuro de abajo hacia arriba -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none" aria-hidden="true"></div>
+        <!-- Textos -->
+        <div class="relative z-10">
+          <span class="inline-block rounded-full bg-[#FFB800] px-3 py-1 text-[11px] font-bold uppercase tracking-[0.2em] text-neutral-900">
+            Nuestro programa
+          </span>
+          <h2 class="mt-2 font-display text-3xl font-extrabold leading-tight text-white">
+            EmpoderArLAS
+          </h2>
+          <p class="mt-2 text-sm font-medium leading-snug text-white/80">
+            Empoderamos juventudes para que nadie quede atrás
+          </p>
+        </div>
+      </div>
 
       <!-- Botón CTA flecha central -->
       <a
@@ -135,6 +178,13 @@ const socialLinks = [
           background: #171717;
           transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
                       box-shadow 0.4s ease;
+        }
+
+        /* Móvil: botón más transparente */
+        @media (max-width: 767px) {
+          .arrow-btn::before {
+            background: rgba(23, 23, 23, 0.45);
+          }
         }
 
         /* Anillo exterior pulsante */
@@ -203,8 +253,77 @@ const socialLinks = [
          ============================== -->
     <section id="sumate" class="fullpage-section relative overflow-hidden bg-neutral-900">
 
-      <!-- LEFT: Foto recortada lado izquierdo -->
-      <div class="absolute inset-0" style="clip-path: polygon(0 0, 44% 0, 37% 100%, 0 100%)">
+      <!-- ── MÓVIL: foto + grid 2×2 con fichas completas ── -->
+      <div class="absolute inset-0 flex flex-col md:hidden">
+
+        <!-- Foto + título -->
+        <div class="relative" style="height: 38%">
+          <img
+            src="/images/ods-personas.png"
+            alt="Jóvenes de Youngers in Action presentando en evento"
+            class="h-full w-full object-cover"
+            style="object-position: 30% center"
+            loading="lazy"
+          />
+          <div class="absolute bottom-0 left-0 right-0 bg-neutral-900 px-5 py-3">
+            <h2 class="ods-heading font-display font-bold leading-[1.05] text-white"
+                style="font-size: clamp(1.35rem, 5vw, 2rem)">
+              Nuestro compromi<span style="color:#D63384">so</span>
+              con los OD<span style="color:#D63384">S</span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- Grid 2×2: fichas con nombre + descripción siempre visibles -->
+        <div class="grid grid-cols-2" style="height: 62%">
+
+          <!-- ODS 4 -->
+          <div class="ods-m relative flex flex-col justify-end overflow-hidden bg-[#C5192D] p-4">
+            <span class="ods-m-num text-[#9B1520]">4</span>
+            <div class="relative z-10">
+              <span class="ods-m-label">ODS 4</span>
+              <h3 class="ods-m-title">Educación<br/>de calidad</h3>
+              <p class="ods-m-desc">Educación inclusiva y de calidad para todos.</p>
+            </div>
+          </div>
+
+          <!-- ODS 5 -->
+          <div class="ods-m relative flex flex-col justify-end overflow-hidden bg-[#FF3A21] p-4">
+            <span class="ods-m-num text-[#CC2E1A]">5</span>
+            <div class="relative z-10">
+              <span class="ods-m-label">ODS 5</span>
+              <h3 class="ods-m-title">Igualdad<br/>de género</h3>
+              <p class="ods-m-desc">Empoderamiento de mujeres y niñas.</p>
+            </div>
+          </div>
+
+          <!-- ODS 3 -->
+          <div class="ods-m relative flex flex-col justify-end overflow-hidden bg-[#4C9F38] p-4">
+            <span class="ods-m-num text-[#3A7D2B]">3</span>
+            <div class="relative z-10">
+              <span class="ods-m-label">ODS 3</span>
+              <h3 class="ods-m-title">Salud y<br/>bienestar</h3>
+              <p class="ods-m-desc">Vida sana y bienestar para todas las edades.</p>
+            </div>
+          </div>
+
+          <!-- ODS 8 -->
+          <div class="ods-m relative flex flex-col justify-end overflow-hidden bg-[#A21942] p-4">
+            <span class="ods-m-num text-[#7A1232]">8</span>
+            <div class="relative z-10">
+              <span class="ods-m-label">ODS 8</span>
+              <h3 class="ods-m-title">Trabajo<br/>digno</h3>
+              <p class="ods-m-desc">Empleo pleno y crecimiento económico.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── DESKTOP: foto + bandas diagonales interactivas ── -->
+
+      <!-- LEFT: Foto con clip diagonal -->
+      <div class="absolute inset-0 hidden md:block" style="clip-path: polygon(0 0, 44% 0, 37% 100%, 0 100%)">
         <img
           src="/images/ods-personas.png"
           alt="Jóvenes de Youngers in Action presentando en evento"
@@ -212,9 +331,8 @@ const socialLinks = [
           style="object-position: 30% center"
           loading="lazy"
         />
-        <!-- Caja título ODS: toda la base del panel foto -->
         <div class="absolute bottom-0 left-0 right-0 bg-neutral-900 px-6 py-5">
-          <h2 class="font-display font-bold leading-[1.05] text-white"
+          <h2 class="ods-heading font-display font-bold leading-[1.05] text-white"
               style="font-size: clamp(2rem, 4vw, 3.8rem)">
             Nuestro<br/>
             compromi<span style="color:#D63384">so</span><br/>
@@ -223,57 +341,181 @@ const socialLinks = [
         </div>
       </div>
 
-      <!-- BANDA 1: ODS 4 · número ARRIBA · texto centrado -->
-      <div class="absolute inset-0 bg-[#C5192D]"
+      <!-- BANDA 1: ODS 4 -->
+      <div class="ods-band hidden md:block absolute inset-0 bg-[#C5192D]"
            style="clip-path: polygon(44% 0%, 58.25% 0%, 51.25% 100%, 37% 100%)">
-        <span class="pointer-events-none absolute select-none font-display font-extrabold leading-none text-[#9B1520]"
-              style="font-size: clamp(10rem, 18vw, 26rem); top: 2%; left: 50%; transform: translateX(-50%)">4</span>
-        <div class="pointer-events-none absolute font-display font-bold text-neutral-900 text-center"
-             style="font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.2;
-                    top: 50%; left: 48%; transform: translate(-50%, -50%) rotate(-55deg);
-                    white-space: nowrap;">
-          Educación<br/>de calidad
+        <span class="ods-band-num text-[#9B1520]"
+              style="top: 2%; left: 50%; transform: translateX(-50%)">4</span>
+        <div class="ods-band-body" style="top: 50%; left: 48%;">
+          <h3 class="ods-band-title">Educación<br/>de calidad</h3>
+          <p class="ods-band-desc">Educación inclusiva y equitativa para todos</p>
         </div>
       </div>
 
-      <!-- BANDA 2: ODS 5 · número ABAJO · texto centrado -->
-      <div class="absolute inset-0 bg-[#FF3A21]"
+      <!-- BANDA 2: ODS 5 -->
+      <div class="ods-band hidden md:block absolute inset-0 bg-[#FF3A21]"
            style="clip-path: polygon(58.25% 0%, 72.5% 0%, 65.5% 100%, 51.25% 100%)">
-        <span class="pointer-events-none absolute select-none font-display font-extrabold leading-none text-[#CC2E1A]"
-              style="font-size: clamp(10rem, 18vw, 26rem); bottom: 2%; left: 60%; transform: translateX(-50%)">5</span>
-        <div class="pointer-events-none absolute font-display font-bold text-neutral-900 text-center"
-             style="font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.2;
-                    top: 50%; left: 62%; transform: translate(-50%, -50%) rotate(-55deg);
-                    white-space: nowrap;">
-          Igualdad<br/>de género
+        <span class="ods-band-num text-[#CC2E1A]"
+              style="bottom: 2%; left: 60%; transform: translateX(-50%)">5</span>
+        <div class="ods-band-body" style="top: 50%; left: 62%;">
+          <h3 class="ods-band-title">Igualdad<br/>de género</h3>
+          <p class="ods-band-desc">Igualdad entre géneros y empoderamiento femenino</p>
         </div>
       </div>
 
-      <!-- BANDA 3: ODS 3 · número ARRIBA · texto centrado -->
-      <div class="absolute inset-0 bg-[#4C9F38]"
+      <!-- BANDA 3: ODS 3 -->
+      <div class="ods-band hidden md:block absolute inset-0 bg-[#4C9F38]"
            style="clip-path: polygon(72.5% 0%, 86.75% 0%, 79.75% 100%, 65.5% 100%)">
-        <span class="pointer-events-none absolute select-none font-display font-extrabold leading-none text-[#3A7D2B]"
-              style="font-size: clamp(10rem, 18vw, 26rem); top: 2%; left: 78%; transform: translateX(-50%)">3</span>
-        <div class="pointer-events-none absolute font-display font-bold text-neutral-900 text-center"
-             style="font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.2;
-                    top: 50%; left: 76%; transform: translate(-50%, -50%) rotate(-55deg);
-                    white-space: nowrap;">
-          Salud y<br/>bienestar
+        <span class="ods-band-num text-[#3A7D2B]"
+              style="top: 2%; left: 78%; transform: translateX(-50%)">3</span>
+        <div class="ods-band-body" style="top: 50%; left: 76%;">
+          <h3 class="ods-band-title">Salud y<br/>bienestar</h3>
+          <p class="ods-band-desc">Vida sana y bienestar para todas las edades</p>
         </div>
       </div>
 
-      <!-- BANDA 4: ODS 8 · número ABAJO · texto centrado -->
-      <div class="absolute inset-0 bg-[#A21942]"
+      <!-- BANDA 4: ODS 8 -->
+      <div class="ods-band hidden md:block absolute inset-0 bg-[#A21942]"
            style="clip-path: polygon(86.75% 0%, 100% 0%, 100% 100%, 79.75% 100%)">
-        <span class="pointer-events-none absolute select-none font-display font-extrabold leading-none text-[#7A1232]"
-              style="font-size: clamp(10rem, 18vw, 26rem); bottom: 2%; left: 90%; transform: translateX(-50%)">8</span>
-        <div class="pointer-events-none absolute font-display font-bold text-neutral-900 text-center"
-             style="font-size: clamp(1rem, 1.6vw, 1.6rem); line-height: 1.2;
-                    top: 50%; left: 92%; transform: translate(-50%, -50%) rotate(-55deg);
-                    white-space: nowrap;">
-          T.D. y C.E.
+        <span class="ods-band-num text-[#7A1232]"
+              style="bottom: 2%; left: 90%; transform: translateX(-50%)">8</span>
+        <div class="ods-band-body" style="top: 50%; left: 92%;">
+          <h3 class="ods-band-title">Trabajo<br/>digno</h3>
+          <p class="ods-band-desc">Empleo pleno y crecimiento económico sostenible</p>
         </div>
       </div>
+
+      <style>
+        /* ──── MÓVIL ──── */
+        .ods-m-num {
+          position: absolute;
+          top: -5%;
+          left: 50%;
+          transform: translateX(-50%);
+          font-family: 'Poppins', sans-serif;
+          font-weight: 900;
+          font-size: clamp(6rem, 22vw, 9rem);
+          line-height: 1;
+          pointer-events: none;
+          user-select: none;
+        }
+        .ods-m-label {
+          display: block;
+          font-size: 10px;
+          font-weight: 700;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.55);
+        }
+        .ods-m-title {
+          font-family: 'Poppins', sans-serif;
+          font-weight: 800;
+          font-size: clamp(0.9rem, 3.5vw, 1.05rem);
+          line-height: 1.2;
+          color: #fff;
+          margin-top: 2px;
+        }
+        .ods-m-desc {
+          font-size: 11px;
+          line-height: 1.45;
+          color: rgba(255,255,255,0.7);
+          margin-top: 4px;
+        }
+
+        /* ──── DESKTOP: BANDAS DIAGONALES ──── */
+
+        /* Número decorativo de fondo */
+        .ods-band-num {
+          position: absolute;
+          font-family: 'Poppins', sans-serif;
+          font-weight: 900;
+          font-size: clamp(10rem, 18vw, 26rem);
+          line-height: 1;
+          pointer-events: none;
+          user-select: none;
+          transition: opacity 0.4s ease;
+        }
+        .ods-band:hover .ods-band-num { opacity: 0.35; }
+
+        /* Contenedor de texto rotado: sube en hover */
+        .ods-band-body {
+          position: absolute;
+          transform: translate(-50%, -50%) rotate(-55deg);
+          text-align: center;
+          white-space: nowrap;
+          transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .ods-band:hover .ods-band-body {
+          transform: translate(-50%, calc(-50% - 14px)) rotate(-55deg);
+        }
+
+        /* Nombre: MÁS GRANDE */
+        .ods-band-title {
+          font-family: 'Poppins', sans-serif;
+          font-weight: 800;
+          font-size: clamp(1.25rem, 2vw, 2rem);
+          line-height: 1.15;
+          color: #1a1a1a;
+          text-align: center;
+          white-space: nowrap;
+        }
+
+        /* Descripción: aparece en hover */
+        .ods-band-desc {
+          font-size: clamp(0.8rem, 1.1vw, 1rem);
+          line-height: 1.4;
+          color: rgba(0,0,0,0.65);
+          text-align: center;
+          margin-top: 10px;
+          white-space: normal;
+          max-width: 130px;
+          opacity: 0;
+          transform: translateY(6px);
+          transition: opacity 0.35s ease 0.1s, transform 0.35s ease 0.1s;
+        }
+        .ods-band:hover .ods-band-desc {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        /* Brillo suave al pasar el cursor */
+        .ods-band {
+          transition: filter 0.3s ease;
+          cursor: default;
+        }
+        .ods-band:hover {
+          filter: brightness(1.1);
+          z-index: 2;
+        }
+
+        /* ──── backInRight para el título ODS ──── */
+        @keyframes backInRight {
+          0% {
+            transform: translateX(2000px) scale(0.7);
+            opacity: 0.7;
+          }
+          80% {
+            transform: translateX(0px) scale(0.7);
+            opacity: 0.7;
+          }
+          100% {
+            transform: scale(1);
+            opacity: 1;
+          }
+        }
+
+        .ods-heading {
+          animation: backInRight 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation-play-state: paused;
+        }
+        .ods-heading.ods-animate {
+          animation-play-state: running;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ods-heading { animation: none; }
+        }
+      </style>
 
     </section>
 
@@ -290,13 +532,26 @@ const socialLinks = [
         loading="lazy"
       />
 
-      <!-- Card CTA top-right -->
-      <div class="absolute top-8 right-8 rounded-2xl bg-white px-8 py-6 shadow-lg" style="max-width: min(340px, 38%)">
+      <!-- Card CTA: centrado abajo en móvil, esquina superior derecha en desktop -->
+      <div class="absolute
+                  bottom-10 left-1/2 -translate-x-1/2 w-[88%] max-w-sm
+                  md:top-8 md:right-8 md:bottom-auto md:left-auto md:translate-x-0 md:w-auto md:max-w-[340px]
+                  rounded-2xl bg-white px-6 py-5 md:px-8 md:py-6 shadow-lg">
         <span class="text-xs font-semibold uppercase tracking-[0.2em] text-neutral-400">Únete</span>
         <h2 class="mt-2 font-display font-extrabold leading-[1.0] text-neutral-900"
             style="font-size: clamp(2rem, 4.5vw, 4rem)">
           Sé parte<br/>del cambio
         </h2>
+        <div class="mt-5 flex flex-col gap-2 md:hidden">
+          <a href="/voluntariado"
+             class="flex items-center justify-center rounded-full bg-neutral-900 px-6 py-3 text-sm font-bold text-white transition-colors hover:bg-[#FFB800] hover:text-neutral-900">
+            Sé voluntario/a
+          </a>
+          <a href="/contacto"
+             class="flex items-center justify-center rounded-full border-2 border-neutral-200 px-6 py-3 text-sm font-bold text-neutral-700 transition-colors hover:border-neutral-900">
+            Contáctanos
+          </a>
+        </div>
       </div>
 
     </section>
@@ -316,7 +571,7 @@ const socialLinks = [
         />
 
         <!-- CONTENIDO CENTRAL -->
-        <div class="relative z-10 flex flex-1 flex-col items-center justify-center px-8 py-20">
+        <div class="relative z-10 flex flex-1 flex-col items-center justify-center px-8 py-10 md:py-20">
 
           <!-- Etiqueta superior -->
           <span class="mb-4 inline-block rounded-full border border-neutral-800 px-4 py-1 text-[11px] font-semibold uppercase tracking-[0.25em] text-neutral-500">
@@ -324,36 +579,33 @@ const socialLinks = [
           </span>
 
           <!-- Título grande -->
-          <h2 class="mb-20 font-display text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
+          <h2 class="mb-8 md:mb-20 font-display text-4xl font-extrabold text-white sm:text-5xl lg:text-6xl">
             Nos respaldan
           </h2>
 
-          <!-- Grid de aliados: nombre + tipo -->
-          <div class="grid w-full max-w-3xl grid-cols-1 gap-px bg-neutral-800 sm:grid-cols-2">
+          <!-- Logos de aliados -->
+          <div class="flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-16 md:gap-24">
 
-            {[
-              { nombre: 'SENAJU', tipo: 'Gobierno', descripcion: 'Secretaría Nacional de la Juventud', acento: '#FFB800' },
-              { nombre: 'UGEL 05', tipo: 'Educación', descripcion: 'Unidad de Gestión Educativa Local', acento: '#FF3A21' },
-              { nombre: 'Aliado educativo', tipo: 'Educación', descripcion: 'Socio estratégico educativo', acento: '#4C9F38' },
-              { nombre: 'Aliado institucional', tipo: 'Institución', descripcion: 'Socio estratégico institucional', acento: '#A21942' },
-            ].map((aliado) => (
-              <div class="group relative flex flex-col justify-between bg-neutral-950 p-8 transition-colors duration-300 hover:bg-neutral-900">
-                <!-- Línea de acento superior -->
-                <div class="mb-6 h-0.5 w-8 transition-all duration-300 group-hover:w-16" style={`background:${aliado.acento}`} />
-                <!-- Tipo -->
-                <span class="mb-2 text-[10px] font-bold uppercase tracking-[0.2em]" style={`color:${aliado.acento}`}>
-                  {aliado.tipo}
-                </span>
-                <!-- Nombre -->
-                <p class="font-display text-2xl font-extrabold text-white sm:text-3xl">
-                  {aliado.nombre}
-                </p>
-                <!-- Descripción -->
-                <p class="mt-2 text-sm text-neutral-500">
-                  {aliado.descripcion}
-                </p>
-              </div>
-            ))}
+            <!-- SENAJU -->
+            <div class="aliado-logo group flex items-center justify-center">
+              <img
+                src="/images/Logo-Web-SENAJU.png"
+                alt="SENAJU — Secretaría Nacional de la Juventud"
+                class="h-16 w-auto object-contain opacity-70 transition-all duration-500 group-hover:opacity-100 md:h-20"
+              />
+            </div>
+
+            <!-- Separador vertical (solo desktop) -->
+            <div class="hidden h-16 w-px bg-neutral-700 sm:block" aria-hidden="true"></div>
+
+            <!-- Conecta y Acciona -->
+            <div class="aliado-logo group flex items-center justify-center">
+              <img
+                src="/images/alianza-removebg-preview.png"
+                alt="Conecta y Acciona"
+                class="h-20 w-auto object-contain opacity-70 transition-all duration-500 group-hover:opacity-100 md:h-24"
+              />
+            </div>
 
           </div>
         </div>
@@ -499,4 +751,46 @@ const socialLinks = [
   }
 
   initHeaderVisibility();
+
+  // backInRight: dispara la animación del título ODS al entrar la sección
+  function initOdsHeadingAnimation() {
+    const container = document.querySelector('.fullpage-container') as HTMLElement;
+    const sumate = document.getElementById('sumate');
+    if (!sumate || !container) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.querySelectorAll('.ods-heading').forEach(el => {
+              el.classList.add('ods-animate');
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { root: container, threshold: 0.4 }
+    );
+
+    observer.observe(sumate);
+  }
+
+  initOdsHeadingAnimation();
+
+  // bounce sobre el h1 del hero: se dispara una vez que termina el reveal
+  function initHeroBounce() {
+    const h1 = document.querySelector('.hero-title') as HTMLElement;
+    if (!h1) return;
+
+    // El reveal tarda: 100ms delay + 600ms transición = 700ms → esperamos 900ms
+    const onRevealed = () => {
+      if (!h1.classList.contains('revealed')) return;
+      setTimeout(() => h1.classList.add('hero-bounce'), 200);
+      h1.removeEventListener('transitionend', onRevealed);
+    };
+
+    h1.addEventListener('transitionend', onRevealed);
+  }
+
+  initHeroBounce();
 </script>

@@ -71,14 +71,14 @@ const faqs = [
             </label>
           </div>
 
-          <button type="submit" class="rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600] hover:shadow-lg">
+          <button type="submit" class="w-full sm:w-auto rounded-full bg-[#FFB800] px-8 py-3.5 font-semibold text-neutral-900 transition-all hover:bg-[#E5A600] hover:shadow-lg">
             Enviar mensaje
           </button>
         </form>
       </div>
 
       <!-- Info side -->
-      <div class="relative overflow-hidden">
+      <div class="relative overflow-hidden min-h-[280px] md:min-h-0">
         <img
           src="/images/daisy_y_compania.png"
           alt="Equipo Youngers in Action"
@@ -144,24 +144,35 @@ const faqs = [
     });
   });
 
-  // Form submission
+  // Form submission → WhatsApp
   const form = document.getElementById('contact-form') as HTMLFormElement;
-  form?.addEventListener('submit', async (e) => {
+  form?.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    const nombre      = (form.querySelector('#nombre')  as HTMLInputElement).value.trim();
+    const email       = (form.querySelector('#email')   as HTMLInputElement).value.trim();
+    const asuntoEl    = form.querySelector('#asunto')   as HTMLSelectElement;
+    const asunto      = asuntoEl.options[asuntoEl.selectedIndex].text;
+    const mensaje     = (form.querySelector('#mensaje') as HTMLTextAreaElement).value.trim();
+
+    const texto =
+      `*Nuevo mensaje de contacto — Youngers in Action*\n\n` +
+      `👤 *Nombre:* ${nombre}\n` +
+      `📧 *Email:* ${email}\n` +
+      `📌 *Asunto:* ${asunto}\n` +
+      `💬 *Mensaje:*\n${mensaje}`;
+
+    window.open(`https://wa.me/51989942045?text=${encodeURIComponent(texto)}`, '_blank');
+
+    // Feedback visual
     const button = form.querySelector('button[type="submit"]') as HTMLButtonElement;
-    const originalText = button.textContent;
-    button.textContent = 'Enviando...';
+    const original = button.textContent;
+    button.textContent = '¡Redirigiendo a WhatsApp!';
     button.disabled = true;
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    button.textContent = '¡Mensaje enviado!';
-    button.classList.remove('bg-[#FFB800]');
-    button.classList.add('bg-green-500', 'text-white');
     setTimeout(() => {
       form.reset();
-      button.textContent = originalText;
+      button.textContent = original;
       button.disabled = false;
-      button.classList.remove('bg-green-500', 'text-white');
-      button.classList.add('bg-[#FFB800]');
     }, 3000);
   });
 </script>

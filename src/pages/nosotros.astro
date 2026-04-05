@@ -19,7 +19,7 @@ const valores = [
   { titulo: 'Transparencia', descripcion: 'Actuamos con honestidad y rendimos cuentas de nuestro impacto.', icono: '✨' },
 ];
 
-const odsPriorizados = [4, 5, 8, 9, 10, 16, 17];
+const odsPriorizados = [4, 3, 5, 8];
 ---
 
 <MinimalLayout
@@ -30,7 +30,7 @@ const odsPriorizados = [4, 5, 8, 9, 10, 16, 17];
   <!-- Hero Fullscreen -->
   <section class="relative flex min-h-screen items-center justify-center overflow-hidden">
     <div class="absolute inset-0">
-      <img src="/images/yiaction10.webp" alt="" class="h-full w-full object-cover object-center" aria-hidden="true" />
+      <img src="/images/yiaction10.webp" alt="" class="h-full w-full object-cover hero-bg" aria-hidden="true" />
     </div>
     <div class="relative z-10 mx-auto max-w-4xl px-6 text-center">
       <span class="mb-4 inline-block rounded-full bg-black/30 px-4 py-1 text-sm font-medium uppercase tracking-widest text-[#FFB800] backdrop-blur-sm" data-reveal>Sobre nosotros</span>
@@ -185,3 +185,17 @@ const odsPriorizados = [4, 5, 8, 9, 10, 16, 17];
     </div>
   </section>
 </MinimalLayout>
+
+<style>
+  /* Móvil: enfoca a la persona de la derecha, desplazada 30px a la izquierda */
+  .hero-bg {
+    object-position: calc(65% - 80px) center;
+  }
+
+  /* Desktop (md+): centra para mostrar ambas personas */
+  @media (min-width: 768px) {
+    .hero-bg {
+      object-position: center center;
+    }
+  }
+</style>
