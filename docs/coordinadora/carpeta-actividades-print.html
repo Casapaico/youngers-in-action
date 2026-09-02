@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Carpeta de Actividades YIA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --paper: #FAF7F0;
+    --surface-2: #F4EFE3;
+    --ink: #211E17;
+    --muted: #5F5849;
+    --faint: #8A8271;
+    --rule: #E1D9C6;
+    --rule-strong: #C9BFA6;
+    --accent: #FFB800;
+    --accent-ink: #7A5000;
+    --accent-soft: #FFF3D2;
+    --warn: #A23F22;
+  }
+
+  * { box-sizing: border-box; }
+
+  @page {
+    size: A4;
+    margin: 16mm 15mm 18mm;
+  }
+
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    font-size: 10.2pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .wrap { max-width: 175mm; margin: 0 auto; padding: 6mm 0 0; }
+
+  h1, h2, h3, h4 { font-family: "Poppins", system-ui, sans-serif; }
+  p { margin: 0 0 6pt; max-width: 62em; }
+  strong { font-weight: 600; }
+  a { color: var(--accent-ink); text-decoration: none; }
+
+  code, .mono {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: .82em;
+    background: var(--surface-2);
+    padding: 1pt 4pt;
+    border-radius: 3pt;
+  }
+
+  .kicker {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  .kicker::before {
+    content: "";
+    display: inline-block;
+    width: 16pt; height: 2.5pt;
+    background: var(--accent);
+    margin-right: 7pt;
+    vertical-align: middle;
+  }
+
+  /* ---------- cover ---------- */
+  .cover {
+    min-height: 245mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    break-after: page;
+  }
+  .cover h1 {
+    font-weight: 800;
+    font-size: 30pt;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 12pt 0 10pt;
+  }
+  .cover h1 .mark { color: var(--accent-ink); }
+  .cover .standfirst {
+    font-size: 12pt;
+    color: var(--muted);
+    max-width: 44em;
+    margin: 0 0 22pt;
+  }
+  .cover .meta {
+    border-top: 1.5pt solid var(--ink);
+    padding-top: 10pt;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8.5pt;
+    color: var(--faint);
+    line-height: 1.9;
+  }
+  .cover .meta b { color: var(--muted); font-weight: 500; }
+  .cover .index {
+    margin-top: 20pt;
+    columns: 2;
+    column-gap: 16pt;
+    font-size: 9.5pt;
+  }
+  .cover .index ol { margin: 0; padding-left: 0; list-style: none; counter-reset: ix; }
+  .cover .index li {
+    counter-increment: ix;
+    padding: 3pt 0;
+    color: var(--muted);
+    border-bottom: 0.5pt solid var(--rule);
+    break-inside: avoid;
+  }
+  .cover .index li::before {
+    content: counter(ix, decimal-leading-zero) "  ";
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    color: var(--accent-ink);
+  }
+
+  /* ---------- sections ---------- */
+  section {
+    break-before: page;
+    padding-top: 2mm;
+  }
+  section > h2 {
+    font-weight: 700;
+    font-size: 17pt;
+    letter-spacing: -0.015em;
+    line-height: 1.12;
+    margin: 4pt 0 3pt;
+  }
+  section > h2 .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9pt;
+    font-weight: 500;
+    color: var(--accent-ink);
+    margin-right: 8pt;
+  }
+  section > .lead {
+    color: var(--muted);
+    font-size: 10.5pt;
+    max-width: 58em;
+    margin: 0 0 12pt;
+  }
+  h3 {
+    font-weight: 600;
+    font-size: 11pt;
+    margin: 14pt 0 5pt;
+    break-after: avoid;
+  }
+
+  /* ---------- workflow ---------- */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8pt;
+    margin: 6pt 0;
+  }
+  .flow .step {
+    border: 0.75pt solid var(--rule-strong);
+    border-radius: 7pt;
+    padding: 9pt 10pt;
+    background: var(--paper);
+    break-inside: avoid;
+  }
+  .flow .step .n {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    color: var(--accent-ink);
+  }
+  .flow .step h4 { font-size: 10.5pt; margin: 3pt 0 2pt; }
+  .flow .step p { font-size: 9pt; color: var(--muted); margin: 0; }
+
+  /* ---------- checklist ---------- */
+  .checklist { list-style: none; margin: 8pt 0 0; padding: 0; border-top: 0.75pt solid var(--rule-strong); }
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9pt;
+    padding: 6pt 2pt;
+    border-bottom: 0.5pt solid var(--rule);
+    break-inside: avoid;
+  }
+  .checklist li::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 11pt; height: 11pt;
+    border: 1pt solid var(--faint);
+    border-radius: 2.5pt;
+    margin-top: 1.5pt;
+  }
+  .checklist li > span { flex: 1; min-width: 0; }
+  .checklist .t { font-weight: 500; }
+  .checklist .d { display: block; font-size: 9pt; color: var(--muted); margin-top: 1pt; }
+
+  .group-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8pt;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 13pt 0 2pt;
+    break-after: avoid;
+  }
+
+  /* ---------- tables ---------- */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 9pt;
+    margin: 8pt 0;
+  }
+  th, td {
+    text-align: left;
+    padding: 5pt 7pt;
+    border-bottom: 0.5pt solid var(--rule);
+    vertical-align: top;
+  }
+  thead th {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.5pt;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    background: var(--surface-2);
+    font-weight: 500;
+    border-bottom: 0.75pt solid var(--rule-strong);
+  }
+  tbody tr { break-inside: avoid; }
+  td.spec { font-family: "JetBrains Mono", monospace; font-size: 8pt; white-space: nowrap; }
+
+  /* ---------- callouts ---------- */
+  .note {
+    border: 0.75pt solid var(--rule-strong);
+    border-radius: 7pt;
+    padding: 9pt 11pt;
+    margin: 10pt 0;
+    font-size: 9.5pt;
+    background: var(--paper);
+    break-inside: avoid;
+  }
+  .note.accent { border-color: var(--accent); background: var(--accent-soft); }
+  .note.warn { border-color: var(--warn); }
+  .note .tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 7.5pt;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: block;
+    margin-bottom: 3pt;
+  }
+  .note.accent .tag { color: var(--accent-ink); }
+  .note.warn .tag { color: var(--warn); }
+  .note p { margin: 0; max-width: none; }
+  .note p + p { margin-top: 5pt; }
+
+  /* ---------- phases ---------- */
+  .phase {
+    display: grid;
+    grid-template-columns: 46pt 1fr;
+    gap: 12pt;
+    padding: 8pt 0;
+    border-top: 0.5pt solid var(--rule);
+    break-inside: avoid;
+  }
+  .phase:last-of-type { border-bottom: 0.5pt solid var(--rule); }
+  .phase .pid { font-family: "JetBrains Mono", monospace; font-size: 8.5pt; color: var(--accent-ink); }
+  .phase h4 { font-size: 10.5pt; margin: 0 0 2pt; }
+  .phase p { margin: 0; font-size: 9pt; color: var(--muted); }
+
+  /* ---------- consent doc ---------- */
+  .doc {
+    border: 0.75pt solid var(--rule-strong);
+    border-left: 3pt solid var(--accent);
+    border-radius: 6pt;
+    background: var(--paper);
+    padding: 13pt 15pt;
+    margin-top: 10pt;
+    font-size: 9.5pt;
+    break-inside: avoid;
+  }
+  .doc h4 { margin: 0 0 4pt; font-size: 10.5pt; }
+  .doc .fill { border-bottom: 0.75pt solid var(--faint); display: inline-block; min-width: 90pt; }
+  .doc .sig { display: flex; gap: 30pt; margin-top: 20pt; }
+  .doc .sig div { flex: 1; border-top: 0.75pt solid var(--ink); padding-top: 4pt; font-size: 8pt; color: var(--muted); }
+
+  .footnote { font-size: 8.5pt; color: var(--faint); margin-top: 6pt; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- COVER -->
+  <div class="cover">
+    <div class="kicker">Youngers in Action · Documento para la coordinación</div>
+    <h1>Carpeta de actividades para <span class="mark">mantener viva la web</span></h1>
+    <p class="standfirst">
+      Qué vamos a hacer con el sitio y qué necesitamos de la ONG: fotos, textos, permisos,
+      y el ritmo para publicar novedades y fechas de reuniones sin depender de un programador.
+    </p>
+    <div class="meta">
+      <b>Sitio:</b> youngersinaction.org &nbsp;·&nbsp; <b>Panel de edición:</b> youngersinaction.org/admin<br>
+      <b>Documento:</b> borrador para revisión &nbsp;·&nbsp; <b>Fecha:</b> setiembre 2026
+    </div>
+    <div class="index">
+      <ol>
+        <li>Cómo funcionará el sitio</li>
+        <li>Checklist maestro de materiales</li>
+        <li>Guía de fotos</li>
+        <li>Fotos donde aparecen menores</li>
+        <li>Textos que hoy están de ejemplo o vencidos</li>
+        <li>Novedades y agenda</li>
+        <li>Calendario editorial sugerido</li>
+        <li>Plan de trabajo del lado técnico</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- 1 -->
+  <section>
+    <div class="kicker">Sección 01</div>
+    <h2><span class="num">01</span>Cómo funcionará el sitio</h2>
+    <p class="lead">
+      La web deja de ser un archivo que solo toca el desarrollador. La coordinación tendrá un
+      panel privado donde edita texto y fotos como si fuera un formulario, y el sitio se
+      actualiza solo.
+    </p>
+    <div class="flow">
+      <div class="step"><span class="n">paso 1</span><h4>Entrar a /admin</h4><p>Se inicia sesión con una cuenta de GitHub (se crea y se configura una sola vez).</p></div>
+      <div class="step"><span class="n">paso 2</span><h4>Editar</h4><p>Cambiar una foto, escribir una novedad, agregar una fecha de reunión. Campos claros en español.</p></div>
+      <div class="step"><span class="n">paso 3</span><h4>Guardar</h4><p>Un botón «Publicar». No hay que subir archivos por FTP ni tocar código.</p></div>
+      <div class="step"><span class="n">paso 4</span><h4>Sale en vivo</h4><p>En 1–2 minutos el cambio aparece en youngersinaction.org. Si algo sale mal, se revierte.</p></div>
+    </div>
+    <div class="note accent">
+      <span class="tag">Sin costo</span>
+      <p>No se contrata AWS, ni servidor, ni base de datos. El panel corre sobre GitHub + Netlify,
+      ambos en plan gratuito. El único requisito nuevo es que quien administre tenga una cuenta
+      de GitHub (gratis).</p>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section>
+    <div class="kicker">Sección 02</div>
+    <h2><span class="num">02</span>Checklist maestro de materiales</h2>
+    <p class="lead">Esto es lo que necesitamos de la ONG para dejar la web completa y real.</p>
+
+    <div class="group-label">Identidad y marca</div>
+    <ul class="checklist">
+      <li><span><span class="t">Logo YIA en alta resolución.</span><span class="d">Versión a color y versión blanca, en PNG con fondo transparente y, si existe, en SVG.</span></span></li>
+      <li><span><span class="t">Imagen de portada para redes (Open Graph).</span><span class="d">La que aparece cuando se comparte el link en WhatsApp/Facebook. 1200×630 px. Hoy falta.</span></span></li>
+      <li><span><span class="t">Ícono para celular (apple-touch-icon).</span><span class="d">180×180 px, el logo sobre fondo sólido. Hoy falta.</span></span></li>
+      <li><span><span class="t">Colores y tipografías oficiales confirmadas.</span><span class="d">Confirmar que el amarillo es #FFB800 y si hay un manual de marca.</span></span></li>
+    </ul>
+
+    <div class="group-label">Fotos de actividades</div>
+    <ul class="checklist">
+      <li><span><span class="t">Foto principal de portada (hero).</span><span class="d">Jóvenes de YIA en acción. Horizontal, buena luz, 1920×1080 px o más.</span></span></li>
+      <li><span><span class="t">6–10 fotos de talleres y sesiones de EmpoderArLAS.</span><span class="d">Variadas: grupo, manos trabajando, facilitadora, materiales.</span></span></li>
+      <li><span><span class="t">3–5 fotos de eventos y foros.</span><span class="d">SENAJU, CEPAL/ONU, presentaciones, alianzas.</span></span></li>
+      <li><span><span class="t">Retrato de la fundadora.</span><span class="d">Y de cada integrante del equipo que vaya a figurar. 800×800 px, cuadrada.</span></span></li>
+      <li><span><span class="t">Logos de los aliados.</span><span class="d">SENAJU, UGEL 05, «Conecta y Acciona» y otros. PNG con fondo transparente.</span></span></li>
+    </ul>
+
+    <div class="group-label">Permisos</div>
+    <ul class="checklist">
+      <li><span><span class="t">Autorización de imagen firmada por cada tutor.</span><span class="d">Para toda foto donde se reconozca el rostro de un/a escolar. Plantilla en la sección 4.</span></span></li>
+      <li><span><span class="t">Autorización de los mentores/voluntarios adultos que aparezcan.</span><span class="d">Un correo de conformidad basta.</span></span></li>
+    </ul>
+
+    <div class="group-label">Textos y datos reales</div>
+    <ul class="checklist">
+      <li><span><span class="t">Nombres y roles reales del equipo.</span><span class="d">Hoy hay nombres de ejemplo inventados en el código. Ver sección 5.</span></span></li>
+      <li><span><span class="t">Cifras de impacto confirmadas y fechadas.</span><span class="d">«35 escolares», «12 iniciativas», «85% participación», «67.7% propuestas», «10+ alianzas». ¿Siguen vigentes?</span></span></li>
+      <li><span><span class="t">Teléfono de contacto real.</span><span class="d">Hoy figura un placeholder +51 999 888 777 en la política de privacidad.</span></span></li>
+      <li><span><span class="t">Un solo usuario de Instagram oficial.</span><span class="d">En el código aparecen dos variantes. Definir cuál es.</span></span></li>
+      <li><span><span class="t">Correo y WhatsApp oficiales confirmados.</span><span class="d">Hoy: youngers.global@gmail.com y WhatsApp +51 989 942 045.</span></span></li>
+      <li><span><span class="t">Revisión legal de Privacidad y Términos.</span><span class="d">Ponerles fecha real (hoy dicen «15 de enero de 2025») y validar el contenido.</span></span></li>
+      <li><span><span class="t">Misión y visión en su versión final.</span><span class="d">El texto actual sirve de base; confirmar que es el oficial.</span></span></li>
+    </ul>
+
+    <div class="group-label">Para arrancar Novedades y Agenda</div>
+    <ul class="checklist">
+      <li><span><span class="t">2–3 novedades para publicar el día 1.</span><span class="d">Que la sección no nazca vacía. Título + foto + 2 párrafos cada una.</span></span></li>
+      <li><span><span class="t">Próximas fechas confirmadas.</span><span class="d">Reuniones, talleres, convocatorias de voluntariado de los próximos 1–2 meses.</span></span></li>
+    </ul>
+  </section>
+
+  <!-- 3 -->
+  <section>
+    <div class="kicker">Sección 03</div>
+    <h2><span class="num">03</span>Guía de fotos</h2>
+    <p class="lead">
+      El panel comprime las imágenes automáticamente, pero conviene subirlas ya razonables.
+      Regla simple: horizontal para fondos, cuadrada para personas, nada por encima de ~1 MB.
+    </p>
+    <table>
+      <thead><tr><th>Uso</th><th>Proporción</th><th>Tamaño ideal</th><th>Peso máx.</th></tr></thead>
+      <tbody>
+        <tr><td>Portada principal / fondos de sección</td><td class="spec">16:9</td><td class="spec">1920 × 1080</td><td class="spec">400 KB</td></tr>
+        <tr><td>Portada de una novedad</td><td class="spec">3:2</td><td class="spec">1200 × 800</td><td class="spec">300 KB</td></tr>
+        <tr><td>Foto de equipo / retrato</td><td class="spec">1:1</td><td class="spec">800 × 800</td><td class="spec">200 KB</td></tr>
+        <tr><td>Logo de aliado</td><td class="spec">libre</td><td class="spec">alto 400 px, PNG transparente</td><td class="spec">80 KB</td></tr>
+        <tr><td>Imagen para compartir en redes</td><td class="spec">1.91:1</td><td class="spec">1200 × 630</td><td class="spec">300 KB</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Cómo dejar una foto lista en 1 minuto</h3>
+    <p>
+      Abrir <strong>squoosh.app</strong> o <strong>tinypng.com</strong> (gratis, sin instalar
+      nada), arrastrar la foto, elegir el tamaño de la tabla y descargar. Formato JPG para
+      fotos, PNG para logos.
+    </p>
+    <div class="note">
+      <span class="tag">Buenas prácticas</span>
+      <p>Luz natural, horizontal siempre que se pueda, dejar «aire» alrededor del sujeto (el
+      sitio recorta según la pantalla). Evitar capturas de pantalla, fotos con fecha impresa
+      y collages.</p>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section>
+    <div class="kicker">Sección 04</div>
+    <h2><span class="num">04</span>Fotos donde aparecen menores</h2>
+    <p class="lead">
+      EmpoderArLAS trabaja con escolares de 10 a 12 años. Publicar su imagen sin permiso de
+      los tutores es un problema legal y de protección. Esta es la regla de la casa.
+    </p>
+    <h3>Antes de publicar cualquier foto con un/a escolar</h3>
+    <ul class="checklist">
+      <li><span><span class="t">¿Se reconoce el rostro?</span><span class="d">Si sí → hace falta autorización firmada del tutor. Si no (espaldas, manos, plano general) → se puede usar con criterio.</span></span></li>
+      <li><span><span class="t">¿Está firmada la autorización de esa foto o de esa jornada?</span><span class="d">Guardar el PDF/foto del formulario en una carpeta «Autorizaciones» con la fecha.</span></span></li>
+      <li><span><span class="t">¿La foto muestra algo sensible?</span><span class="d">Ubicación exacta del colegio, datos personales, situaciones de vulnerabilidad → no publicar.</span></span></li>
+    </ul>
+    <div class="note warn">
+      <span class="tag">Preferir siempre</span>
+      <p>Fotos de actividad (manos escribiendo, trabajo en grupo de espaldas, materiales, la
+      facilitadora al frente). Comunican lo mismo y no exponen a nadie.</p>
+    </div>
+
+    <div class="doc">
+      <h4>Autorización de uso de imagen — Youngers in Action</h4>
+      <p style="margin:6pt 0 0">
+        Yo, <span class="fill">&nbsp;</span> , identificado/a con DNI <span class="fill">&nbsp;</span> ,
+        en calidad de padre / madre / tutor legal de <span class="fill">&nbsp;</span> , autorizo a
+        <strong>Youngers in Action</strong> a captar, editar y difundir su imagen en fotografías y
+        videos tomados durante las actividades del programa <strong>EmpoderArLAS</strong>, con fines
+        exclusivamente informativos y de difusión institucional, en su sitio web y redes sociales.
+      </p>
+      <p style="margin:7pt 0 0">
+        Esta autorización es voluntaria y gratuita, no tiene fines comerciales y puede revocarse por
+        escrito en cualquier momento escribiendo a <strong>youngers.global@gmail.com</strong>. El
+        tratamiento de datos se rige por la Ley N.º 29733 — Ley de Protección de Datos Personales del Perú.
+      </p>
+      <p style="margin:7pt 0 0">Lugar y fecha: <span class="fill">&nbsp;</span></p>
+      <div class="sig">
+        <div>Firma del padre / madre / tutor</div>
+        <div>Nombre y DNI</div>
+      </div>
+    </div>
+    <p class="footnote">Modelo de referencia — que lo revise quien lleva el tema legal de la ONG antes de usarlo.</p>
+  </section>
+
+  <!-- 5 -->
+  <section>
+    <div class="kicker">Sección 05</div>
+    <h2><span class="num">05</span>Textos que hoy están de ejemplo o vencidos</h2>
+    <p class="lead">
+      Durante la revisión del sitio encontramos contenido de relleno y datos caducados.
+      Necesitamos la versión real de cada uno.
+    </p>
+    <table>
+      <thead><tr><th>Dónde</th><th>Qué dice hoy</th><th>Qué necesitamos</th></tr></thead>
+      <tbody>
+        <tr><td>Equipo de EmpoderArLAS</td><td>«Ana Lucía Vargas», «Dra. Patricia Huamán», «I.E. María Auxiliadora»… (inventados)</td><td>Nombres, roles y —si corresponde— foto de las personas reales. O decidir no mostrar equipo.</td></tr>
+        <tr><td>Aliados en la portada</td><td>SENAJU y «Conecta y Acciona»</td><td>Lista completa y vigente de aliados, con logo y una línea de descripción.</td></tr>
+        <tr><td>Privacidad y Términos</td><td>«Última actualización: 15 de enero de 2025»</td><td>Fecha real de la última revisión + visto bueno del contenido legal.</td></tr>
+        <tr><td>Privacidad → datos del titular</td><td>Teléfono +51 999 888 777</td><td>Teléfono institucional real (o quitar el campo).</td></tr>
+        <tr><td>Página del proyecto</td><td>«Proyecto Activo 2026»</td><td>Confirmar el estado y año, o dejar que se actualice solo.</td></tr>
+        <tr><td>Cifras de impacto</td><td>35 escolares · 12 iniciativas · 85% · 67.7% · 10+ alianzas · «2 847 jóvenes»</td><td>Números actuales con la fecha de corte. Se centralizan para editarlos en un solo lugar.</td></tr>
+        <tr><td>Redes sociales</td><td>Dos usuarios de Instagram distintos en el código</td><td>El usuario oficial único.</td></tr>
+      </tbody>
+    </table>
+    <div class="note accent">
+      <span class="tag">Cómo entregarlo</span>
+      <p>Un documento simple (Google Doc) con un título por fila de esta tabla y la respuesta
+      debajo. Las fotos, en una carpeta de Drive con nombres descriptivos
+      («taller-liderazgo-marzo.jpg», no «IMG_2093.jpg»).</p>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section>
+    <div class="kicker">Sección 06</div>
+    <h2><span class="num">06</span>Novedades y agenda</h2>
+    <p class="lead">
+      Son las dos secciones nuevas y las que la coordinación alimentará más seguido. Los
+      formularios del panel serán cortos.
+    </p>
+    <h3>Una novedad</h3>
+    <table>
+      <thead><tr><th>Campo</th><th>Qué poner</th></tr></thead>
+      <tbody>
+        <tr><td class="spec">Título</td><td>Concreto, sin mayúsculas gritadas. «Cerramos el primer ciclo de EmpoderArLAS 2026».</td></tr>
+        <tr><td class="spec">Fecha</td><td>La del hecho, no la de publicación.</td></tr>
+        <tr><td class="spec">Portada</td><td>1 foto horizontal, 1200×800. Con permiso si hay menores.</td></tr>
+        <tr><td class="spec">Resumen</td><td>1–2 frases. Es lo que se ve en la lista y al compartir.</td></tr>
+        <tr><td class="spec">Cuerpo</td><td>2 a 5 párrafos. Se puede poner negritas, listas y más fotos.</td></tr>
+        <tr><td class="spec">Etiquetas</td><td>Ej.: EmpoderArLAS, Alianzas, Voluntariado.</td></tr>
+        <tr><td class="spec">Borrador</td><td>Casilla para dejarla escrita sin publicar todavía.</td></tr>
+      </tbody>
+    </table>
+    <h3>Una fecha en la agenda</h3>
+    <table>
+      <thead><tr><th>Campo</th><th>Qué poner</th></tr></thead>
+      <tbody>
+        <tr><td class="spec">Título</td><td>«Reunión de mentores — mayo» / «Convocatoria de voluntariado».</td></tr>
+        <tr><td class="spec">Tipo</td><td>Reunión · Taller · Convocatoria · Evento.</td></tr>
+        <tr><td class="spec">Inicio / fin</td><td>Fecha y hora. Las fechas pasadas se ocultan solas.</td></tr>
+        <tr><td class="spec">Lugar</td><td>Dirección, o «Virtual».</td></tr>
+        <tr><td class="spec">Enlace</td><td>Meet/Zoom o formulario de registro, si aplica.</td></tr>
+        <tr><td class="spec">Dirigido a</td><td>Voluntarios · Mentores · Público · Escolares.</td></tr>
+      </tbody>
+    </table>
+    <p>Cada fecha genera un botón «Agregar a mi calendario» para quien visite el sitio.</p>
+  </section>
+
+  <!-- 7 -->
+  <section>
+    <div class="kicker">Sección 07</div>
+    <h2><span class="num">07</span>Calendario editorial sugerido</h2>
+    <p class="lead">
+      Un sitio que no se mueve envejece rápido. Este es un ritmo realista para una ONG juvenil;
+      ajústalo a la capacidad del equipo.
+    </p>
+    <table>
+      <thead><tr><th>Cada</th><th>Tarea</th></tr></thead>
+      <tbody>
+        <tr><td class="spec">Semana</td><td>Revisar que la agenda esté al día. Quitar lo que ya pasó, agregar lo nuevo.</td></tr>
+        <tr><td class="spec">2 semanas</td><td>Publicar 1 novedad. Un logro, un testimonio, una foto con contexto.</td></tr>
+        <tr><td class="spec">Mes</td><td>Refrescar la novedad «destacada» de la portada.</td></tr>
+        <tr><td class="spec">Trimestre</td><td>Actualizar las cifras de impacto con la fecha de corte.</td></tr>
+        <tr><td class="spec">Semestre</td><td>Cambiar la foto principal de la portada y revisar textos de misión/visión.</td></tr>
+        <tr><td class="spec">Año</td><td>Revisión legal de Privacidad y Términos. Actualizar el timeline «Nuestra historia».</td></tr>
+      </tbody>
+    </table>
+    <h3>Ideas de novedades que siempre funcionan</h3>
+    <p>
+      Cierre de un ciclo o taller · testimonio de un/a escolar o voluntario/a (con permiso) ·
+      una alianza nueva · participación en un evento o foro · «detrás de escena» de la
+      preparación de una sesión · reconocimiento o mención en prensa · convocatoria abierta.
+    </p>
+  </section>
+
+  <!-- 8 -->
+  <section>
+    <div class="kicker">Sección 08</div>
+    <h2><span class="num">08</span>Plan de trabajo del lado técnico</h2>
+    <p class="lead">
+      Lo que hará el equipo de desarrollo mientras la ONG reúne los materiales. Cada fase
+      termina con una revisión conjunta.
+    </p>
+    <div class="phase"><div class="pid">Fase 0</div><div><h4>Preparación y dirección visual</h4><p>Actualizar la base técnica, definir el «ADN de diseño» a partir de referencias de ONGs profesionales, fijar el presupuesto de performance.</p></div></div>
+    <div class="phase"><div class="pid">Fase 1</div><div><h4>Contenido editable</h4><p>Sacar todos los textos y listas del código y ponerlos en un formato que el panel pueda editar. Una sola fuente para las cifras y las redes.</p></div></div>
+    <div class="phase"><div class="pid">Fase 2</div><div><h4>Panel /admin</h4><p>Instalar el CMS, configurar el acceso con GitHub, acompañamiento a la coordinación con una prueba real.</p></div></div>
+    <div class="phase"><div class="pid">Fase 3</div><div><h4>Novedades + Agenda</h4><p>Crear las dos secciones nuevas, sus páginas públicas y sus formularios en el panel.</p></div></div>
+    <div class="phase"><div class="pid">Fase 4</div><div><h4>Rediseño y performance</h4><p>El minijuego sigue cargando al inicio; el resto pasa a presentación con scroll dinámico, imágenes optimizadas y accesibilidad.</p></div></div>
+    <div class="phase"><div class="pid">Fase 5</div><div><h4>Esta carpeta, versión final</h4><p>Con capturas del panel ya funcionando y la plantilla de consentimiento validada.</p></div></div>
+
+    <div class="note">
+      <span class="tag">Lo que se necesita de la ONG para no frenar</span>
+      <p>Antes de Fase 2: la cuenta de GitHub de quien vaya a administrar.
+      Antes de Fase 3: las 2–3 novedades y las fechas iniciales.
+      Antes de Fase 4: la foto principal de portada en buena calidad.</p>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>
